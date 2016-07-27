@@ -26,6 +26,7 @@
 		030410BD1D48F01C0097C5FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		030410C01D48F01C0097C5FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		030410C21D48F01C0097C5FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		030410C81D48F5BA0097C5FC /* ShadowsocksSW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ShadowsocksSW.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 		030410B01D48F01C0097C5FC /* ShadowsocksSW */ = {
 			isa = PBXGroup;
 			children = (
+				030410C81D48F5BA0097C5FC /* ShadowsocksSW.entitlements */,
 				030410B41D48F01C0097C5FC /* AppDelegate.h */,
 				030410B51D48F01C0097C5FC /* AppDelegate.m */,
 				030410B71D48F01C0097C5FC /* ViewController.h */,
@@ -110,6 +112,12 @@
 				TargetAttributes = {
 					030410AD1D48F01C0097C5FC = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = A95W3E24AX;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -263,7 +271,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
 				INFOPLIST_FILE = ShadowsocksSW/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.onesmash.ShadowsocksSW;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -274,7 +284,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
 				INFOPLIST_FILE = ShadowsocksSW/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.onesmash.ShadowsocksSW;
 				PRODUCT_NAME = "$(TARGET_NAME)";
