@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:third_party/wukong_base/Xcode-iOS/WukongBase.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:ShadowsocksSW.xcodeproj">
    </FileRef>
 </Workspace>

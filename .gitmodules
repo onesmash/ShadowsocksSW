@@ -1,3 +1,6 @@
 [submodule "third_party/wukong_base"]
 	path = third_party/wukong_base
 	url = https://github.com/onesmash/WukongBase.git
+[submodule "third_party/badvpn"]
+	path = third_party/badvpn
+	url = https://github.com/ambrop72/badvpn.git
