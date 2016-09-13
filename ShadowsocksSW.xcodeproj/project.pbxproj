@@ -9,11 +9,23 @@
 /* Begin PBXBuildFile section */
 		030410B31D48F01C0097C5FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 030410B21D48F01C0097C5FC /* main.m */; };
 		030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 030410B51D48F01C0097C5FC /* AppDelegate.m */; };
-		030410B91D48F01C0097C5FC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 030410B81D48F01C0097C5FC /* ViewController.m */; };
+		030410B91D48F01C0097C5FC /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 030410B81D48F01C0097C5FC /* ViewController.mm */; };
 		030410BC1D48F01C0097C5FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 030410BA1D48F01C0097C5FC /* Main.storyboard */; };
 		030410BE1D48F01C0097C5FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030410BD1D48F01C0097C5FC /* Assets.xcassets */; };
 		030410C11D48F01C0097C5FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 030410BF1D48F01C0097C5FC /* LaunchScreen.storyboard */; };
 		030410CB1D4900E30097C5FC /* libWukongBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 030410CA1D4900E30097C5FC /* libWukongBase.a */; };
+		0307AB3A1D5636B600BAA1ED /* Socks5Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0307AB381D5636B600BAA1ED /* Socks5Session.cpp */; };
+		0307AB3F1D574BC300BAA1ED /* Crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0307AB3D1D574BC300BAA1ED /* Crypto.cpp */; };
+		030B7A631D561CA900B12E4C /* SSClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 030B7A611D561CA900B12E4C /* SSClient.cpp */; };
+		030B7A6C1D5626E000B12E4C /* SSTCPRelayRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 030B7A6A1D5626E000B12E4C /* SSTCPRelayRequest.cpp */; };
+		030B7A6F1D56270900B12E4C /* SSTCPRelaySession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 030B7A6D1D56270900B12E4C /* SSTCPRelaySession.cpp */; };
+		031A435B1D5F5080002B1671 /* Socks5Request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031A43591D5F5080002B1671 /* Socks5Request.cpp */; };
+		031AB2F81D538939001049F7 /* Socks2SS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031AB2F61D538939001049F7 /* Socks2SS.cpp */; };
+		03E8FC461D4F9BCC00DAFAD2 /* libtun2socks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E8FC451D4F9BCC00DAFAD2 /* libtun2socks.a */; };
+		03FE0DC01D5F53240028A0EF /* Socks5MethodSelectionMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE0DBE1D5F53240028A0EF /* Socks5MethodSelectionMessage.cpp */; };
+		03FE0DC31D5F53580028A0EF /* Socks5MethodSelectionResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE0DC11D5F53580028A0EF /* Socks5MethodSelectionResponse.cpp */; };
+		03FE0DC61D5F53AA0028A0EF /* Socks5Response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE0DC41D5F53AA0028A0EF /* Socks5Response.cpp */; };
+		3EF4CDC05B376108A054F57B /* libPods-ShadowsocksSW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EB191B4DA42DAD70EA1B5E /* libPods-ShadowsocksSW.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,13 +34,38 @@
 		030410B41D48F01C0097C5FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		030410B51D48F01C0097C5FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		030410B71D48F01C0097C5FC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		030410B81D48F01C0097C5FC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		030410B81D48F01C0097C5FC /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		030410BB1D48F01C0097C5FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		030410BD1D48F01C0097C5FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		030410C01D48F01C0097C5FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		030410C21D48F01C0097C5FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		030410C81D48F5BA0097C5FC /* ShadowsocksSW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ShadowsocksSW.entitlements; sourceTree = "<group>"; };
 		030410CA1D4900E30097C5FC /* libWukongBase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWukongBase.a; path = "third_party/wukong_base/Xcode-iOS/build/Debug-iphoneos/libWukongBase.a"; sourceTree = "<group>"; };
+		0307AB381D5636B600BAA1ED /* Socks5Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5Session.cpp; sourceTree = "<group>"; };
+		0307AB391D5636B600BAA1ED /* Socks5Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Session.h; sourceTree = "<group>"; };
+		0307AB3D1D574BC300BAA1ED /* Crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crypto.cpp; sourceTree = "<group>"; };
+		0307AB3E1D574BC300BAA1ED /* Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
+		030B7A611D561CA900B12E4C /* SSClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSClient.cpp; sourceTree = "<group>"; };
+		030B7A621D561CA900B12E4C /* SSClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSClient.h; sourceTree = "<group>"; };
+		030B7A6A1D5626E000B12E4C /* SSTCPRelayRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSTCPRelayRequest.cpp; sourceTree = "<group>"; };
+		030B7A6B1D5626E000B12E4C /* SSTCPRelayRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelayRequest.h; sourceTree = "<group>"; };
+		030B7A6D1D56270900B12E4C /* SSTCPRelaySession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSTCPRelaySession.cpp; sourceTree = "<group>"; };
+		030B7A6E1D56270900B12E4C /* SSTCPRelaySession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelaySession.h; sourceTree = "<group>"; };
+		031A43591D5F5080002B1671 /* Socks5Request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5Request.cpp; sourceTree = "<group>"; };
+		031A435A1D5F5080002B1671 /* Socks5Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Request.h; sourceTree = "<group>"; };
+		031AB2F61D538939001049F7 /* Socks2SS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks2SS.cpp; sourceTree = "<group>"; };
+		031AB2F71D538939001049F7 /* Socks2SS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks2SS.h; sourceTree = "<group>"; };
+		03E8FC451D4F9BCC00DAFAD2 /* libtun2socks.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtun2socks.a; path = "third_party/badvpn/build/Debug-iphoneos/libtun2socks.a"; sourceTree = "<group>"; };
+		03FE0DBE1D5F53240028A0EF /* Socks5MethodSelectionMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5MethodSelectionMessage.cpp; sourceTree = "<group>"; };
+		03FE0DBF1D5F53240028A0EF /* Socks5MethodSelectionMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5MethodSelectionMessage.h; sourceTree = "<group>"; };
+		03FE0DC11D5F53580028A0EF /* Socks5MethodSelectionResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5MethodSelectionResponse.cpp; sourceTree = "<group>"; };
+		03FE0DC21D5F53580028A0EF /* Socks5MethodSelectionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5MethodSelectionResponse.h; sourceTree = "<group>"; };
+		03FE0DC41D5F53AA0028A0EF /* Socks5Response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5Response.cpp; sourceTree = "<group>"; };
+		03FE0DC51D5F53AA0028A0EF /* Socks5Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Response.h; sourceTree = "<group>"; };
+		03FE0DC81D5F64070028A0EF /* Socks5Def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Socks5Def.h; sourceTree = "<group>"; };
+		09EB191B4DA42DAD70EA1B5E /* libPods-ShadowsocksSW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShadowsocksSW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9021FEE08FB6332C7E46BE43 /* Pods-ShadowsocksSW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksSW.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW.release.xcconfig"; sourceTree = "<group>"; };
+		A84A193E61EBC24EECAD543A /* Pods-ShadowsocksSW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksSW.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +73,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03E8FC461D4F9BCC00DAFAD2 /* libtun2socks.a in Frameworks */,
 				030410CB1D4900E30097C5FC /* libWukongBase.a in Frameworks */,
+				3EF4CDC05B376108A054F57B /* libPods-ShadowsocksSW.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,9 +85,12 @@
 		030410A51D48F01C0097C5FC = {
 			isa = PBXGroup;
 			children = (
+				03E8FC451D4F9BCC00DAFAD2 /* libtun2socks.a */,
 				030410CA1D4900E30097C5FC /* libWukongBase.a */,
 				030410B01D48F01C0097C5FC /* ShadowsocksSW */,
 				030410AF1D48F01C0097C5FC /* Products */,
+				BD2BDD70510FE7021B19DB4A /* Pods */,
+				A32CD2C3EE0C8CA8A89B5324 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,12 +109,33 @@
 				030410B41D48F01C0097C5FC /* AppDelegate.h */,
 				030410B51D48F01C0097C5FC /* AppDelegate.m */,
 				030410B71D48F01C0097C5FC /* ViewController.h */,
-				030410B81D48F01C0097C5FC /* ViewController.m */,
+				030410B81D48F01C0097C5FC /* ViewController.mm */,
 				030410BA1D48F01C0097C5FC /* Main.storyboard */,
 				030410BD1D48F01C0097C5FC /* Assets.xcassets */,
 				030410BF1D48F01C0097C5FC /* LaunchScreen.storyboard */,
 				030410C21D48F01C0097C5FC /* Info.plist */,
 				030410B11D48F01C0097C5FC /* Supporting Files */,
+				031AB2F61D538939001049F7 /* Socks2SS.cpp */,
+				031AB2F71D538939001049F7 /* Socks2SS.h */,
+				030B7A611D561CA900B12E4C /* SSClient.cpp */,
+				030B7A621D561CA900B12E4C /* SSClient.h */,
+				030B7A6A1D5626E000B12E4C /* SSTCPRelayRequest.cpp */,
+				030B7A6B1D5626E000B12E4C /* SSTCPRelayRequest.h */,
+				030B7A6D1D56270900B12E4C /* SSTCPRelaySession.cpp */,
+				030B7A6E1D56270900B12E4C /* SSTCPRelaySession.h */,
+				0307AB381D5636B600BAA1ED /* Socks5Session.cpp */,
+				0307AB391D5636B600BAA1ED /* Socks5Session.h */,
+				0307AB3D1D574BC300BAA1ED /* Crypto.cpp */,
+				0307AB3E1D574BC300BAA1ED /* Crypto.h */,
+				031A43591D5F5080002B1671 /* Socks5Request.cpp */,
+				031A435A1D5F5080002B1671 /* Socks5Request.h */,
+				03FE0DC41D5F53AA0028A0EF /* Socks5Response.cpp */,
+				03FE0DC51D5F53AA0028A0EF /* Socks5Response.h */,
+				03FE0DBE1D5F53240028A0EF /* Socks5MethodSelectionMessage.cpp */,
+				03FE0DBF1D5F53240028A0EF /* Socks5MethodSelectionMessage.h */,
+				03FE0DC11D5F53580028A0EF /* Socks5MethodSelectionResponse.cpp */,
+				03FE0DC21D5F53580028A0EF /* Socks5MethodSelectionResponse.h */,
+				03FE0DC81D5F64070028A0EF /* Socks5Def.h */,
 			);
 			path = ShadowsocksSW;
 			sourceTree = "<group>";
@@ -85,6 +148,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A32CD2C3EE0C8CA8A89B5324 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				09EB191B4DA42DAD70EA1B5E /* libPods-ShadowsocksSW.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD2BDD70510FE7021B19DB4A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A84A193E61EBC24EECAD543A /* Pods-ShadowsocksSW.debug.xcconfig */,
+				9021FEE08FB6332C7E46BE43 /* Pods-ShadowsocksSW.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -92,9 +172,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 030410C51D48F01C0097C5FC /* Build configuration list for PBXNativeTarget "ShadowsocksSW" */;
 			buildPhases = (
+				9F20F6CED3076D61FA2FB53F /* Check Pods Manifest.lock */,
 				030410AA1D48F01C0097C5FC /* Sources */,
 				030410AB1D48F01C0097C5FC /* Frameworks */,
 				030410AC1D48F01C0097C5FC /* Resources */,
+				4C486F039BA714FE3EFB91CF /* Embed Pods Frameworks */,
+				8B3954DE0CBFE9347CBA7D17 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -116,7 +199,7 @@
 				TargetAttributes = {
 					030410AD1D48F01C0097C5FC = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = A95W3E24AX;
+						DevelopmentTeam = W49R76DKP3;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -156,13 +239,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4C486F039BA714FE3EFB91CF /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B3954DE0CBFE9347CBA7D17 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F20F6CED3076D61FA2FB53F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		030410AA1D48F01C0097C5FC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				030410B91D48F01C0097C5FC /* ViewController.m in Sources */,
+				030B7A631D561CA900B12E4C /* SSClient.cpp in Sources */,
+				031A435B1D5F5080002B1671 /* Socks5Request.cpp in Sources */,
+				0307AB3F1D574BC300BAA1ED /* Crypto.cpp in Sources */,
+				031AB2F81D538939001049F7 /* Socks2SS.cpp in Sources */,
+				03FE0DC31D5F53580028A0EF /* Socks5MethodSelectionResponse.cpp in Sources */,
+				030410B91D48F01C0097C5FC /* ViewController.mm in Sources */,
 				030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */,
+				030B7A6C1D5626E000B12E4C /* SSTCPRelayRequest.cpp in Sources */,
+				03FE0DC61D5F53AA0028A0EF /* Socks5Response.cpp in Sources */,
+				03FE0DC01D5F53240028A0EF /* Socks5MethodSelectionMessage.cpp in Sources */,
+				030B7A6F1D56270900B12E4C /* SSTCPRelaySession.cpp in Sources */,
+				0307AB3A1D5636B600BAA1ED /* Socks5Session.cpp in Sources */,
 				030410B31D48F01C0097C5FC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,10 +367,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "./third_party/wukong_base/ ./third_party/wukong_base/third_party/libuv/libuv/include";
 			};
 			name = Debug;
 		};
@@ -264,43 +406,50 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "./third_party/wukong_base/ ./third_party/wukong_base/third_party/libuv/libuv/include";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		030410C61D48F01C0097C5FC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A84A193E61EBC24EECAD543A /* Pods-ShadowsocksSW.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ShadowsocksSW/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/third_party/wukong_base/Xcode-iOS/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/third_party/badvpn/build/Debug-iphoneos",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.onesmash.ShadowsocksSW;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		030410C71D48F01C0097C5FC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9021FEE08FB6332C7E46BE43 /* Pods-ShadowsocksSW.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ShadowsocksSW/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/third_party/wukong_base/Xcode-iOS/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/third_party/badvpn/build/Debug-iphoneos",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.onesmash.ShadowsocksSW;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

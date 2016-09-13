@@ -4,6 +4,6 @@
 # use_frameworks!
 
 target 'ShadowsocksSW' do
-
+pod 'OpenSSL', '~> 1.0'
 end
 
