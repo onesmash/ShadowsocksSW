@@ -21,12 +21,38 @@
 		030B7A6F1D56270900B12E4C /* SSTCPRelaySession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 030B7A6D1D56270900B12E4C /* SSTCPRelaySession.cpp */; };
 		031A435B1D5F5080002B1671 /* Socks5Request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031A43591D5F5080002B1671 /* Socks5Request.cpp */; };
 		031AB2F81D538939001049F7 /* Socks2SS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031AB2F61D538939001049F7 /* Socks2SS.cpp */; };
+		03D16B391D8851C100383D73 /* PacketTunnelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D16B381D8851C100383D73 /* PacketTunnelProvider.m */; };
+		03D16B3D1D8851C100383D73 /* PacketTunnelProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D16B331D8851C100383D73 /* PacketTunnelProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		03E8FC461D4F9BCC00DAFAD2 /* libtun2socks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E8FC451D4F9BCC00DAFAD2 /* libtun2socks.a */; };
 		03FE0DC01D5F53240028A0EF /* Socks5MethodSelectionMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE0DBE1D5F53240028A0EF /* Socks5MethodSelectionMessage.cpp */; };
 		03FE0DC31D5F53580028A0EF /* Socks5MethodSelectionResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE0DC11D5F53580028A0EF /* Socks5MethodSelectionResponse.cpp */; };
 		03FE0DC61D5F53AA0028A0EF /* Socks5Response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE0DC41D5F53AA0028A0EF /* Socks5Response.cpp */; };
 		3EF4CDC05B376108A054F57B /* libPods-ShadowsocksSW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EB191B4DA42DAD70EA1B5E /* libPods-ShadowsocksSW.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		03D16B3B1D8851C100383D73 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 030410A61D48F01C0097C5FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03D16B321D8851C100383D73;
+			remoteInfo = PacketTunnelProvider;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		03D16B411D8851C100383D73 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				03D16B3D1D8851C100383D73 /* PacketTunnelProvider.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		030410AE1D48F01C0097C5FC /* ShadowsocksSW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShadowsocksSW.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +81,11 @@
 		031A435A1D5F5080002B1671 /* Socks5Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Request.h; sourceTree = "<group>"; };
 		031AB2F61D538939001049F7 /* Socks2SS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks2SS.cpp; sourceTree = "<group>"; };
 		031AB2F71D538939001049F7 /* Socks2SS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks2SS.h; sourceTree = "<group>"; };
+		03D16B331D8851C100383D73 /* PacketTunnelProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PacketTunnelProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D16B361D8851C100383D73 /* PacketTunnelProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PacketTunnelProvider.entitlements; sourceTree = "<group>"; };
+		03D16B371D8851C100383D73 /* PacketTunnelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketTunnelProvider.h; sourceTree = "<group>"; };
+		03D16B381D8851C100383D73 /* PacketTunnelProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PacketTunnelProvider.m; sourceTree = "<group>"; };
+		03D16B3A1D8851C100383D73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03E8FC451D4F9BCC00DAFAD2 /* libtun2socks.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtun2socks.a; path = "third_party/badvpn/build/Debug-iphoneos/libtun2socks.a"; sourceTree = "<group>"; };
 		03FE0DBE1D5F53240028A0EF /* Socks5MethodSelectionMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5MethodSelectionMessage.cpp; sourceTree = "<group>"; };
 		03FE0DBF1D5F53240028A0EF /* Socks5MethodSelectionMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5MethodSelectionMessage.h; sourceTree = "<group>"; };
@@ -79,6 +110,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03D16B301D8851C100383D73 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -88,6 +126,7 @@
 				03E8FC451D4F9BCC00DAFAD2 /* libtun2socks.a */,
 				030410CA1D4900E30097C5FC /* libWukongBase.a */,
 				030410B01D48F01C0097C5FC /* ShadowsocksSW */,
+				03D16B341D8851C100383D73 /* PacketTunnelProvider */,
 				030410AF1D48F01C0097C5FC /* Products */,
 				BD2BDD70510FE7021B19DB4A /* Pods */,
 				A32CD2C3EE0C8CA8A89B5324 /* Frameworks */,
@@ -98,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				030410AE1D48F01C0097C5FC /* ShadowsocksSW.app */,
+				03D16B331D8851C100383D73 /* PacketTunnelProvider.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,6 +188,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		03D16B341D8851C100383D73 /* PacketTunnelProvider */ = {
+			isa = PBXGroup;
+			children = (
+				03D16B371D8851C100383D73 /* PacketTunnelProvider.h */,
+				03D16B381D8851C100383D73 /* PacketTunnelProvider.m */,
+				03D16B3A1D8851C100383D73 /* Info.plist */,
+				03D16B351D8851C100383D73 /* Supporting Files */,
+			);
+			path = PacketTunnelProvider;
+			sourceTree = "<group>";
+		};
+		03D16B351D8851C100383D73 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				03D16B361D8851C100383D73 /* PacketTunnelProvider.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A32CD2C3EE0C8CA8A89B5324 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,15 +237,34 @@
 				030410AC1D48F01C0097C5FC /* Resources */,
 				4C486F039BA714FE3EFB91CF /* Embed Pods Frameworks */,
 				8B3954DE0CBFE9347CBA7D17 /* Copy Pods Resources */,
+				03D16B411D8851C100383D73 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				03D16B3C1D8851C100383D73 /* PBXTargetDependency */,
 			);
 			name = ShadowsocksSW;
 			productName = ShadowsocksSW;
 			productReference = 030410AE1D48F01C0097C5FC /* ShadowsocksSW.app */;
 			productType = "com.apple.product-type.application";
+		};
+		03D16B321D8851C100383D73 /* PacketTunnelProvider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D16B3E1D8851C100383D73 /* Build configuration list for PBXNativeTarget "PacketTunnelProvider" */;
+			buildPhases = (
+				03D16B2F1D8851C100383D73 /* Sources */,
+				03D16B301D8851C100383D73 /* Frameworks */,
+				03D16B311D8851C100383D73 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PacketTunnelProvider;
+			productName = PacketTunnelProvider;
+			productReference = 03D16B331D8851C100383D73 /* PacketTunnelProvider.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -202,9 +280,16 @@
 						DevelopmentTeam = W49R76DKP3;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
+								enabled = 0;
+							};
+							com.apple.VPNLite = {
+								enabled = 0;
 							};
 						};
+					};
+					03D16B321D8851C100383D73 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = W49R76DKP3;
 					};
 				};
 			};
@@ -222,6 +307,7 @@
 			projectRoot = "";
 			targets = (
 				030410AD1D48F01C0097C5FC /* ShadowsocksSW */,
+				03D16B321D8851C100383D73 /* PacketTunnelProvider */,
 			);
 		};
 /* End PBXProject section */
@@ -234,6 +320,13 @@
 				030410C11D48F01C0097C5FC /* LaunchScreen.storyboard in Resources */,
 				030410BE1D48F01C0097C5FC /* Assets.xcassets in Resources */,
 				030410BC1D48F01C0097C5FC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D16B311D8851C100383D73 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +401,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03D16B2F1D8851C100383D73 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D16B391D8851C100383D73 /* PacketTunnelProvider.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03D16B3C1D8851C100383D73 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03D16B321D8851C100383D73 /* PacketTunnelProvider */;
+			targetProxy = 03D16B3B1D8851C100383D73 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		030410BA1D48F01C0097C5FC /* Main.storyboard */ = {
@@ -370,6 +479,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "a7fa5922-ccda-4f68-85b2-04084e8e3a71";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./third_party/wukong_base/ ./third_party/wukong_base/third_party/libuv/libuv/include";
 			};
@@ -408,6 +518,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "a7fa5922-ccda-4f68-85b2-04084e8e3a71";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./third_party/wukong_base/ ./third_party/wukong_base/third_party/libuv/libuv/include";
 				VALIDATE_PRODUCT = YES;
@@ -431,6 +542,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a7fa5922-ccda-4f68-85b2-04084e8e3a71";
 			};
 			name = Debug;
 		};
@@ -451,6 +563,39 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a7fa5922-ccda-4f68-85b2-04084e8e3a71";
+			};
+			name = Release;
+		};
+		03D16B3F1D8851C100383D73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PacketTunnelProvider/PacketTunnelProvider.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = PacketTunnelProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw.PacketTunnelProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		03D16B401D8851C100383D73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PacketTunnelProvider/PacketTunnelProvider.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = PacketTunnelProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw.PacketTunnelProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -474,6 +619,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		03D16B3E1D8851C100383D73 /* Build configuration list for PBXNativeTarget "PacketTunnelProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D16B3F1D8851C100383D73 /* Debug */,
+				03D16B401D8851C100383D73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

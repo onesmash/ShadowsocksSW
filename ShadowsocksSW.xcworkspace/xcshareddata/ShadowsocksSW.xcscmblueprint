@@ -3,19 +3,23 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "DA9C55140B6FB29E68073E7B73D6F0032ABB6E74" : 0,
-    "90C3FD88F8002F902A5FDF9D64063244571F233C" : 0,
     "1EDBB0CD83A0399C6997C9473F2568634D269421" : 0,
+    "90C3FD88F8002F902A5FDF9D64063244571F233C" : 0,
+    "8CE08F7D8951BBB9285C341F336CC9C2EB9665E5" : 0,
     "BC09C09DC2853BA9B3A84860F78F2E9FD790D8C3" : 0,
-    "B5295673D40444D86A0D76339F7E4FC3397BF632" : 0
+    "997B5B2B165F2AA196970132856A166B7B51A6F3" : 0,
+    "B5295673D40444D86A0D76339F7E4FC3397BF632" : 0,
+    "DA9C55140B6FB29E68073E7B73D6F0032ABB6E74" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7F99A0C7-F269-4E78-A7DC-2E10B6B2F0BE",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "DA9C55140B6FB29E68073E7B73D6F0032ABB6E74" : "ShadowsocksSW\/third_party\/wukong_base\/",
-    "90C3FD88F8002F902A5FDF9D64063244571F233C" : "ShadowsocksSW\/third_party\/wukong_base\/third_party\/http_parser\/http_parser\/",
     "1EDBB0CD83A0399C6997C9473F2568634D269421" : "ShadowsocksSW\/third_party\/badvpn\/",
+    "90C3FD88F8002F902A5FDF9D64063244571F233C" : "ShadowsocksSW\/third_party\/wukong_base\/third_party\/http_parser\/http_parser\/",
+    "8CE08F7D8951BBB9285C341F336CC9C2EB9665E5" : "ShadowsocksSW\/third_party\/wukong_base\/third_party\/spdlog\/spdlog\/",
     "BC09C09DC2853BA9B3A84860F78F2E9FD790D8C3" : "ShadowsocksSW\/third_party\/wukong_base\/third_party\/libuv\/libuv\/",
-    "B5295673D40444D86A0D76339F7E4FC3397BF632" : "ShadowsocksSW\/third_party\/lwip\/"
+    "997B5B2B165F2AA196970132856A166B7B51A6F3" : "ShadowsocksSW\/third_party\/wukong_base\/third_party\/fmt\/fmt\/",
+    "B5295673D40444D86A0D76339F7E4FC3397BF632" : "ShadowsocksSW\/third_party\/lwip\/",
+    "DA9C55140B6FB29E68073E7B73D6F0032ABB6E74" : "ShadowsocksSW\/third_party\/wukong_base\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "ShadowsocksSW",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -27,9 +31,19 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1EDBB0CD83A0399C6997C9473F2568634D269421"
     },
     {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/onesmash\/spdlog.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8CE08F7D8951BBB9285C341F336CC9C2EB9665E5"
+    },
+    {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nodejs\/http-parser.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "90C3FD88F8002F902A5FDF9D64063244571F233C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/fmtlib\/fmt.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "997B5B2B165F2AA196970132856A166B7B51A6F3"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/git.savannah.nongnu.org\/lwip.git",

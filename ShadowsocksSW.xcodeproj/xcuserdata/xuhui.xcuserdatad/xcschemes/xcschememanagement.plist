@@ -4,15 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>PacketTunnelProvider.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
 		<key>ShadowsocksSW.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>030410AD1D48F01C0097C5FC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>03D16B321D8851C100383D73</key>
 		<dict>
 			<key>primary</key>
 			<true/>
