@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Xuhui. All rights reserved.
 //
 
-@import NetworkExtension;
+#import <NetworkExtension/NetworkExtension.h>
 
 @interface PacketTunnelProvider : NEPacketTunnelProvider
 

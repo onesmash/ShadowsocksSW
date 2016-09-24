@@ -1,10 +1,20 @@
 PODS:
+  - CocoaAsyncSocket (7.5.0):
+    - CocoaAsyncSocket/GCD (= 7.5.0)
+  - CocoaAsyncSocket/GCD (7.5.0)
+  - MMWormhole (2.0.0):
+    - MMWormhole/Core (= 2.0.0)
+  - MMWormhole/Core (2.0.0)
   - OpenSSL (1.0.208)
 
 DEPENDENCIES:
+  - CocoaAsyncSocket (~> 7.5)
+  - MMWormhole (~> 2.0)
   - OpenSSL (~> 1.0)
 
 SPEC CHECKSUMS:
+  CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
+  MMWormhole: 0cd3fd35a9118b2e2d762b499f54eeaace0be791
   OpenSSL: b187269d386b07452f56af273764ea0636dd5da8
 
 COCOAPODS: 0.39.0
