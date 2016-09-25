@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "Socks2SS.h"
+#import "SWLogger.h"
 #import <NetworkExtension/NetworkExtension.h>
 
 @interface ViewController () {
@@ -23,10 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _socks2ShadowSocksServiceThread = std::shared_ptr<WukongBase::Base::Thread>(new WukongBase::Base::Thread("socks2ss"));
-    _socks2ShadowSocksServiceThread->start();
-    _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), 2080));
-    _socks2ssService->start(WukongBase::Net::IPAddress("54.249.0.5", 8989), "aes-256-cfb", "howtoget!@");
+//    _socks2ShadowSocksServiceThread = std::shared_ptr<WukongBase::Base::Thread>(new WukongBase::Base::Thread("socks2ss"));
+//    _socks2ShadowSocksServiceThread->start();
+//    _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), 2080));
+//    _socks2ssService->start(WukongBase::Net::IPAddress("54.249.0.5", 8989), "aes-256-cfb", "howtoget!@");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onVPNContectNotification:) name:NEVPNStatusDidChangeNotification object:nil];
     [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
         if(managers.count > 0) {
@@ -43,7 +44,7 @@
             if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
                 NSError *error;
                 if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
-                    
+                    SWLOG_DEBUG("tunnel provider start success");
                 } else {
                     
                 }

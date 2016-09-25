@@ -95,5 +95,9 @@ bool SSTCPRelayRequest::unpack(WukongBase::Net::Packet& packet)
 
 std::string SSTCPRelayRequest::stringify() const
 {
-    return fmt::format("");
+    if(addressType_ == kAddressTypeHostName) {
+        return fmt::format("{}:{}", hostName_, port_);
+    } else {
+        return address_.stringify();
+    }
 }

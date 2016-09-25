@@ -1,4 +1,4 @@
-//
+ //
 //  SSTCPRelaySession.cpp
 //  ShadowsocksSW
 //
@@ -13,6 +13,7 @@
 #include "Crypto.h"
 #include "SWLogger.h"
 #include <cassert>
+#include <iostream>
 
 SSTCPRelaySession::SSTCPRelaySession(const std::shared_ptr<WukongBase::Net::TCPClient>& tcpClient, const std::shared_ptr<Crypto>& crypto)
 :   state_(kDisconnected),
@@ -49,11 +50,13 @@ void SSTCPRelaySession::sendRequest(const std::shared_ptr<SSTCPRelayRequest>& re
             tcpSession->setReadCompleteCallback([this](std::shared_ptr<WukongBase::Net::Packet>& buffer){
                 if(!receivedPacketHasIVPrepend_) {
                     std::shared_ptr<WukongBase::Net::Packet> buf(new WukongBase::Net::Packet(crypto_->decrypt(buffer->data(), (int)buffer->size())));
+                    SWLOG_DEBUG("ss read {}", buf->data());
                     readCompleteCallback_(buf);
                 } else {
                     crypto_->setDecryptIV(std::string(buffer->data(), crypto_->getIVLength()));
                     std::shared_ptr<WukongBase::Net::Packet> buf(new WukongBase::Net::Packet(crypto_->decrypt(buffer->data() + crypto_->getIVLength(), (int)buffer->size() - (int)crypto_->getIVLength())));
                     receivedPacketHasIVPrepend_ = false;
+                    SWLOG_DEBUG("ss read {}", buf->data());
                     readCompleteCallback_(buf);
                 }
             });
@@ -62,6 +65,7 @@ void SSTCPRelaySession::sendRequest(const std::shared_ptr<SSTCPRelayRequest>& re
                 if(state_ == kAuthorizing) {
                     if(success) {
                         state_ = kAuthorized;
+                        SWLOG_DEBUG("ss auth success");
                     }
                     lock_.unlock();
                     requestCallback_(request, success);
@@ -81,6 +85,7 @@ void SSTCPRelaySession::sendRequest(const std::shared_ptr<SSTCPRelayRequest>& re
                 }
                 state_ = kDisconnected;
                 lock_.unlock();
+                SWLOG_DEBUG("ss session closed");
                 closeCallback_();
             });
             std::lock_guard<std::mutex> guard(lock_);

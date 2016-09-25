@@ -92,16 +92,6 @@
 		03D16B391D8851C100383D73 /* PacketTunnelProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D16B381D8851C100383D73 /* PacketTunnelProvider.mm */; };
 		03D16B3D1D8851C100383D73 /* PacketTunnelProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D16B331D8851C100383D73 /* PacketTunnelProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		03DBDECB1D96A8C50065A759 /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036183EE1D8C3AB500604F9A /* SWLogger.mm */; };
-		03DBDECC1D96A8C50065A759 /* Crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEAC1D96A7AA0065A759 /* Crypto.cpp */; };
-		03DBDECD1D96A8C50065A759 /* Socks2SS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEAE1D96A7AA0065A759 /* Socks2SS.cpp */; };
-		03DBDECE1D96A8C50065A759 /* Socks5MethodSelectionMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEB11D96A7AA0065A759 /* Socks5MethodSelectionMessage.cpp */; };
-		03DBDECF1D96A8C50065A759 /* Socks5MethodSelectionResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEB31D96A7AA0065A759 /* Socks5MethodSelectionResponse.cpp */; };
-		03DBDED01D96A8C50065A759 /* Socks5Request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEB51D96A7AA0065A759 /* Socks5Request.cpp */; };
-		03DBDED11D96A8C50065A759 /* Socks5Response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEB71D96A7AA0065A759 /* Socks5Response.cpp */; };
-		03DBDED21D96A8C50065A759 /* Socks5Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEB91D96A7AA0065A759 /* Socks5Session.cpp */; };
-		03DBDED31D96A8C50065A759 /* SSClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEBB1D96A7AA0065A759 /* SSClient.cpp */; };
-		03DBDED41D96A8C50065A759 /* SSTCPRelayRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEBD1D96A7AA0065A759 /* SSTCPRelayRequest.cpp */; };
-		03DBDED51D96A8C50065A759 /* SSTCPRelaySession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03DBDEBF1D96A7AA0065A759 /* SSTCPRelaySession.cpp */; };
 		CF32172102D38761387D8773 /* libPods-ShadowsocksSW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D263CB8C808628D1409046C3 /* libPods-ShadowsocksSW.a */; };
 /* End PBXBuildFile section */
 
@@ -603,27 +593,6 @@
 		03D16B371D8851C100383D73 /* PacketTunnelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketTunnelProvider.h; sourceTree = "<group>"; };
 		03D16B381D8851C100383D73 /* PacketTunnelProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PacketTunnelProvider.mm; sourceTree = "<group>"; };
 		03D16B3A1D8851C100383D73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		03DBDEAC1D96A7AA0065A759 /* Crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crypto.cpp; sourceTree = "<group>"; };
-		03DBDEAD1D96A7AA0065A759 /* Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
-		03DBDEAE1D96A7AA0065A759 /* Socks2SS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks2SS.cpp; sourceTree = "<group>"; };
-		03DBDEAF1D96A7AA0065A759 /* Socks2SS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks2SS.h; sourceTree = "<group>"; };
-		03DBDEB01D96A7AA0065A759 /* Socks5Def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Def.h; sourceTree = "<group>"; };
-		03DBDEB11D96A7AA0065A759 /* Socks5MethodSelectionMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5MethodSelectionMessage.cpp; sourceTree = "<group>"; };
-		03DBDEB21D96A7AA0065A759 /* Socks5MethodSelectionMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5MethodSelectionMessage.h; sourceTree = "<group>"; };
-		03DBDEB31D96A7AA0065A759 /* Socks5MethodSelectionResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5MethodSelectionResponse.cpp; sourceTree = "<group>"; };
-		03DBDEB41D96A7AA0065A759 /* Socks5MethodSelectionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5MethodSelectionResponse.h; sourceTree = "<group>"; };
-		03DBDEB51D96A7AA0065A759 /* Socks5Request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5Request.cpp; sourceTree = "<group>"; };
-		03DBDEB61D96A7AA0065A759 /* Socks5Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Request.h; sourceTree = "<group>"; };
-		03DBDEB71D96A7AA0065A759 /* Socks5Response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5Response.cpp; sourceTree = "<group>"; };
-		03DBDEB81D96A7AA0065A759 /* Socks5Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Response.h; sourceTree = "<group>"; };
-		03DBDEB91D96A7AA0065A759 /* Socks5Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Socks5Session.cpp; sourceTree = "<group>"; };
-		03DBDEBA1D96A7AA0065A759 /* Socks5Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socks5Session.h; sourceTree = "<group>"; };
-		03DBDEBB1D96A7AA0065A759 /* SSClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSClient.cpp; sourceTree = "<group>"; };
-		03DBDEBC1D96A7AA0065A759 /* SSClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSClient.h; sourceTree = "<group>"; };
-		03DBDEBD1D96A7AA0065A759 /* SSTCPRelayRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSTCPRelayRequest.cpp; sourceTree = "<group>"; };
-		03DBDEBE1D96A7AA0065A759 /* SSTCPRelayRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelayRequest.h; sourceTree = "<group>"; };
-		03DBDEBF1D96A7AA0065A759 /* SSTCPRelaySession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSTCPRelaySession.cpp; sourceTree = "<group>"; };
-		03DBDEC01D96A7AA0065A759 /* SSTCPRelaySession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelaySession.h; sourceTree = "<group>"; };
 		9021FEE08FB6332C7E46BE43 /* Pods-ShadowsocksSW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksSW.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW.release.xcconfig"; sourceTree = "<group>"; };
 		A84A193E61EBC24EECAD543A /* Pods-ShadowsocksSW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksSW.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW.debug.xcconfig"; sourceTree = "<group>"; };
 		D263CB8C808628D1409046C3 /* libPods-ShadowsocksSW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShadowsocksSW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -677,7 +646,6 @@
 		030410B01D48F01C0097C5FC /* ShadowsocksSW */ = {
 			isa = PBXGroup;
 			children = (
-				03DBDEAB1D96A7AA0065A759 /* socks2ss */,
 				030410B41D48F01C0097C5FC /* AppDelegate.h */,
 				030410B51D48F01C0097C5FC /* AppDelegate.m */,
 				030410B71D48F01C0097C5FC /* ViewController.h */,
@@ -1417,34 +1385,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		03DBDEAB1D96A7AA0065A759 /* socks2ss */ = {
-			isa = PBXGroup;
-			children = (
-				03DBDEAC1D96A7AA0065A759 /* Crypto.cpp */,
-				03DBDEAD1D96A7AA0065A759 /* Crypto.h */,
-				03DBDEAE1D96A7AA0065A759 /* Socks2SS.cpp */,
-				03DBDEAF1D96A7AA0065A759 /* Socks2SS.h */,
-				03DBDEB01D96A7AA0065A759 /* Socks5Def.h */,
-				03DBDEB11D96A7AA0065A759 /* Socks5MethodSelectionMessage.cpp */,
-				03DBDEB21D96A7AA0065A759 /* Socks5MethodSelectionMessage.h */,
-				03DBDEB31D96A7AA0065A759 /* Socks5MethodSelectionResponse.cpp */,
-				03DBDEB41D96A7AA0065A759 /* Socks5MethodSelectionResponse.h */,
-				03DBDEB51D96A7AA0065A759 /* Socks5Request.cpp */,
-				03DBDEB61D96A7AA0065A759 /* Socks5Request.h */,
-				03DBDEB71D96A7AA0065A759 /* Socks5Response.cpp */,
-				03DBDEB81D96A7AA0065A759 /* Socks5Response.h */,
-				03DBDEB91D96A7AA0065A759 /* Socks5Session.cpp */,
-				03DBDEBA1D96A7AA0065A759 /* Socks5Session.h */,
-				03DBDEBB1D96A7AA0065A759 /* SSClient.cpp */,
-				03DBDEBC1D96A7AA0065A759 /* SSClient.h */,
-				03DBDEBD1D96A7AA0065A759 /* SSTCPRelayRequest.cpp */,
-				03DBDEBE1D96A7AA0065A759 /* SSTCPRelayRequest.h */,
-				03DBDEBF1D96A7AA0065A759 /* SSTCPRelaySession.cpp */,
-				03DBDEC01D96A7AA0065A759 /* SSTCPRelaySession.h */,
-			);
-			path = socks2ss;
-			sourceTree = "<group>";
-		};
 		A32CD2C3EE0C8CA8A89B5324 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1522,9 +1462,13 @@
 					030410AD1D48F01C0097C5FC = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W49R76DKP3;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 0;
 							};
 							com.apple.VPNLite = {
 								enabled = 0;
@@ -1534,6 +1478,7 @@
 					03D16B321D8851C100383D73 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W49R76DKP3;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1641,16 +1586,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				03DBDECB1D96A8C50065A759 /* SWLogger.mm in Sources */,
-				03DBDECC1D96A8C50065A759 /* Crypto.cpp in Sources */,
-				03DBDECD1D96A8C50065A759 /* Socks2SS.cpp in Sources */,
-				03DBDECE1D96A8C50065A759 /* Socks5MethodSelectionMessage.cpp in Sources */,
-				03DBDECF1D96A8C50065A759 /* Socks5MethodSelectionResponse.cpp in Sources */,
-				03DBDED01D96A8C50065A759 /* Socks5Request.cpp in Sources */,
-				03DBDED11D96A8C50065A759 /* Socks5Response.cpp in Sources */,
-				03DBDED21D96A8C50065A759 /* Socks5Session.cpp in Sources */,
-				03DBDED31D96A8C50065A759 /* SSClient.cpp in Sources */,
-				03DBDED41D96A8C50065A759 /* SSTCPRelayRequest.cpp in Sources */,
-				03DBDED51D96A8C50065A759 /* SSTCPRelaySession.cpp in Sources */,
 				030410B91D48F01C0097C5FC /* ViewController.mm in Sources */,
 				030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */,
 				030410B31D48F01C0097C5FC /* main.m in Sources */,
@@ -1880,6 +1815,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W49R76DKP3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = ShadowsocksSW/Info.plist;
@@ -1889,6 +1825,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e9786fb3-f23c-4806-9369-6c8578b68b11";
 				PROVISIONING_PROFILE_SPECIFIER = ShadowsocksSWDev;
 			};
 			name = Debug;
@@ -1901,6 +1838,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = ShadowsocksSW/Info.plist;
@@ -1910,7 +1848,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ShadowsocksSWDev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -1921,6 +1859,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnelProvider/PacketTunnelProvider.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W49R76DKP3;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -1940,7 +1879,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw.PacketTunnelProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7646ca8e-8f40-4dc7-933a-6fd7accdd748";
+				PROVISIONING_PROFILE_SPECIFIER = PacketTunnelProviderDev;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/third_party/wukong_base/\" \"$(SRCROOT)/third_party/wukong_base/third_party/libuv/libuv/include\" \"$(SRCROOT)/third_party/tun2socks-iOS\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/custom\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv4\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv6\"";
 			};
@@ -1953,6 +1893,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnelProvider/PacketTunnelProvider.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";

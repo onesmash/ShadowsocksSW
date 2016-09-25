@@ -23,7 +23,7 @@
 using namespace std;
 
 Socks2SS::Socks2SS(WukongBase::Base::MessageLoop* messageLoop, uint16_t port)
-:   lock_(), messageLoop_(messageLoop), socksServer_(messageLoop, WukongBase::Net::IPAddress("0.0.0.0", port)), nextChannelID_(0)
+:   lock_(), messageLoop_(messageLoop), socksServer_(messageLoop, WukongBase::Net::IPAddress("127.0.0.1", port)), nextChannelID_(0)
 {
     socksServer_.setConnectCallback([this](const std::shared_ptr<WukongBase::Net::TCPSession>& session) {
         std::shared_ptr<Socks5Session> socksSession(new Socks5Session(session));
@@ -76,6 +76,7 @@ void Socks2SS::setupSSClient(const std::shared_ptr<SSClient>& client)
             if(channel) {
                 channel->ssSession = session;
                 channel->status = kEstablished;
+                 SWLOG_DEBUG("socks 2 ss channel {} estabilished", channelID);
                 if(success) {
                     const WukongBase::Net::IPAddress& bindAddress = session->getLocalAddress();
                     Socks5Response response(kSocks5ResponseStatusSuccess, bindAddress);
@@ -134,10 +135,10 @@ void Socks2SS::setupSocksSession(const std::shared_ptr<Socks5Session>& socksSess
         } else {
             std::shared_ptr<SSTCPRelayRequest> ssRequest;
             if(request->getAddressType() == kSocks5AddressHostName) {
-                SWLOG_DEBUG("socks5 connect request: {} : {}", request->getHostName(), request->getPort());
+                SWLOG_DEBUG("ss channel {} request: {} : {}", channelID, request->getHostName(), request->getPort());
                 ssRequest = std::shared_ptr<SSTCPRelayRequest>(new SSTCPRelayRequest(request->getHostName(), request->getPort()));
             } else {
-                SWLOG_DEBUG("socks5 connect request: {} : {}", request->getIPAddress().stringify(), request->getIPAddress().getPort());
+                SWLOG_DEBUG("ss channel {} request: {} : {}", channelID, request->getIPAddress().stringify(), request->getIPAddress().getPort());
                 ssRequest = std::shared_ptr<SSTCPRelayRequest>(new SSTCPRelayRequest(request->getIPAddress()));
             }
             if(channel) {
@@ -227,7 +228,7 @@ void Socks2SS::closeChannel(uint64_t channelID)
                 }
             } break;
             case kClosed: {
-                
+                SWLOG_DEBUG("socks 2 ss channel {} closed", channelID);
             } break;
             default:
                 break;

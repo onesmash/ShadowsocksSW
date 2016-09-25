@@ -63,7 +63,7 @@
 {
 	// Add code here to start the process of stopping the tunnel.
     [self stopTun2SocksService];
-    //[self stopSocks2ShadowSocksService];
+    [self stopSocks2ShadowSocksService];
 	completionHandler();
 }
 
@@ -85,10 +85,10 @@
 
 - (BOOL)startSocks2ShadowSocksService:(NSError **)error
 {
-//    _socks2ShadowSocksServiceThread = std::shared_ptr<WukongBase::Base::Thread>(new WukongBase::Base::Thread("socks2ss"));
-//    _socks2ShadowSocksServiceThread->start();
-//    _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), 2080));
-//    _socks2ssService->start(WukongBase::Net::IPAddress("54.249.0.5", 8989), "aes-256-cfb", "howtoget!@");
+    _socks2ShadowSocksServiceThread = std::shared_ptr<WukongBase::Base::Thread>(new WukongBase::Base::Thread("socks2ss"));
+    _socks2ShadowSocksServiceThread->start();
+    _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), 2080));
+    _socks2ssService->start(WukongBase::Net::IPAddress("54.249.0.5", 8989), "aes-256-cfb", "howtoget!@");
     *error = nil;
     return YES;
 }
@@ -118,9 +118,11 @@
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"192.168.0.0" subnetMask:@"255.255.0.0"]];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"10.0.0.0" subnetMask:@"255.0.0.0"]];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"172.16.0.0" subnetMask:@"255.240.0.0"]];
+    //[excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"127.0.0.1" subnetMask:@"255.255.255.255"]];
+    //[excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"54.249.0.5" subnetMask:@"255.255.255.255"]];
     ipv4Settings.includedRoutes = @[[NEIPv4Route defaultRoute]];
     ipv4Settings.excludedRoutes = excludedRoutes;
-    NEPacketTunnelNetworkSettings *settings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@"192.0.2.2"];
+    NEPacketTunnelNetworkSettings *settings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@"54.249.0.5"];
     settings.IPv4Settings = ipv4Settings;
     settings.MTU = @(TunnelMTU);
     NEDNSSettings *dnsSettings = [[NEDNSSettings alloc] initWithServers:dnsServers];
