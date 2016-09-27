@@ -15,6 +15,9 @@
 #import "MMWormhole.h"
 #import "Socks2SS.h"
 #import "dns.h"
+#import "ConfigManager.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface PacketTunnelProvider () {
     std::shared_ptr<WukongBase::Base::Thread> _socks2ShadowSocksServiceThread;
@@ -31,7 +34,7 @@
 - (void)startTunnelWithOptions:(NSDictionary *)options completionHandler:(void (^)(NSError *))completionHandler
 {
 	// Add code here to start the process of connecting the tunnel.
-    NSLog(@"tunnel provider start");
+    [Fabric with:@[[Crashlytics class]]];
     NSError *error = [TunnelInterface setupWithPacketTunnelFlow:self.packetFlow];
     if (error) {
         completionHandler(error);
@@ -95,7 +98,7 @@
 
 - (void)stopSocks2ShadowSocksService
 {
-    //_socks2ShadowSocksServiceThread->stop();
+    _socks2ssService->stop();
 }
 
 - (BOOL)startTun2SocksService:(NSError **)error
@@ -113,16 +116,14 @@
 - (void)setupTunnelNetworking:(void(^)(NSError *))completionHandler
 {
     NEIPv4Settings *ipv4Settings = [[NEIPv4Settings alloc] initWithAddresses:@[@"192.0.2.1"] subnetMasks:@[@"255.255.255.0"]];
-    NSArray *dnsServers = [DNSConfig getSystemDnsServers];
+    NSArray *dnsServers = @[@"8.8.8.8"];//[DNSConfig getSystemDnsServers];
     NSMutableArray *excludedRoutes = [NSMutableArray array];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"192.168.0.0" subnetMask:@"255.255.0.0"]];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"10.0.0.0" subnetMask:@"255.0.0.0"]];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"172.16.0.0" subnetMask:@"255.240.0.0"]];
-    //[excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"127.0.0.1" subnetMask:@"255.255.255.255"]];
-    //[excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"54.249.0.5" subnetMask:@"255.255.255.255"]];
     ipv4Settings.includedRoutes = @[[NEIPv4Route defaultRoute]];
     ipv4Settings.excludedRoutes = excludedRoutes;
-    NEPacketTunnelNetworkSettings *settings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@"54.249.0.5"];
+    NEPacketTunnelNetworkSettings *settings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@"192.0.2.2"];
     settings.IPv4Settings = ipv4Settings;
     settings.MTU = @(TunnelMTU);
     NEDNSSettings *dnsSettings = [[NEDNSSettings alloc] initWithServers:dnsServers];

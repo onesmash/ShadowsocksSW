@@ -7,13 +7,17 @@
 //
 
 #import "SWLogger.h"
+#import "ConfigManager.h"
 #import <Foundation/Foundation.h>
 
 std::string GetLogFile()
 {
     @autoreleasepool {
-        NSString *path = [NSString stringWithFormat:@"%@/log", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).lastObject];
-        return path.UTF8String;
+#if defined(TUNNEL_RPOVIDER)
+        return [ConfigManager sharedManager].tunnelProviderLogFile.UTF8String;
+#else
+        return [ConfigManager sharedManager].mainAppLogFile.UTF8String;
+#endif
     }
 }
 

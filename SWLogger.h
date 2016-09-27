@@ -12,11 +12,7 @@
 extern "C" {
 #endif
 
-//void SWLogInfo(const char* fmt, ...);
-//void SWLogWarn(const char* fmt, ...);
-//void SWLogError(const char* fmt, ...);
-
-#ifndef DEBUG
+#if defined(TUNNEL_PROVIDER) || !defined(DEBUG)
 extern WukongBase::Base::Logger logger;
  
 #define SWLOG_TRACE(...) LOG_TRACE((&logger), __VA_ARGS__)

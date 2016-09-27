@@ -42,6 +42,8 @@ public:
     void sendTCPRelayRequest(const std::shared_ptr<SSTCPRelayRequest>& request);
     void sendUDPData(const std::shared_ptr<WukongBase::Net::Packet>& packet);
     
+    void stop();
+    
     void setRequestCallback(const RequestCallback& cb)
     {
         requestCallback_ = cb;

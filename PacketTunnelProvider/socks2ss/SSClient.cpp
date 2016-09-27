@@ -73,3 +73,8 @@ void SSClient::sendUDPData(const std::shared_ptr<WukongBase::Net::Packet>& packe
 {
     
 }
+
+void SSClient::stop()
+{
+    threadPool_.stop();
+}

@@ -165,7 +165,7 @@ void Socks2SS::setupSocksSession(const std::shared_ptr<Socks5Session>& socksSess
 
 void Socks2SS::stop()
 {
-    socksServer_.stop();
+    messageLoop_->quite();
 }
 
 Socks5MethodSelectionResponse Socks2SS::genMethodSelectionResponse(const Socks5MethodSelectionMessage& message)
