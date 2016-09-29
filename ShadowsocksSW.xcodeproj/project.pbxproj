@@ -89,10 +89,15 @@
 		0374CD1A1D8EDDA9001DD9F6 /* BTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCDD1D8EDDA9001DD9F6 /* BTap.m */; };
 		0374CD1B1D8EDDA9001DD9F6 /* udpgw.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCDF1D8EDDA9001DD9F6 /* udpgw.c */; };
 		0374CD1C1D8EDDA9001DD9F6 /* UdpGwClient.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCE21D8EDDA9001DD9F6 /* UdpGwClient.c */; };
+		038B87C11D9820F5009BC13E /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.m */; };
+		038B87C21D9820F5009BC13E /* ShadowSocksConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */; };
 		03D16B391D8851C100383D73 /* PacketTunnelProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D16B381D8851C100383D73 /* PacketTunnelProvider.mm */; };
 		03D16B3D1D8851C100383D73 /* PacketTunnelProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D16B331D8851C100383D73 /* PacketTunnelProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		03D29B8C1D9800B6001FBB04 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.m */; };
+		03D29B8F1D9803E1001FBB04 /* ShadowSocksConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */; };
 		03DBDECB1D96A8C50065A759 /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036183EE1D8C3AB500604F9A /* SWLogger.mm */; };
-		CF32172102D38761387D8773 /* libPods-ShadowsocksSW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D263CB8C808628D1409046C3 /* libPods-ShadowsocksSW.a */; };
+		3768DE5958102069646C709D /* libPods-SW-ShadowsocksSW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA3F4E4FAD709AFDA5A462CF /* libPods-SW-ShadowsocksSW.a */; };
+		63775E7A0FEA376BB8334ADB /* libPods-SW-PacketTunnelProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7841ED74D46A9E88C6543A88 /* libPods-SW-PacketTunnelProvider.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -593,9 +598,14 @@
 		03D16B371D8851C100383D73 /* PacketTunnelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketTunnelProvider.h; sourceTree = "<group>"; };
 		03D16B381D8851C100383D73 /* PacketTunnelProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PacketTunnelProvider.mm; sourceTree = "<group>"; };
 		03D16B3A1D8851C100383D73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9021FEE08FB6332C7E46BE43 /* Pods-ShadowsocksSW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksSW.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW.release.xcconfig"; sourceTree = "<group>"; };
-		A84A193E61EBC24EECAD543A /* Pods-ShadowsocksSW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksSW.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW.debug.xcconfig"; sourceTree = "<group>"; };
-		D263CB8C808628D1409046C3 /* libPods-ShadowsocksSW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShadowsocksSW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D29B8A1D9800B6001FBB04 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
+		03D29B8B1D9800B6001FBB04 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
+		03D29B8D1D9803E1001FBB04 /* ShadowSocksConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowSocksConfig.h; sourceTree = "<group>"; };
+		03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowSocksConfig.m; sourceTree = "<group>"; };
+		2A2479ECD5D6763075B84794 /* Pods-SW-ShadowsocksSW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SW-ShadowsocksSW.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW.debug.xcconfig"; sourceTree = "<group>"; };
+		7841ED74D46A9E88C6543A88 /* libPods-SW-PacketTunnelProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SW-PacketTunnelProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5362FB1A754F34D17AC966F /* Pods-SW-ShadowsocksSW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SW-ShadowsocksSW.release.xcconfig"; path = "Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW.release.xcconfig"; sourceTree = "<group>"; };
+		EA3F4E4FAD709AFDA5A462CF /* libPods-SW-ShadowsocksSW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SW-ShadowsocksSW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -605,7 +615,7 @@
 			files = (
 				036184011D8D0F5700604F9A /* NetworkExtension.framework in Frameworks */,
 				036183EA1D8C3A0700604F9A /* libWukongBase.a in Frameworks */,
-				CF32172102D38761387D8773 /* libPods-ShadowsocksSW.a in Frameworks */,
+				3768DE5958102069646C709D /* libPods-SW-ShadowsocksSW.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +626,7 @@
 				032D132A1D9031EB00919562 /* libresolv.tbd in Frameworks */,
 				032C02CC1D8FB078003040F7 /* libWukongBase.a in Frameworks */,
 				036184001D8D0F4D00604F9A /* NetworkExtension.framework in Frameworks */,
+				63775E7A0FEA376BB8334ADB /* libPods-SW-PacketTunnelProvider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,8 +640,8 @@
 				030410B01D48F01C0097C5FC /* ShadowsocksSW */,
 				03D16B341D8851C100383D73 /* PacketTunnelProvider */,
 				030410AF1D48F01C0097C5FC /* Products */,
-				BD2BDD70510FE7021B19DB4A /* Pods */,
 				A32CD2C3EE0C8CA8A89B5324 /* Frameworks */,
+				8A1C4456E1402DEEB33DDBD5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -646,6 +657,7 @@
 		030410B01D48F01C0097C5FC /* ShadowsocksSW */ = {
 			isa = PBXGroup;
 			children = (
+				0308DCEB1D9966E7005E9039 /* CustomUI */,
 				030410B41D48F01C0097C5FC /* AppDelegate.h */,
 				030410B51D48F01C0097C5FC /* AppDelegate.m */,
 				030410B71D48F01C0097C5FC /* ViewController.h */,
@@ -666,6 +678,13 @@
 				030410B21D48F01C0097C5FC /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0308DCEB1D9966E7005E9039 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CustomUI;
 			sourceTree = "<group>";
 		};
 		032D132B1D9032D400919562 /* socks2ss */ = {
@@ -701,6 +720,10 @@
 			children = (
 				036183ED1D8C3AB500604F9A /* SWLogger.h */,
 				036183EE1D8C3AB500604F9A /* SWLogger.mm */,
+				03D29B8A1D9800B6001FBB04 /* ConfigManager.h */,
+				03D29B8B1D9800B6001FBB04 /* ConfigManager.m */,
+				03D29B8D1D9803E1001FBB04 /* ShadowSocksConfig.h */,
+				03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1385,6 +1408,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8A1C4456E1402DEEB33DDBD5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2A2479ECD5D6763075B84794 /* Pods-SW-ShadowsocksSW.debug.xcconfig */,
+				B5362FB1A754F34D17AC966F /* Pods-SW-ShadowsocksSW.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A32CD2C3EE0C8CA8A89B5324 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1393,18 +1425,10 @@
 				036183FF1D8D0F4D00604F9A /* NetworkExtension.framework */,
 				036183F51D8CEE6300604F9A /* libc++.tbd */,
 				03077C071D88594D00EEE7F5 /* libWukongBase.a */,
-				D263CB8C808628D1409046C3 /* libPods-ShadowsocksSW.a */,
+				7841ED74D46A9E88C6543A88 /* libPods-SW-PacketTunnelProvider.a */,
+				EA3F4E4FAD709AFDA5A462CF /* libPods-SW-ShadowsocksSW.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BD2BDD70510FE7021B19DB4A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A84A193E61EBC24EECAD543A /* Pods-ShadowsocksSW.debug.xcconfig */,
-				9021FEE08FB6332C7E46BE43 /* Pods-ShadowsocksSW.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1414,14 +1438,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 030410C51D48F01C0097C5FC /* Build configuration list for PBXNativeTarget "ShadowsocksSW" */;
 			buildPhases = (
-				9F20F6CED3076D61FA2FB53F /* Check Pods Manifest.lock */,
+				061772BF1498A651767B03F7 /* [CP] Check Pods Manifest.lock */,
 				030410AA1D48F01C0097C5FC /* Sources */,
 				030410AB1D48F01C0097C5FC /* Frameworks */,
 				030410AC1D48F01C0097C5FC /* Resources */,
-				4C486F039BA714FE3EFB91CF /* Embed Pods Frameworks */,
-				8B3954DE0CBFE9347CBA7D17 /* Copy Pods Resources */,
 				03D16B411D8851C100383D73 /* Embed App Extensions */,
 				03077C051D88589200EEE7F5 /* Embed Frameworks */,
+				0308DCE91D996050005E9039 /* ShellScript */,
+				9AB378EC7211CDCAA49AAFB2 /* [CP] Embed Pods Frameworks */,
+				42B405A0525EC80DDCB16C1E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1437,9 +1462,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03D16B3E1D8851C100383D73 /* Build configuration list for PBXNativeTarget "PacketTunnelProvider" */;
 			buildPhases = (
+				E928977C835FDFC9331AED0E /* [CP] Check Pods Manifest.lock */,
 				03D16B2F1D8851C100383D73 /* Sources */,
 				03D16B301D8851C100383D73 /* Frameworks */,
 				03D16B311D8851C100383D73 /* Resources */,
+				0308DCEA1D99606E005E9039 /* ShellScript */,
+				CCCAC88E6030DAAEECCA4D7C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1533,49 +1561,105 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4C486F039BA714FE3EFB91CF /* Embed Pods Frameworks */ = {
+		0308DCE91D996050005E9039 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" b01f19a86cd4fcc1b51201e2960f752289a5ad5f 535790e23cd93bb850fd7fc6a79c7f85e09d90e2460dd9df5f458727b4cf5331";
+		};
+		0308DCEA1D99606E005E9039 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" b01f19a86cd4fcc1b51201e2960f752289a5ad5f 535790e23cd93bb850fd7fc6a79c7f85e09d90e2460dd9df5f458727b4cf5331";
+		};
+		061772BF1498A651767B03F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		8B3954DE0CBFE9347CBA7D17 /* Copy Pods Resources */ = {
+		42B405A0525EC80DDCB16C1E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShadowsocksSW/Pods-ShadowsocksSW-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9F20F6CED3076D61FA2FB53F /* Check Pods Manifest.lock */ = {
+		9AB378EC7211CDCAA49AAFB2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCCAC88E6030DAAEECCA4D7C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SW-PacketTunnelProvider/Pods-SW-PacketTunnelProvider-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E928977C835FDFC9331AED0E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1585,10 +1669,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D29B8C1D9800B6001FBB04 /* ConfigManager.m in Sources */,
 				03DBDECB1D96A8C50065A759 /* SWLogger.mm in Sources */,
 				030410B91D48F01C0097C5FC /* ViewController.mm in Sources */,
 				030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */,
 				030410B31D48F01C0097C5FC /* main.m in Sources */,
+				03D29B8F1D9803E1001FBB04 /* ShadowSocksConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1596,6 +1682,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038B87C11D9820F5009BC13E /* ConfigManager.m in Sources */,
+				038B87C21D9820F5009BC13E /* ShadowSocksConfig.m in Sources */,
 				0374CD1A1D8EDDA9001DD9F6 /* BTap.m in Sources */,
 				0374CCE41D8EDDA9001DD9F6 /* BLog.m in Sources */,
 				0374CD011D8EDDA9001DD9F6 /* ip6_frag.c in Sources */,
@@ -1809,7 +1897,7 @@
 		};
 		030410C61D48F01C0097C5FC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A84A193E61EBC24EECAD543A /* Pods-ShadowsocksSW.debug.xcconfig */;
+			baseConfigurationReference = 2A2479ECD5D6763075B84794 /* Pods-SW-ShadowsocksSW.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
@@ -1832,13 +1920,13 @@
 		};
 		030410C71D48F01C0097C5FC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9021FEE08FB6332C7E46BE43 /* Pods-ShadowsocksSW.release.xcconfig */;
+			baseConfigurationReference = B5362FB1A754F34D17AC966F /* Pods-SW-ShadowsocksSW.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W49R76DKP3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = ShadowsocksSW/Info.plist;
@@ -1848,7 +1936,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "436fe1f2-2dfd-4c3f-a514-85376fbecbc6";
+				PROVISIONING_PROFILE_SPECIFIER = ShadowsocksSWDev;
 			};
 			name = Release;
 		};
@@ -1868,7 +1957,10 @@
 				INFOPLIST_FILE = PacketTunnelProvider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/third_party/cryptopp/build/Debug-iphoneos",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -1893,7 +1985,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnelProvider/PacketTunnelProvider.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W49R76DKP3;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -1902,7 +1994,10 @@
 				INFOPLIST_FILE = PacketTunnelProvider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/third_party/cryptopp/build/Debug-iphoneos",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -1913,7 +2008,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw.PacketTunnelProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7646ca8e-8f40-4dc7-933a-6fd7accdd748";
+				PROVISIONING_PROFILE_SPECIFIER = PacketTunnelProviderDev;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/third_party/wukong_base/\" \"$(SRCROOT)/third_party/wukong_base/third_party/libuv/libuv/include\" \"$(SRCROOT)/third_party/tun2socks-iOS\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/custom\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv4\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv6\"";
 			};

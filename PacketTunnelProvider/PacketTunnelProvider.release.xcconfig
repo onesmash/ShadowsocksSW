@@ -5,9 +5,7 @@
 //  Created by Xuhui on 16/9/14.
 //  Copyright © 2016年 Xuhui. All rights reserved.
 //
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) BADVPN_BREACTOR_BADVPN BADVPN_FREEBSD BADVPN_THREADWORK_USE_PTHREAD BADVPN_THREAD_SAFE=1 BADVPN_USE_KEVENT BADVPN_USE_SYSLOG BADVPN_LITTLE_ENDIAN BADVPN_LIBTSOCKS
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CocoaAsyncSocket" "${PODS_ROOT}/Headers/Public/MMWormhole" "${PODS_ROOT}/Headers/Public/OpenSSL"
-LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/OpenSSL/lib" $(inherited) "${PODS_ROOT}/OpenSSL/lib"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/CocoaAsyncSocket" -isystem "${PODS_ROOT}/Headers/Public/MMWormhole" -isystem "${PODS_ROOT}/Headers/Public/OpenSSL"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"CocoaAsyncSocket" -l"MMWormhole" -l"crypto" -l"ssl" -framework "CFNetwork" -framework "Foundation" -framework "Security" -framework "WatchConnectivity"
-PODS_ROOT = ${SRCROOT}/Pods
+#include "Pods/Target Support Files/Pods-SW-PacketTunnelProvider/Pods-SW-PacketTunnelProvider.release.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) BADVPN_BREACTOR_BADVPN BADVPN_FREEBSD BADVPN_THREADWORK_USE_PTHREAD BADVPN_THREAD_SAFE=1 BADVPN_USE_KEVENT BADVPN_USE_SYSLOG BADVPN_LITTLE_ENDIAN BADVPN_LIBTSOCKS TUNNEL_RPOVIDER
+
+USER_HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/third_party/wukong_base/" "$(SRCROOT)/third_party/wukong_base/third_party/libuv/libuv/include" "$(SRCROOT)/third_party/tun2socks-iOS" "$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include" "$(SRCROOT)/third_party/tun2socks-iOS/lwip/custom" "$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv4" "$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv6"

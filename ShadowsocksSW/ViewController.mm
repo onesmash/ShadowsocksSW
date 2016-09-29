@@ -13,6 +13,8 @@
 @interface ViewController () {
     
 }
+@property (strong, nonatomic) IBOutlet UIButton *startBtn;
+@property (strong, nonatomic) IBOutlet UIButton *stopBtn;
 
 @property (nonatomic, strong) NETunnelProviderManager *tunelProviderManager;
 
@@ -22,7 +24,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onVPNContectNotification:) name:NEVPNStatusDidChangeNotification object:nil];
+    [self setupNavigationBar];
+    [_startBtn addTarget:self action:@selector(onStartBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_stopBtn addTarget:self action:@selector(onStopBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)setupNavigationBar
+{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onAddConfigBtnClicked:)];
+}
+
+- (void)onVPNContectNotification:(NSNotification *)note
+{
+    
+}
+
+- (void)onStartBtnClicked:(id)sender
+{
     [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
         if(managers.count > 0) {
             _tunelProviderManager = managers.firstObject;
@@ -40,38 +64,20 @@
                 if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
                     SWLOG_DEBUG("tunnel provider start success");
                 } else {
-                    
+
                 }
             }
         }];
         
     }];
-    
-    // Do any additional setup after loading the view, typically from a nib.
-//    client.setRequestCallback([](const SSTCPRelaySession& session, const std::shared_ptr<SSTCPRelayRequest>&, bool success) {
-//        WukongBase::Net::URLRequest request("http://onesmash.github.io");
-//        request.setHTTPMethod("GET");
-//        session.sendData(request.pack());
-//    });
-//    client.setWriteCompleteCallback([](const SSTCPRelaySession&, const WukongBase::Net::Packet& packet, bool success) {
-//        
-//    });
-//    client.setMessageCallback([](const SSTCPRelaySession&, const std::shared_ptr<WukongBase::Base::IOBuffer>& buffer) {
-//        printf(buffer->data());
-//    });
-//    client.setCloseCallback([](const SSTCPRelaySession&){
-//        
-//    });
-//    std::shared_ptr<SSTCPRelayRequest> request(new SSTCPRelayRequest("onesmash.github.io", 80));
-//    client.sendTCPRelayRequest(request);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)onStopBtnClicked:(id)sender
+{
+    [_tunelProviderManager.connection stopVPNTunnel];
 }
-
-- (void)onVPNContectNotification:(NSNotification *)note
+                                              
+- (void)onAddConfigBtnClicked:(id)sender
 {
     
 }

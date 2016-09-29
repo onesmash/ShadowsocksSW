@@ -9,7 +9,8 @@
     "BC09C09DC2853BA9B3A84860F78F2E9FD790D8C3" : 0,
     "997B5B2B165F2AA196970132856A166B7B51A6F3" : 0,
     "B5295673D40444D86A0D76339F7E4FC3397BF632" : 0,
-    "DA9C55140B6FB29E68073E7B73D6F0032ABB6E74" : 0
+    "DA9C55140B6FB29E68073E7B73D6F0032ABB6E74" : 0,
+    "3F029E5686A961E6AC13C9AE15E70A05BC3172A4" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7F99A0C7-F269-4E78-A7DC-2E10B6B2F0BE",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
@@ -19,7 +20,8 @@
     "BC09C09DC2853BA9B3A84860F78F2E9FD790D8C3" : "ShadowsocksSW\/third_party\/wukong_base\/third_party\/libuv\/libuv\/",
     "997B5B2B165F2AA196970132856A166B7B51A6F3" : "ShadowsocksSW\/third_party\/wukong_base\/third_party\/fmt\/fmt\/",
     "B5295673D40444D86A0D76339F7E4FC3397BF632" : "ShadowsocksSW\/third_party\/lwip\/",
-    "DA9C55140B6FB29E68073E7B73D6F0032ABB6E74" : "ShadowsocksSW\/third_party\/wukong_base\/"
+    "DA9C55140B6FB29E68073E7B73D6F0032ABB6E74" : "ShadowsocksSW\/third_party\/wukong_base\/",
+    "3F029E5686A961E6AC13C9AE15E70A05BC3172A4" : "ShadowsocksSW\/third_party\/cryptopp\/cryptopp\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "ShadowsocksSW",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -29,6 +31,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ambrop72\/badvpn.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1EDBB0CD83A0399C6997C9473F2568634D269421"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/weidai11\/cryptopp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3F029E5686A961E6AC13C9AE15E70A05BC3172A4"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/onesmash\/spdlog.git",

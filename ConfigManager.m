@@ -7,15 +7,19 @@
 //
 
 #import "ConfigManager.h"
+#import <LevelDB.h>
 
 static NSString *const sharedGroupIdentifier = @"group.io.github.shadowsocksSW";
 
+#define kConfigKey @"kConfigKey"
+#define kSelectedConfigIndexKey @"kSelectedConfigIndexKey"
+
 @interface ConfigManager () {
-    NSArray<ShadowSocksConfig *> *_shadowSocksConfigs;
+    NSMutableArray<ShadowSocksConfig *> *_shadowSocksConfigs;
 }
 
 @property (nonatomic, strong) NSURL *appGroupContainer;
-@property (nonatomic, copy) NSString *configFile;
+@property (nonatomic, strong) LevelDB *ldb;
 
 @end
 
@@ -29,17 +33,65 @@ static NSString *const sharedGroupIdentifier = @"group.io.github.shadowsocksSW";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[ConfigManager alloc] init];
-        manager.appGroupContainer = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:sharedGroupIdentifier].filePathURL;
-        manager.configFile = [NSString stringWithUTF8String:[manager.appGroupContainer URLByAppendingPathComponent:@"config"].fileSystemRepresentation];
-        manager.mainAppLogFile = [NSString stringWithUTF8String:[manager.appGroupContainer URLByAppendingPathComponent:@"mainAppLog"].fileSystemRepresentation];
-        manager.tunnelProviderLogFile = [NSString stringWithUTF8String:[manager.appGroupContainer URLByAppendingPathComponent:@"tunnelProviderLog"].fileSystemRepresentation];
     });
     return manager;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if(self) {
+        self.appGroupContainer = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:sharedGroupIdentifier].filePathURL;
+        self.mainAppLogFile = [NSString stringWithUTF8String:[self.appGroupContainer URLByAppendingPathComponent:@"mainAppLog"].fileSystemRepresentation];
+        self.tunnelProviderLogFile = [NSString stringWithUTF8String:[self.appGroupContainer URLByAppendingPathComponent:@"tunnelProviderLog"].fileSystemRepresentation];
+        LevelDBOptions options = [LevelDB makeOptions];
+        options.createIfMissing = true;
+        options.errorIfExists   = false;
+        options.paranoidCheck   = false;
+        options.compression     = false;
+        options.filterPolicy    = 0;
+        options.cacheSize       = 0;
+        _ldb = [[LevelDB alloc] initWithPath:[NSString stringWithUTF8String:self.appGroupContainer.fileSystemRepresentation] name:@"config.ldb" andOptions:options];
+        _shadowSocksConfigs = [_ldb objectForKey:kConfigKey];
+        _selectedShadowSocksIndex = [(NSNumber *)[_ldb objectForKey:kSelectedConfigIndexKey] integerValue];
+    }
+    return self;
 }
 
 - (NSString *)appGroupIdentifier
 {
     return sharedGroupIdentifier;
+}
+
+- (BOOL)deleteConfig:(NSInteger)index
+{
+    if(index == _selectedShadowSocksIndex) return NO;
+    _ldb.safe = YES;
+    [_shadowSocksConfigs removeObjectAtIndex:index];
+    [_ldb setObject:_shadowSocksConfigs forKey:kConfigKey];
+    if(index < _selectedShadowSocksIndex) {
+        _selectedShadowSocksIndex--;
+        [_ldb setObject:@(_selectedShadowSocksIndex) forKey:kSelectedConfigIndexKey];
+    }
+    _ldb.safe = NO;
+    return YES;
+}
+
+- (BOOL)replaceConfig:(NSInteger)index withConfig:(ShadowSocksConfig *)config
+{
+    [_shadowSocksConfigs setObject:config atIndexedSubscript:index];
+    _ldb.safe = YES;
+    [_ldb setObject:_shadowSocksConfigs forKey:kConfigKey];
+    _ldb.safe = NO;
+    return YES;
+}
+
+- (void)setSelectedShadowSocksIndex:(NSInteger)selectedShadowSocksIndex
+{
+    _selectedShadowSocksIndex = selectedShadowSocksIndex;
+    _ldb.safe = YES;
+    [_ldb setObject:@(_selectedShadowSocksIndex) forKey:kSelectedConfigIndexKey];
+    _ldb.safe = NO;
 }
 
 @end

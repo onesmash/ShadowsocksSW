@@ -35,6 +35,7 @@
 {
 	// Add code here to start the process of connecting the tunnel.
     [Fabric with:@[[Crashlytics class]]];
+    
     NSError *error = [TunnelInterface setupWithPacketTunnelFlow:self.packetFlow];
     if (error) {
         completionHandler(error);
