@@ -29,6 +29,7 @@ PODS:
   - Objective-LevelDB (2.1.5):
     - leveldb-library (~> 1.18.2)
   - openssl-ios-bitcode (1.0.208.1)
+  - TPKeyboardAvoiding (1.3)
   - VTAcknowledgementsViewController (1.1)
 
 DEPENDENCIES:
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - MMWormhole (~> 2.0)
   - Objective-LevelDB (~> 2.1)
   - openssl-ios-bitcode (~> 1.0)
+  - TPKeyboardAvoiding (~> 1.3)
   - VTAcknowledgementsViewController (~> 1.1)
 
 SPEC CHECKSUMS:
@@ -54,8 +56,9 @@ SPEC CHECKSUMS:
   MMWormhole: 0cd3fd35a9118b2e2d762b499f54eeaace0be791
   Objective-LevelDB: fa075efd9d0be645aee51847cc3ee70cdadb80ce
   openssl-ios-bitcode: d530fa35dcb5b166a49908f257206e8d4047917b
+  TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
 
-PODFILE CHECKSUM: 4aac2fd68e52f4efa04cf2078ad62165add09f50
+PODFILE CHECKSUM: 4598c53d0928d2a4c72625f2baff684f3c85a842
 
 COCOAPODS: 1.1.0.rc.2

@@ -1,3 +1,6 @@
 [submodule "third_party/wukong_base"]
 	path = third_party/wukong_base
 	url = https://github.com/onesmash/WukongBase.git
+[submodule "third_party/SWUIKit"]
+	path = third_party/SWUIKit
+	url = https://github.com/onesmash/SWUIKit.git

@@ -10,9 +10,7 @@
 		030410B31D48F01C0097C5FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 030410B21D48F01C0097C5FC /* main.m */; };
 		030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 030410B51D48F01C0097C5FC /* AppDelegate.m */; };
 		030410B91D48F01C0097C5FC /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 030410B81D48F01C0097C5FC /* ViewController.mm */; };
-		030410BC1D48F01C0097C5FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 030410BA1D48F01C0097C5FC /* Main.storyboard */; };
 		030410BE1D48F01C0097C5FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030410BD1D48F01C0097C5FC /* Assets.xcassets */; };
-		030410C11D48F01C0097C5FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 030410BF1D48F01C0097C5FC /* LaunchScreen.storyboard */; };
 		030C6F3E1D92D7530093BB13 /* dns.m in Sources */ = {isa = PBXBuildFile; fileRef = 030C6F3D1D92D7530093BB13 /* dns.m */; };
 		032C02C71D8FAA8A003040F7 /* TunnelInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 032C02C61D8FAA8A003040F7 /* TunnelInterface.m */; };
 		032C02CC1D8FB078003040F7 /* libWukongBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03077C071D88594D00EEE7F5 /* libWukongBase.a */; };
@@ -27,11 +25,14 @@
 		032D13481D9032D400919562 /* SSClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133B1D9032D400919562 /* SSClient.cpp */; };
 		032D13491D9032D400919562 /* SSTCPRelayRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133D1D9032D400919562 /* SSTCPRelayRequest.cpp */; };
 		032D134A1D9032D400919562 /* SSTCPRelaySession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133F1D9032D400919562 /* SSTCPRelaySession.cpp */; };
+		0355B6D11D9CE22B009E9888 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0355B6CF1D9CE22B009E9888 /* ViewController.xib */; };
+		0357B44C1D9D62E70016AC2E /* TransparentNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */; };
 		036183EA1D8C3A0700604F9A /* libWukongBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03077C071D88594D00EEE7F5 /* libWukongBase.a */; };
 		036183F41D8CE8D900604F9A /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036183EE1D8C3AB500604F9A /* SWLogger.mm */; };
 		036183FA1D8CF69A00604F9A /* ShadowsocksSW.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 036183F91D8CF69A00604F9A /* ShadowsocksSW.entitlements */; };
 		036184001D8D0F4D00604F9A /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 036183FF1D8D0F4D00604F9A /* NetworkExtension.framework */; };
 		036184011D8D0F5700604F9A /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 036183FF1D8D0F4D00604F9A /* NetworkExtension.framework */; };
+		036525031DA3E66A00268F4A /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 036525021DA3E66A00268F4A /* HeaderView.m */; };
 		0374CCE41D8EDDA9001DD9F6 /* BLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0374CB2C1D8EDDA9001DD9F6 /* BLog.m */; };
 		0374CCE51D8EDDA9001DD9F6 /* BLog_syslog.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CB2D1D8EDDA9001DD9F6 /* BLog_syslog.c */; };
 		0374CCE61D8EDDA9001DD9F6 /* BPending.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CB301D8EDDA9001DD9F6 /* BPending.c */; };
@@ -89,6 +90,7 @@
 		0374CD1A1D8EDDA9001DD9F6 /* BTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCDD1D8EDDA9001DD9F6 /* BTap.m */; };
 		0374CD1B1D8EDDA9001DD9F6 /* udpgw.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCDF1D8EDDA9001DD9F6 /* udpgw.c */; };
 		0374CD1C1D8EDDA9001DD9F6 /* UdpGwClient.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCE21D8EDDA9001DD9F6 /* UdpGwClient.c */; };
+		037F72DC1DA55BCC00999755 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F72DB1DA55BCC00999755 /* SectionHeaderView.m */; };
 		038B87C11D9820F5009BC13E /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.m */; };
 		038B87C21D9820F5009BC13E /* ShadowSocksConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */; };
 		03D16B391D8851C100383D73 /* PacketTunnelProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D16B381D8851C100383D73 /* PacketTunnelProvider.mm */; };
@@ -96,6 +98,18 @@
 		03D29B8C1D9800B6001FBB04 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.m */; };
 		03D29B8F1D9803E1001FBB04 /* ShadowSocksConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */; };
 		03DBDECB1D96A8C50065A759 /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036183EE1D8C3AB500604F9A /* SWLogger.mm */; };
+		03E4C7AA1DA60BB10077AA73 /* AddConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7A81DA60BB10077AA73 /* AddConfigViewController.m */; };
+		03E4C7AB1DA60BB10077AA73 /* AddConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E4C7A91DA60BB10077AA73 /* AddConfigViewController.xib */; };
+		03E4C7B51DA61EC60077AA73 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 03E4C7AE1DA61EC60077AA73 /* LICENSE */; };
+		03E4C7B61DA61EC60077AA73 /* SWAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7B01DA61EC60077AA73 /* SWAttributedLabel.m */; };
+		03E4C7B71DA61EC60077AA73 /* SWUITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7B21DA61EC60077AA73 /* SWUITextField.m */; };
+		03E4C7B81DA61EC60077AA73 /* SWUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7B41DA61EC60077AA73 /* SWUITextView.m */; };
+		03E4C7BD1DA6734E0077AA73 /* UIView+SWFrameAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7BC1DA6734E0077AA73 /* UIView+SWFrameAdditions.m */; };
+		03E4C7C11DA675EB0077AA73 /* ConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7BF1DA675EB0077AA73 /* ConfigCell.m */; };
+		03E4C7C21DA675EB0077AA73 /* ConfigCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E4C7C01DA675EB0077AA73 /* ConfigCell.xib */; };
+		03E4C7C61DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7C41DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m */; };
+		03E4C7C71DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E4C7C51DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib */; };
+		03E4C7CA1DA69CAB0077AA73 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7C91DA69CAB0077AA73 /* NSString+Util.m */; };
 		3768DE5958102069646C709D /* libPods-SW-ShadowsocksSW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA3F4E4FAD709AFDA5A462CF /* libPods-SW-ShadowsocksSW.a */; };
 		63775E7A0FEA376BB8334ADB /* libPods-SW-PacketTunnelProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7841ED74D46A9E88C6543A88 /* libPods-SW-PacketTunnelProvider.a */; };
 /* End PBXBuildFile section */
@@ -141,9 +155,7 @@
 		030410B51D48F01C0097C5FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		030410B71D48F01C0097C5FC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		030410B81D48F01C0097C5FC /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
-		030410BB1D48F01C0097C5FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		030410BD1D48F01C0097C5FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		030410C01D48F01C0097C5FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		030410C21D48F01C0097C5FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03077C071D88594D00EEE7F5 /* libWukongBase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWukongBase.a; path = "../../Library/Developer/Xcode/DerivedData/ShadowsocksSW-btiyryjwgtdalrbnaqnfowgsfhkl/Build/Products/Debug-iphonesimulator/libWukongBase.a"; sourceTree = "<group>"; };
 		030C6F3C1D92D7530093BB13 /* dns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dns.h; sourceTree = "<group>"; };
@@ -173,11 +185,16 @@
 		032D133E1D9032D400919562 /* SSTCPRelayRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelayRequest.h; sourceTree = "<group>"; };
 		032D133F1D9032D400919562 /* SSTCPRelaySession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSTCPRelaySession.cpp; sourceTree = "<group>"; };
 		032D13401D9032D400919562 /* SSTCPRelaySession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelaySession.h; sourceTree = "<group>"; };
+		0355B6CF1D9CE22B009E9888 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		0357B44A1D9D62E70016AC2E /* TransparentNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentNavigationBar.h; sourceTree = "<group>"; };
+		0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentNavigationBar.m; sourceTree = "<group>"; };
 		036183ED1D8C3AB500604F9A /* SWLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLogger.h; sourceTree = "<group>"; };
 		036183EE1D8C3AB500604F9A /* SWLogger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWLogger.mm; sourceTree = "<group>"; };
 		036183F51D8CEE6300604F9A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		036183F91D8CF69A00604F9A /* ShadowsocksSW.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ShadowsocksSW.entitlements; sourceTree = "<group>"; };
 		036183FF1D8D0F4D00604F9A /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		036525011DA3E66A00268F4A /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
+		036525021DA3E66A00268F4A /* HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
 		0374CB2B1D8EDDA9001DD9F6 /* BLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLog.h; sourceTree = "<group>"; };
 		0374CB2C1D8EDDA9001DD9F6 /* BLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLog.m; sourceTree = "<group>"; };
 		0374CB2D1D8EDDA9001DD9F6 /* BLog_syslog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BLog_syslog.c; sourceTree = "<group>"; };
@@ -591,6 +608,8 @@
 		0374CCE01D8EDDA9001DD9F6 /* udpgw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udpgw.h; sourceTree = "<group>"; };
 		0374CCE21D8EDDA9001DD9F6 /* UdpGwClient.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = UdpGwClient.c; sourceTree = "<group>"; };
 		0374CCE31D8EDDA9001DD9F6 /* UdpGwClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdpGwClient.h; sourceTree = "<group>"; };
+		037F72DA1DA55BCC00999755 /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
+		037F72DB1DA55BCC00999755 /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
 		039709901D891E1A008333CD /* PacketTunnelProvider.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PacketTunnelProvider.debug.xcconfig; sourceTree = "<group>"; };
 		039709911D891E29008333CD /* PacketTunnelProvider.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PacketTunnelProvider.release.xcconfig; sourceTree = "<group>"; };
 		03D16B331D8851C100383D73 /* PacketTunnelProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PacketTunnelProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -602,6 +621,28 @@
 		03D29B8B1D9800B6001FBB04 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		03D29B8D1D9803E1001FBB04 /* ShadowSocksConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowSocksConfig.h; sourceTree = "<group>"; };
 		03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowSocksConfig.m; sourceTree = "<group>"; };
+		03E4C7A71DA60BB10077AA73 /* AddConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddConfigViewController.h; sourceTree = "<group>"; };
+		03E4C7A81DA60BB10077AA73 /* AddConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddConfigViewController.m; sourceTree = "<group>"; };
+		03E4C7A91DA60BB10077AA73 /* AddConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddConfigViewController.xib; sourceTree = "<group>"; };
+		03E4C7AE1DA61EC60077AA73 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		03E4C7AF1DA61EC60077AA73 /* SWAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAttributedLabel.h; sourceTree = "<group>"; };
+		03E4C7B01DA61EC60077AA73 /* SWAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWAttributedLabel.m; sourceTree = "<group>"; };
+		03E4C7B11DA61EC60077AA73 /* SWUITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUITextField.h; sourceTree = "<group>"; };
+		03E4C7B21DA61EC60077AA73 /* SWUITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUITextField.m; sourceTree = "<group>"; };
+		03E4C7B31DA61EC60077AA73 /* SWUITextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUITextView.h; sourceTree = "<group>"; };
+		03E4C7B41DA61EC60077AA73 /* SWUITextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUITextView.m; sourceTree = "<group>"; };
+		03E4C7B91DA670F80077AA73 /* SWUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWUIKit.h; sourceTree = "<group>"; };
+		03E4C7BA1DA671AE0077AA73 /* SWUIKitMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWUIKitMacros.h; sourceTree = "<group>"; };
+		03E4C7BB1DA6734E0077AA73 /* UIView+SWFrameAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SWFrameAdditions.h"; sourceTree = "<group>"; };
+		03E4C7BC1DA6734E0077AA73 /* UIView+SWFrameAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SWFrameAdditions.m"; sourceTree = "<group>"; };
+		03E4C7BE1DA675EB0077AA73 /* ConfigCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigCell.h; sourceTree = "<group>"; };
+		03E4C7BF1DA675EB0077AA73 /* ConfigCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigCell.m; sourceTree = "<group>"; };
+		03E4C7C01DA675EB0077AA73 /* ConfigCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigCell.xib; sourceTree = "<group>"; };
+		03E4C7C31DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigEncryptionMethodSelectCell.h; sourceTree = "<group>"; };
+		03E4C7C41DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigEncryptionMethodSelectCell.m; sourceTree = "<group>"; };
+		03E4C7C51DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigEncryptionMethodSelectCell.xib; sourceTree = "<group>"; };
+		03E4C7C81DA69CAB0077AA73 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
+		03E4C7C91DA69CAB0077AA73 /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		2A2479ECD5D6763075B84794 /* Pods-SW-ShadowsocksSW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SW-ShadowsocksSW.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW.debug.xcconfig"; sourceTree = "<group>"; };
 		7841ED74D46A9E88C6543A88 /* libPods-SW-PacketTunnelProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SW-PacketTunnelProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5362FB1A754F34D17AC966F /* Pods-SW-ShadowsocksSW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SW-ShadowsocksSW.release.xcconfig"; path = "Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW.release.xcconfig"; sourceTree = "<group>"; };
@@ -636,6 +677,7 @@
 		030410A51D48F01C0097C5FC = {
 			isa = PBXGroup;
 			children = (
+				03E4C7AC1DA61EAA0077AA73 /* ThirdParty */,
 				036183E21D8C370300604F9A /* Common */,
 				030410B01D48F01C0097C5FC /* ShadowsocksSW */,
 				03D16B341D8851C100383D73 /* PacketTunnelProvider */,
@@ -662,9 +704,11 @@
 				030410B51D48F01C0097C5FC /* AppDelegate.m */,
 				030410B71D48F01C0097C5FC /* ViewController.h */,
 				030410B81D48F01C0097C5FC /* ViewController.mm */,
-				030410BA1D48F01C0097C5FC /* Main.storyboard */,
+				0355B6CF1D9CE22B009E9888 /* ViewController.xib */,
+				03E4C7A71DA60BB10077AA73 /* AddConfigViewController.h */,
+				03E4C7A81DA60BB10077AA73 /* AddConfigViewController.m */,
+				03E4C7A91DA60BB10077AA73 /* AddConfigViewController.xib */,
 				030410BD1D48F01C0097C5FC /* Assets.xcassets */,
-				030410BF1D48F01C0097C5FC /* LaunchScreen.storyboard */,
 				030410C21D48F01C0097C5FC /* Info.plist */,
 				030410B11D48F01C0097C5FC /* Supporting Files */,
 			);
@@ -683,6 +727,18 @@
 		0308DCEB1D9966E7005E9039 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				0357B44A1D9D62E70016AC2E /* TransparentNavigationBar.h */,
+				0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */,
+				036525011DA3E66A00268F4A /* HeaderView.h */,
+				036525021DA3E66A00268F4A /* HeaderView.m */,
+				037F72DA1DA55BCC00999755 /* SectionHeaderView.h */,
+				037F72DB1DA55BCC00999755 /* SectionHeaderView.m */,
+				03E4C7BE1DA675EB0077AA73 /* ConfigCell.h */,
+				03E4C7BF1DA675EB0077AA73 /* ConfigCell.m */,
+				03E4C7C01DA675EB0077AA73 /* ConfigCell.xib */,
+				03E4C7C31DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.h */,
+				03E4C7C41DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m */,
+				03E4C7C51DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib */,
 			);
 			name = CustomUI;
 			sourceTree = "<group>";
@@ -724,6 +780,8 @@
 				03D29B8B1D9800B6001FBB04 /* ConfigManager.m */,
 				03D29B8D1D9803E1001FBB04 /* ShadowSocksConfig.h */,
 				03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */,
+				03E4C7C81DA69CAB0077AA73 /* NSString+Util.h */,
+				03E4C7C91DA69CAB0077AA73 /* NSString+Util.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1408,6 +1466,33 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		03E4C7AC1DA61EAA0077AA73 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				03E4C7AD1DA61EC60077AA73 /* SWUIKit */,
+			);
+			name = ThirdParty;
+			sourceTree = "<group>";
+		};
+		03E4C7AD1DA61EC60077AA73 /* SWUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				03E4C7BB1DA6734E0077AA73 /* UIView+SWFrameAdditions.h */,
+				03E4C7BC1DA6734E0077AA73 /* UIView+SWFrameAdditions.m */,
+				03E4C7AE1DA61EC60077AA73 /* LICENSE */,
+				03E4C7AF1DA61EC60077AA73 /* SWAttributedLabel.h */,
+				03E4C7B01DA61EC60077AA73 /* SWAttributedLabel.m */,
+				03E4C7B11DA61EC60077AA73 /* SWUITextField.h */,
+				03E4C7B21DA61EC60077AA73 /* SWUITextField.m */,
+				03E4C7B31DA61EC60077AA73 /* SWUITextView.h */,
+				03E4C7B41DA61EC60077AA73 /* SWUITextView.m */,
+				03E4C7B91DA670F80077AA73 /* SWUIKit.h */,
+				03E4C7BA1DA671AE0077AA73 /* SWUIKitMacros.h */,
+			);
+			name = SWUIKit;
+			path = third_party/SWUIKit;
+			sourceTree = "<group>";
+		};
 		8A1C4456E1402DEEB33DDBD5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1542,10 +1627,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				030410C11D48F01C0097C5FC /* LaunchScreen.storyboard in Resources */,
+				03E4C7C71DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib in Resources */,
+				0355B6D11D9CE22B009E9888 /* ViewController.xib in Resources */,
 				030410BE1D48F01C0097C5FC /* Assets.xcassets in Resources */,
-				030410BC1D48F01C0097C5FC /* Main.storyboard in Resources */,
+				03E4C7AB1DA60BB10077AA73 /* AddConfigViewController.xib in Resources */,
+				03E4C7C21DA675EB0077AA73 /* ConfigCell.xib in Resources */,
 				036183FA1D8CF69A00604F9A /* ShadowsocksSW.entitlements in Resources */,
+				03E4C7B51DA61EC60077AA73 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1670,11 +1758,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D29B8C1D9800B6001FBB04 /* ConfigManager.m in Sources */,
+				037F72DC1DA55BCC00999755 /* SectionHeaderView.m in Sources */,
+				03E4C7C11DA675EB0077AA73 /* ConfigCell.m in Sources */,
+				03E4C7BD1DA6734E0077AA73 /* UIView+SWFrameAdditions.m in Sources */,
+				03E4C7CA1DA69CAB0077AA73 /* NSString+Util.m in Sources */,
+				036525031DA3E66A00268F4A /* HeaderView.m in Sources */,
+				03E4C7B71DA61EC60077AA73 /* SWUITextField.m in Sources */,
 				03DBDECB1D96A8C50065A759 /* SWLogger.mm in Sources */,
 				030410B91D48F01C0097C5FC /* ViewController.mm in Sources */,
+				03E4C7AA1DA60BB10077AA73 /* AddConfigViewController.m in Sources */,
 				030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */,
 				030410B31D48F01C0097C5FC /* main.m in Sources */,
+				03E4C7C61DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m in Sources */,
+				03E4C7B61DA61EC60077AA73 /* SWAttributedLabel.m in Sources */,
+				0357B44C1D9D62E70016AC2E /* TransparentNavigationBar.m in Sources */,
 				03D29B8F1D9803E1001FBB04 /* ShadowSocksConfig.m in Sources */,
+				03E4C7B81DA61EC60077AA73 /* SWUITextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1765,25 +1864,6 @@
 			targetProxy = 03D16B3B1D8851C100383D73 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		030410BA1D48F01C0097C5FC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				030410BB1D48F01C0097C5FC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		030410BF1D48F01C0097C5FC /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				030410C01D48F01C0097C5FC /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		030410C31D48F01C0097C5FC /* Debug */ = {
@@ -1900,6 +1980,7 @@
 			baseConfigurationReference = 2A2479ECD5D6763075B84794 /* Pods-SW-ShadowsocksSW.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1923,6 +2004,7 @@
 			baseConfigurationReference = B5362FB1A754F34D17AC966F /* Pods-SW-ShadowsocksSW.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

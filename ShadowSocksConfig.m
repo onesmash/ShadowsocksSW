@@ -11,7 +11,8 @@
 #define kShadowSocksConfigServerAddressKey  @"kShadowSocksConfigServerAddressKey"
 #define kShadowSocksConfigServerPortKey     @"kShadowSocksConfigServerPortKey"
 #define kShadowSocksConfigPasswordKey       @"kShadowSocksConfigPasswordKey"
-#define kShadowSocksConfigEncryptionMethod  @"kShadowSocksConfigEncryptionMethod"
+#define kShadowSocksConfigEncryptionMethodKey  @"kShadowSocksConfigEncryptionMethodKey"
+#define kShadowSocksConfigConfigNameKey  @"kShadowSocksConfigConfigNameKey"
 
 @interface ShadowSocksConfig () <NSCoding>
 
@@ -21,12 +22,13 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [self init];
     if(self) {
         self.ssServerAddress = [aDecoder decodeObjectForKey:kShadowSocksConfigServerAddressKey];
         self.ssServerPort = [aDecoder decodeObjectForKey:kShadowSocksConfigServerPortKey];
         self.password = [aDecoder decodeObjectForKey:kShadowSocksConfigPasswordKey];
-        self.encryptionMethod = [aDecoder decodeObjectForKey:kShadowSocksConfigEncryptionMethod];
+        self.encryptionMethod = [aDecoder decodeObjectForKey:kShadowSocksConfigEncryptionMethodKey];
+        self.configName = [aDecoder decodeObjectForKey:kShadowSocksConfigConfigNameKey];
     }
     return self;
 }
@@ -36,7 +38,8 @@
     [aCoder encodeObject:self.ssServerAddress forKey:kShadowSocksConfigServerAddressKey];
     [aCoder encodeObject:self.ssServerPort forKey:kShadowSocksConfigServerPortKey];
     [aCoder encodeObject:self.password forKey:kShadowSocksConfigPasswordKey];
-    [aCoder encodeObject:self.encryptionMethod forKey:kShadowSocksConfigEncryptionMethod];
+    [aCoder encodeObject:self.encryptionMethod forKey:kShadowSocksConfigEncryptionMethodKey];
+    [aCoder encodeObject:self.configName forKey:kShadowSocksConfigConfigNameKey];
 }
 
 @end

@@ -14,5 +14,6 @@
 @property (nonatomic, copy) NSString *ssServerPort;
 @property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *encryptionMethod;
+@property (nonatomic, copy) NSString *configName;
 
 @end

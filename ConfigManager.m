@@ -52,7 +52,7 @@ static NSString *const sharedGroupIdentifier = @"group.io.github.shadowsocksSW";
         options.filterPolicy    = 0;
         options.cacheSize       = 0;
         _ldb = [[LevelDB alloc] initWithPath:[NSString stringWithUTF8String:self.appGroupContainer.fileSystemRepresentation] name:@"config.ldb" andOptions:options];
-        _shadowSocksConfigs = [_ldb objectForKey:kConfigKey];
+        _shadowSocksConfigs = [_ldb objectForKey:kConfigKey] ? : [NSMutableArray array];
         _selectedShadowSocksIndex = [(NSNumber *)[_ldb objectForKey:kSelectedConfigIndexKey] integerValue];
     }
     return self;
@@ -61,6 +61,15 @@ static NSString *const sharedGroupIdentifier = @"group.io.github.shadowsocksSW";
 - (NSString *)appGroupIdentifier
 {
     return sharedGroupIdentifier;
+}
+
+- (BOOL)addConfig:(ShadowSocksConfig *)config
+{
+    [_shadowSocksConfigs addObject:config];
+    _ldb.safe = YES;
+    [_ldb setObject:_shadowSocksConfigs forKey:kConfigKey];
+    _ldb.safe = NO;
+    return YES;
 }
 
 - (BOOL)deleteConfig:(NSInteger)index

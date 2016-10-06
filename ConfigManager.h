@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSString *tunnelProviderLogFile;
 
 + (instancetype)sharedManager;
+- (BOOL)addConfig:(ShadowSocksConfig *)config;
 - (BOOL)deleteConfig:(NSInteger)index;
 - (BOOL)replaceConfig:(NSInteger)index withConfig:(ShadowSocksConfig *)config;
 
