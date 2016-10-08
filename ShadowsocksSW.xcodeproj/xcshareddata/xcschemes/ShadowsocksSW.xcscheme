@@ -56,20 +56,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "03D16B321D8851C100383D73"
-               BuildableName = "PacketTunnelProvider.appex"
-               BlueprintName = "PacketTunnelProvider"
-               ReferencedContainer = "container:ShadowsocksSW.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "030410AD1D48F01C0097C5FC"
                BuildableName = "ShadowsocksSW.app"
                BlueprintName = "ShadowsocksSW"
