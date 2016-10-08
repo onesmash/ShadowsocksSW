@@ -14,6 +14,62 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FEB05E6868F8767589989249194F7843"
+               BuildableName = "libPods-SW-PacketTunnelProvider.a"
+               BlueprintName = "Pods-SW-PacketTunnelProvider"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0D45C853DEED7B40D7226E2949E81071"
+               BuildableName = "libPods-SW-ShadowsocksSW.a"
+               BlueprintName = "Pods-SW-ShadowsocksSW"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "031CF8A01D2D4ABC0020ABBE"
+               BuildableName = "libWukongBase.a"
+               BlueprintName = "WukongBase"
+               ReferencedContainer = "container:third_party/wukong_base/Xcode-iOS/WukongBase.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "03D16B321D8851C100383D73"
+               BuildableName = "PacketTunnelProvider.appex"
+               BlueprintName = "PacketTunnelProvider"
+               ReferencedContainer = "container:ShadowsocksSW.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "030410AD1D48F01C0097C5FC"
                BuildableName = "ShadowsocksSW.app"
                BlueprintName = "ShadowsocksSW"
