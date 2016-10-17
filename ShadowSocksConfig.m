@@ -13,12 +13,22 @@
 #define kShadowSocksConfigPasswordKey       @"kShadowSocksConfigPasswordKey"
 #define kShadowSocksConfigEncryptionMethodKey  @"kShadowSocksConfigEncryptionMethodKey"
 #define kShadowSocksConfigConfigNameKey  @"kShadowSocksConfigConfigNameKey"
+#define kShadowSocksConfigIsFreeKey  @"kShadowSocksConfigIsFreeKey"
 
-@interface ShadowSocksConfig () <NSCoding>
+@interface ShadowSocksConfig ()
 
 @end
 
 @implementation ShadowSocksConfig
+
+- (instancetype)init
+{
+    self = [super init];
+    if(self) {
+        _isFree = NO;
+    }
+    return self;
+}
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
@@ -29,6 +39,7 @@
         self.password = [aDecoder decodeObjectForKey:kShadowSocksConfigPasswordKey];
         self.encryptionMethod = [aDecoder decodeObjectForKey:kShadowSocksConfigEncryptionMethodKey];
         self.configName = [aDecoder decodeObjectForKey:kShadowSocksConfigConfigNameKey];
+        self.isFree = [aDecoder decodeBoolForKey:kShadowSocksConfigIsFreeKey];
     }
     return self;
 }
@@ -40,6 +51,7 @@
     [aCoder encodeObject:self.password forKey:kShadowSocksConfigPasswordKey];
     [aCoder encodeObject:self.encryptionMethod forKey:kShadowSocksConfigEncryptionMethodKey];
     [aCoder encodeObject:self.configName forKey:kShadowSocksConfigConfigNameKey];
+    [aCoder encodeBool:self.isFree forKey:kShadowSocksConfigIsFreeKey];
 }
 
 @end

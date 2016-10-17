@@ -36,18 +36,22 @@ Socks2SS::Socks2SS(WukongBase::Base::MessageLoop* messageLoop, uint16_t port)
     });
 }
 
+Socks2SS::~Socks2SS()
+{
+}
+
 void Socks2SS::start(const WukongBase::Net::IPAddress& ssRemote, const std::string& encryptionMethod, const std::string& password)
 {
     ssClient_ = std::shared_ptr<SSClient>(new SSClient(ssRemote, Crypto::getCipherTypeByName(encryptionMethod), password));
     setupSSClient(ssClient_);
-    socksServer_.start();
+    if(!socksServer_.isStarted()) socksServer_.start();
 }
 
 void Socks2SS::start(const std::string& ssRemoteHost, uint16_t port, const std::string& encryptionMethod, const std::string& password)
 {
     ssClient_ = std::shared_ptr<SSClient>(new SSClient(ssRemoteHost, port, Crypto::getCipherTypeByName(encryptionMethod), password));
     setupSSClient(ssClient_);
-    socksServer_.start();
+    if(!socksServer_.isStarted()) socksServer_.start();
 }
 
 void Socks2SS::setupSSClient(const std::shared_ptr<SSClient>& client)
@@ -165,7 +169,7 @@ void Socks2SS::setupSocksSession(const std::shared_ptr<Socks5Session>& socksSess
 
 void Socks2SS::stop()
 {
-    messageLoop_->quite();
+    socksServer_.stop();
 }
 
 Socks5MethodSelectionResponse Socks2SS::genMethodSelectionResponse(const Socks5MethodSelectionMessage& message)

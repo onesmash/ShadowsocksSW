@@ -52,6 +52,7 @@ class Socks2SS {
 public:
     Socks2SS() = delete;
     Socks2SS(WukongBase::Base::MessageLoop* messageLoop, uint16_t port);
+    ~Socks2SS();
     void start(const WukongBase::Net::IPAddress& ssRemote, const std::string& encryptionMethod, const std::string& password);
     void start(const std::string& ssRemoteHost, uint16_t port, const std::string& encryptionMethod, const std::string& password);
     void stop();

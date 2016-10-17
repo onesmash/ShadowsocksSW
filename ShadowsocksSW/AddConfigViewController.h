@@ -10,11 +10,17 @@
 
 @protocol AddConfigViewControllerDelegate <NSObject>
 
-- (void)addConfigCancelled;
+@optional
+- (void)editConfigCancelled;
 - (void)addConfigSuccess;
+- (void)editConfigSuccess:(NSInteger)index;
 
 @end
 
 @interface AddConfigViewController : UIViewController
+
+@property (nonatomic, weak) id<AddConfigViewControllerDelegate> delegate;
+@property (nonatomic, assign) BOOL isEditting;
+@property (nonatomic, assign) NSInteger index;
 
 @end

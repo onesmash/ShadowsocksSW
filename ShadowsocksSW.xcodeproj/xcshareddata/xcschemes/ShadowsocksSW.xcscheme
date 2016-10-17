@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FEB05E6868F8767589989249194F7843"
+               BlueprintIdentifier = "A071DD6C2342DD96A7A1D975D14891CA"
                BuildableName = "libPods-SW-PacketTunnelProvider.a"
                BlueprintName = "Pods-SW-PacketTunnelProvider"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0D45C853DEED7B40D7226E2949E81071"
+               BlueprintIdentifier = "50D5E55B242714CED149F776F7A7D4D2"
                BuildableName = "libPods-SW-ShadowsocksSW.a"
                BlueprintName = "Pods-SW-ShadowsocksSW"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -103,6 +103,13 @@
             ReferencedContainer = "container:ShadowsocksSW.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "OS_ACTIVITY_MODE"
+            value = "disable"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

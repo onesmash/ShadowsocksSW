@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ShadowSocksConfig : NSObject
+@interface ShadowSocksConfig : NSObject <NSCoding>
 
 @property (nonatomic, copy) NSString *ssServerAddress;
 @property (nonatomic, copy) NSString *ssServerPort;
 @property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *encryptionMethod;
 @property (nonatomic, copy) NSString *configName;
+@property (nonatomic, assign) BOOL isFree;
 
 @end

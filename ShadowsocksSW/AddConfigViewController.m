@@ -100,7 +100,9 @@ typedef enum {
 - (void)onCloseBtnClicked:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:^() {
-        
+        if([_delegate respondsToSelector:@selector(editConfigCancelled)]) {
+            [_delegate editConfigCancelled];
+        }
     }];
 }
 
@@ -122,7 +124,22 @@ typedef enum {
     config.password = password;
     config.encryptionMethod = encryptionMethod;
     config.configName = configName;
-    [[ConfigManager sharedManager] addConfig:config];
+    if(_isEditting) {
+        [[ConfigManager sharedManager] replaceConfig:_index withConfig:config];
+    } else {
+        [[ConfigManager sharedManager] addConfig:config];
+    }
+    [self dismissViewControllerAnimated:YES completion:^() {
+        if(_isEditting) {
+            if([_delegate respondsToSelector:@selector(editConfigSuccess:)]) {
+                [_delegate editConfigSuccess:_index];
+            }
+        } else {
+            if([_delegate respondsToSelector:@selector(addConfigSuccess)]) {
+                [_delegate addConfigSuccess];
+            }
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -173,28 +190,53 @@ typedef enum {
             ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfigCell"];
             cell.keyLabel.text = @"服务器";
             cell.valueTextField.placeholder = @"必填";
+            if(_isEditting) {
+                ShadowSocksConfig *config = [ConfigManager sharedManager].shadowSocksConfigs[_index];
+                cell.valueTextField.text = config.ssServerAddress;
+            }
             return cell;
         } break;
         case kConfigItemTypeServerPort: {
             ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfigCell"];
             cell.keyLabel.text = @"端口";
             cell.valueTextField.placeholder = @"必填，1-65535";
+            if(_isEditting) {
+                ShadowSocksConfig *config = [ConfigManager sharedManager].shadowSocksConfigs[_index];
+                cell.valueTextField.text = config.ssServerPort;
+            }
             return cell;
         } break;
         case kConfigItemTypePassword: {
             ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfigCell"];
             cell.keyLabel.text = @"密码";
             cell.valueTextField.placeholder = @"必填";
+            if(_isEditting) {
+                ShadowSocksConfig *config = [ConfigManager sharedManager].shadowSocksConfigs[_index];
+                cell.valueTextField.text = config.password;
+            }
             return cell;
         } break;
         case kConfigItemTypeEncryptionMethod: {
             ConfigEncryptionMethodSelectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfigEncryptionMethodSelectCell"];
+            if(_isEditting) {
+                ShadowSocksConfig *config = [ConfigManager sharedManager].shadowSocksConfigs[_index];
+                [_encryptionMethods enumerateObjectsUsingBlock:^(NSString *method, NSUInteger index, BOOL *stop) {
+                    if([config.encryptionMethod isEqualToString:method]) {
+                        _selectedEncryptionMethodIndex = _index;
+                        *stop = YES;
+                    }
+                }];
+            }
             return cell;
         } break;
         case kConfigItemTypeConfigName: {
             ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfigCell"];
             cell.keyLabel.text = @"备注名";
             cell.valueTextField.placeholder = @"可选";
+            if(_isEditting) {
+                ShadowSocksConfig *config = [ConfigManager sharedManager].shadowSocksConfigs[_index];
+                cell.valueTextField.text = config.configName;
+            }
             return cell;
         } break;
         default:

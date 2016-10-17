@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HeaderView : UIView
+@protocol HeaderViewDelegate <NSObject>
 
-@property (nonatomic, strong) UIButton *triggerBtn;
+- (void)triggerStateChanged:(BOOL)triggered;
+
+@end
+
+@interface HeaderView : UIView
+@property (nonatomic, assign) BOOL triggered;
+@property (nonatomic, weak) id<HeaderViewDelegate> delegate;
 
 + (CGFloat)viewHeight;
 

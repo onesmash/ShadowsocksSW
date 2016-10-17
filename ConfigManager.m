@@ -7,25 +7,103 @@
 //
 
 #import "ConfigManager.h"
-#import <LevelDB.h>
-
-static NSString *const sharedGroupIdentifier = @"group.io.github.shadowsocksSW";
+#import <AFNetworking.h>
+#import <MMWormhole.h>
 
 #define kConfigKey @"kConfigKey"
 #define kSelectedConfigIndexKey @"kSelectedConfigIndexKey"
+#define kFreeShadowsocksConifgEtagKey @"kFreeShadowsocksConifgEtagKey"
+#define kFreeShadowsocksConifgKey @"kFreeShadowsocksConifgKey"
+#define kUsefreeShadowSocksKey @"kUsefreeShadowSocksKey"
+#define kFreeShadowsocksConifgURL @"https://raw.githubusercontent.com/onesmash/fss/master/fss.txt"
+
+@interface ShadowSocksConfigSerializer : AFHTTPResponseSerializer
+
++ (instancetype)serializer;
+
+@end
+
+@implementation ShadowSocksConfigSerializer
+
++ (instancetype)serializer
+{
+    static ShadowSocksConfigSerializer *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[ShadowSocksConfigSerializer alloc] init];
+    });
+    return instance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if(self) {
+        self.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", nil];
+    }
+    return self;
+}
+
+#pragma mark - AFURLResponseSerialization
+
+static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger code, NSString *domain) {
+    if ([error.domain isEqualToString:domain] && error.code == code) {
+        return YES;
+    } else if (error.userInfo[NSUnderlyingErrorKey]) {
+        return AFErrorOrUnderlyingErrorHasCodeInDomain(error.userInfo[NSUnderlyingErrorKey], code, domain);
+    }
+    
+    return NO;
+}
+
+- (id)responseObjectForResponse:(NSURLResponse *)response
+                           data:(NSData *)data
+                          error:(NSError *__autoreleasing *)error
+{
+    if (![self validateResponse:(NSHTTPURLResponse *)response data:data error:error]) {
+        if (!error || AFErrorOrUnderlyingErrorHasCodeInDomain(*error, NSURLErrorCannotDecodeContentData, AFURLResponseSerializationErrorDomain)) {
+            return nil;
+        }
+    }
+    
+    NSMutableArray<ShadowSocksConfig *> *configs = [NSMutableArray array];
+    NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSArray *components = [text componentsSeparatedByString:@"\n"];
+    [components enumerateObjectsUsingBlock:^(NSString *text, NSUInteger index, BOOL *stop) {
+        NSArray *components = [text componentsSeparatedByString:@" "];
+        if(components.count == 4) {
+            ShadowSocksConfig *config = [[ShadowSocksConfig alloc] init];
+            config.isFree = YES;
+            config.ssServerAddress = components[0];
+            config.ssServerPort = components[1];
+            config.password = components[2];
+            config.encryptionMethod = components[3];
+            [configs addObject:config];
+        }
+    }];
+    return configs;
+    
+}
+
+@end
 
 @interface ConfigManager () {
     NSMutableArray<ShadowSocksConfig *> *_shadowSocksConfigs;
+    NSArray<ShadowSocksConfig *> *_freeShadowSocksConfigs;
 }
 
 @property (nonatomic, strong) NSURL *appGroupContainer;
-@property (nonatomic, strong) LevelDB *ldb;
+@property (nonatomic, strong) NSUserDefaults *sharedDefaults;
+@property (nonatomic, copy) NSString *fssEtag;
+@property (nonatomic, strong) AFHTTPSessionManager *httpSessionManager;
+@property (nonatomic, strong) MMWormhole *wormhole;
 
 @end
 
 @implementation ConfigManager
 
 @synthesize shadowSocksConfigs = _shadowSocksConfigs;
+@synthesize freeShadowSocksConfigs = _freeShadowSocksConfigs;
 
 + (instancetype)sharedManager
 {
@@ -41,66 +119,170 @@ static NSString *const sharedGroupIdentifier = @"group.io.github.shadowsocksSW";
 {
     self = [super init];
     if(self) {
-        self.appGroupContainer = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:sharedGroupIdentifier].filePathURL;
+        self.appGroupContainer = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:kSharedGroupIdentifier].filePathURL;
         self.mainAppLogFile = [NSString stringWithUTF8String:[self.appGroupContainer URLByAppendingPathComponent:@"mainAppLog"].fileSystemRepresentation];
         self.tunnelProviderLogFile = [NSString stringWithUTF8String:[self.appGroupContainer URLByAppendingPathComponent:@"tunnelProviderLog"].fileSystemRepresentation];
-        LevelDBOptions options = [LevelDB makeOptions];
-        options.createIfMissing = true;
-        options.errorIfExists   = false;
-        options.paranoidCheck   = false;
-        options.compression     = false;
-        options.filterPolicy    = 0;
-        options.cacheSize       = 0;
-        _ldb = [[LevelDB alloc] initWithPath:[NSString stringWithUTF8String:self.appGroupContainer.fileSystemRepresentation] name:@"config.ldb" andOptions:options];
-        _shadowSocksConfigs = [_ldb objectForKey:kConfigKey] ? : [NSMutableArray array];
-        _selectedShadowSocksIndex = [(NSNumber *)[_ldb objectForKey:kSelectedConfigIndexKey] integerValue];
+        _sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:kSharedGroupIdentifier];
+        _httpSessionManager = [AFHTTPSessionManager manager];
+        _httpSessionManager.responseSerializer = [ShadowSocksConfigSerializer serializer];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUIApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     }
     return self;
 }
 
-- (NSString *)appGroupIdentifier
+- (void)dealloc
 {
-    return sharedGroupIdentifier;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_sharedDefaults synchronize];
+}
+
+- (MMWormhole *)wormhole
+{
+    if(!_wormhole) {
+        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:kSharedGroupIdentifier
+                                                         optionalDirectory:@"wormhole"];
+    }
+    return _wormhole;
+}
+
+- (NSArray<ShadowSocksConfig *> *)shadowSocksConfigs
+{
+    if(!_shadowSocksConfigs) {
+        NSData *data = [_sharedDefaults objectForKey:kConfigKey];
+        _shadowSocksConfigs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if(!_shadowSocksConfigs) {
+            _shadowSocksConfigs = [NSMutableArray array];
+        }
+    }
+    return _shadowSocksConfigs;
+}
+
+- (void)setShadowSocksConfigs:(NSArray<ShadowSocksConfig *> *)shadowSocksConfigs
+{
+    _shadowSocksConfigs = [NSMutableArray arrayWithArray:shadowSocksConfigs];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_shadowSocksConfigs];
+    [_sharedDefaults setObject:data forKey:kConfigKey];
+    [_sharedDefaults synchronize];
 }
 
 - (BOOL)addConfig:(ShadowSocksConfig *)config
 {
-    [_shadowSocksConfigs addObject:config];
-    _ldb.safe = YES;
-    [_ldb setObject:_shadowSocksConfigs forKey:kConfigKey];
-    _ldb.safe = NO;
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.shadowSocksConfigs];
+    [array addObject:config];
+    self.shadowSocksConfigs = array;
     return YES;
 }
 
 - (BOOL)deleteConfig:(NSInteger)index
 {
-    if(index == _selectedShadowSocksIndex) return NO;
-    _ldb.safe = YES;
     [_shadowSocksConfigs removeObjectAtIndex:index];
-    [_ldb setObject:_shadowSocksConfigs forKey:kConfigKey];
-    if(index < _selectedShadowSocksIndex) {
-        _selectedShadowSocksIndex--;
-        [_ldb setObject:@(_selectedShadowSocksIndex) forKey:kSelectedConfigIndexKey];
+    self.shadowSocksConfigs = _shadowSocksConfigs;
+    if(index < self.selectedShadowSocksIndex) {
+        self.selectedShadowSocksIndex--;
+    } else if(index == self.selectedShadowSocksIndex) {
+        self.usefreeShadowSocks = YES;
+        [self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
     }
-    _ldb.safe = NO;
     return YES;
 }
 
 - (BOOL)replaceConfig:(NSInteger)index withConfig:(ShadowSocksConfig *)config
 {
     [_shadowSocksConfigs setObject:config atIndexedSubscript:index];
-    _ldb.safe = YES;
-    [_ldb setObject:_shadowSocksConfigs forKey:kConfigKey];
-    _ldb.safe = NO;
+    self.shadowSocksConfigs = _shadowSocksConfigs;
     return YES;
+}
+
+- (NSInteger)selectedShadowSocksIndex
+{
+    return [(NSNumber *)[_sharedDefaults objectForKey:kSelectedConfigIndexKey] integerValue];
 }
 
 - (void)setSelectedShadowSocksIndex:(NSInteger)selectedShadowSocksIndex
 {
-    _selectedShadowSocksIndex = selectedShadowSocksIndex;
-    _ldb.safe = YES;
-    [_ldb setObject:@(_selectedShadowSocksIndex) forKey:kSelectedConfigIndexKey];
-    _ldb.safe = NO;
+    if(self.selectedShadowSocksIndex != selectedShadowSocksIndex) {
+        [_sharedDefaults setObject:@(selectedShadowSocksIndex) forKey:kSelectedConfigIndexKey];
+        [_sharedDefaults synchronize];
+        [self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
+    }
 }
 
+- (NSArray<ShadowSocksConfig *> *)freeShadowSocksConfigs
+{
+    if(!_freeShadowSocksConfigs) {
+        NSData *data = [_sharedDefaults objectForKey:kFreeShadowsocksConifgKey];
+        _freeShadowSocksConfigs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if(!_freeShadowSocksConfigs) {
+            _freeShadowSocksConfigs = [NSMutableArray array];
+        }
+    }
+    return _freeShadowSocksConfigs;
+}
+
+- (void)setFreeShadowSocksConfigs:(NSArray<ShadowSocksConfig *> *)freeShadowSocksConfigs
+{
+    _freeShadowSocksConfigs = freeShadowSocksConfigs;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_freeShadowSocksConfigs];
+    [_sharedDefaults setObject:data forKey:kFreeShadowsocksConifgKey];
+    [_sharedDefaults synchronize];
+    if(self.usefreeShadowSocks) {
+        [self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
+    }
+}
+
+- (NSString *)fssEtag
+{
+    return [_sharedDefaults objectForKey:kFreeShadowsocksConifgEtagKey] ? : @"";
+}
+
+- (void)setFssEtag:(NSString *)fssEtag
+{
+    [_sharedDefaults setObject:fssEtag forKey:kFreeShadowsocksConifgEtagKey];
+    [_sharedDefaults synchronize];
+}
+
+- (BOOL)usefreeShadowSocks
+{
+    return [[_sharedDefaults objectForKey:kUsefreeShadowSocksKey] boolValue];
+}
+
+- (void)setUsefreeShadowSocks:(BOOL)usefreeShadowSocks
+{
+    if(self.usefreeShadowSocks != usefreeShadowSocks) {
+        [_sharedDefaults setObject:@(usefreeShadowSocks) forKey:kUsefreeShadowSocksKey];
+        [_sharedDefaults synchronize];
+        [self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
+    }
+}
+
+- (void)asyncFetchFreeConfig:(void(^)(NSError *error))complition;
+{
+    [_httpSessionManager HEAD:kFreeShadowsocksConifgURL parameters:nil success:^(NSURLSessionDataTask *task) {
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        if(response.statusCode == 200) {
+            NSString *etag = [response.allHeaderFields objectForKey:@"Etag"] ? : @"";
+            if([etag isEqualToString:self.fssEtag]) {
+                if(complition) complition(nil);
+            } else {
+                [_httpSessionManager GET:kFreeShadowsocksConifgURL parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSArray<ShadowSocksConfig *> *configs) {
+                    self.fssEtag = etag;
+                    self.freeShadowSocksConfigs = configs;
+                    if(complition) complition(nil);
+                } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                    if(complition) complition(error);
+                }];
+            }
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if(complition) complition(error);
+    }];
+}
+
+#pragma mark - Notification
+
+ - (void)onUIApplicationWillResignActiveNotification:(NSNotification *)note
+ {
+     [_sharedDefaults synchronize];
+ }
 @end

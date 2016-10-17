@@ -26,7 +26,7 @@ SSTCPRelaySession::SSTCPRelaySession(const std::shared_ptr<WukongBase::Net::TCPC
 
 SSTCPRelaySession::~SSTCPRelaySession()
 {
-    assert(tcpSession_->isClosed());
+    //assert(tcpSession_->isClosed());
     tcpClient_ = nullptr;
     tcpSession_ = nullptr;
 }

@@ -8,13 +8,12 @@ abstract_target 'SW' do
 	pod 'Fabric', '~> 1.6'
 	pod 'Crashlytics', '~> 3.8'
 	pod 'MMWormhole', '~> 2.0'
-	pod 'leveldb', '~> 1.18'
 	pod 'Objective-LevelDB', '~> 2.1'
+	pod 'AFNetworking', '~> 3.1'
 
 	target 'ShadowsocksSW' do
 		pod 'ionicons', '~> 2.0'
 		pod 'VTAcknowledgementsViewController', '~> 1.1'
-		pod 'AFNetworking', '~> 3.1'
 		pod 'TPKeyboardAvoiding', '~> 1.3'
 	end
 
