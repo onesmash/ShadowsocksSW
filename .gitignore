@@ -4,3 +4,4 @@ bin/**
 Breakpoints_v2.xcbkptlist
 .browse.VC.db
 third_party/cryptopp
+Podfile.lock
