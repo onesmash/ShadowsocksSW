@@ -28,7 +28,7 @@
         _triggerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_triggerBtn addTarget:self action:@selector(onTriggerBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         _triggerBtn.bounds = CGRectMake(0, 0, 50, 50);
-        [_triggerBtn setImage:[IonIcons imageWithIcon:ion_paper_airplane size:50 color:[UIColor redColor]] forState:UIControlStateNormal];
+        [_triggerBtn setImage:[IonIcons imageWithIcon:ion_paper_airplane size:50 color:[UIColor grayColor]] forState:UIControlStateNormal];
         [self addSubview:_triggerBtn];
         _triggered = NO;
     }
@@ -41,7 +41,7 @@
     if(_triggered) {
         [_triggerBtn setImage:[IonIcons imageWithIcon:ion_paper_airplane size:50 color:[UIColor greenColor]] forState:UIControlStateNormal];
     } else {
-        [_triggerBtn setImage:[IonIcons imageWithIcon:ion_paper_airplane size:50 color:[UIColor redColor]] forState:UIControlStateNormal];
+        [_triggerBtn setImage:[IonIcons imageWithIcon:ion_paper_airplane size:50 color:[UIColor grayColor]] forState:UIControlStateNormal];
     }
 }
 
