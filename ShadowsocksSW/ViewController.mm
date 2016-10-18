@@ -14,7 +14,12 @@
 #import "TransparentNavigationBar.h"
 #import "AddConfigViewController.h"
 #import "SWUITextView.h"
+#import "CommonTableViewCell.h"
+#import "TransparentNavigationBar.h"
+#import "ConfigCell.h"
 #import <IonIcons.h>
+#import <VTAcknowledgementViewController.h>
+#import <VTAcknowledgementsViewController.h>
 #import <NetworkExtension/NetworkExtension.h>
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, AddConfigViewControllerDelegate, HeaderViewDelegate> {
@@ -55,11 +60,16 @@
     self.view.backgroundColor = [UIColor blackColor];
     _headerView = [[HeaderView alloc] init];
     _headerView.delegate = self;
+    self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.tableHeaderView = _headerView;
+    self.tableView.sectionHeaderHeight = 0;
+    self.tableView.sectionFooterHeight = 0;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[SectionHeaderView class] forHeaderFooterViewReuseIdentifier:[SectionHeaderView reuseIdentifier]];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"ShadowSocksConfigCell"];
+    [self.tableView registerClass:[CommonTableViewCell class] forCellReuseIdentifier:@"ShadowSocksConfigCell"];
+    [self.tableView registerClass:[CommonTableViewCell class] forCellReuseIdentifier:@"Acknowlagement"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ConfigCell" bundle:nil] forCellReuseIdentifier:@"Version"];
     CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLink:)];
     [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 }
@@ -86,14 +96,29 @@
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 55;
+    if(section == 2) {
+        return 20;
+    } else {
+        return 55;
+    }
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     SectionHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[SectionHeaderView reuseIdentifier]];
-    headerView.text = @"选择配置";
+    if(section == 0) {
+        headerView.text = @"选择配置";
+    } else if(section == 1) {
+        headerView.text = @"致谢";
+    } else {
+        return nil;
+    }
     return headerView;
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [UIView new];
 }
 
 - (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -118,37 +143,63 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
-    if(row == 0) {
-        [ConfigManager sharedManager].usefreeShadowSocks = YES;
-    } else {
-        [ConfigManager sharedManager].usefreeShadowSocks = NO;
-        [ConfigManager sharedManager].selectedShadowSocksIndex = row - 1;
+    if(section == 0) {
+        if(row == 0) {
+            [ConfigManager sharedManager].usefreeShadowSocks = YES;
+        } else {
+            [ConfigManager sharedManager].usefreeShadowSocks = NO;
+            [ConfigManager sharedManager].selectedShadowSocksIndex = row - 1;
+        }
+        [self.tableView reloadData];
+    } else if(section == 1) {
+        NSString *fileName;
+        if(row == 0) {
+            fileName = @"Pods-SW-ShadowsocksSW-acknowledgements";
+        } else if(row == 1) {
+            fileName = @"Pods-SW-PacketTunnelProvider-acknowledgements";
+        }
+        VTAcknowledgementsViewController *viewController = [[VTAcknowledgementsViewController alloc] initWithFileNamed:fileName];
+        viewController.headerText = @"code for fun";
+        viewController.navigationItem.title = @"致谢";
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[IonIcons imageWithIcon:ion_close_round size:20 color:[UIColor greenColor]] style:UIBarButtonItemStylePlain target:viewController action:@selector(dismissViewController:)];
+        viewController.tableView.backgroundColor = [UIColor blackColor];
+        viewController.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [viewController.tableView registerClass:[CommonTableViewCell class] forCellReuseIdentifier:@"Cell"];
+        UINavigationController *navi = [[UINavigationController alloc] initWithNavigationBarClass:[TransparentNavigationBar class] toolbarClass:nil];
+        [navi pushViewController:viewController animated:NO];
+        [self presentViewController:navi animated:YES completion:nil];
     }
-    [self.tableView reloadData];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
     if(section == 0) {
         return [ConfigManager sharedManager].shadowSocksConfigs.count + 1;
-    } else {
-        return 0;
+    } else if(section == 1) {
+        return 2;
+    } else if (section == 2) {
+        return 1;
     }
+    return 0;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row == 0) {
-        return NO;
-    } else {
-        return YES;
+    if(indexPath.section == 0) {
+        if(indexPath.row == 0) {
+            return NO;
+        } else {
+            return YES;
+        }
     }
+    return NO;
     
 }
 
@@ -156,6 +207,10 @@
 {
     if(indexPath.section == 0) {
         return [self cellForShadwoSocksConfigAtIndex:indexPath.row];
+    } else if(indexPath.section == 1) {
+        return [self cellForAcknowlagementAtIndex:indexPath.row];
+    } else if(indexPath.section == 2) {
+        return [self cellForVersion];
     }
     return nil;
 }
@@ -173,7 +228,6 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShadowSocksConfigCell"];
     cell.imageView.image = [IonIcons imageWithIcon:ion_earth size:16 color:[UIColor greenColor]];
     cell.textLabel.text = config.configName.length ? config.configName : config.ssServerAddress;
-    cell.textLabel.textColor = [UIColor greenColor];
     BOOL isSelected = NO;
     if([ConfigManager sharedManager].usefreeShadowSocks) {
         if(index == 0) isSelected = YES;
@@ -185,8 +239,30 @@
     } else {
         cell.accessoryView = nil;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor clearColor];
+    cell.userInteractionEnabled = YES;
+    return cell;
+}
+
+- (UITableViewCell *)cellForAcknowlagementAtIndex:(NSInteger)index
+{
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Acknowlagement"];
+    cell.accessoryView = [[UIImageView alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_arrow_right size:18 color:[UIColor greenColor]]];
+    NSString *title;
+    if(index == 0) {
+        title = @"ShadowsocksSW";
+    } else {
+        title = @"PacketTunnel";
+    }
+    cell.textLabel.text = title;
+    cell.userInteractionEnabled = YES;
+    return cell;
+}
+
+- (UITableViewCell *)cellForVersion
+{
+    ConfigCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Version"];
+    cell.keyLabel.text = @"版本";
+    cell.valueTextField.text = @"0.1.0";
     return cell;
 }
 
@@ -202,35 +278,43 @@
 }
 
 #pragma mark - HeaderViewDelegate
-- (void)triggerStateChanged:(BOOL)triggered
+- (void)triggerStateChanged
 {
+    BOOL triggered = !_headerView.triggered;
     if(triggered) {
         [[ConfigManager sharedManager] asyncFetchFreeConfig:nil];
-        [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
-            if(managers.count > 0) {
-                _tunelProviderManager = managers.firstObject;
-            } else {
-                _tunelProviderManager = [[NETunnelProviderManager alloc] init];
-                _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
-                _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
-            }
-            _tunelProviderManager.onDemandEnabled = NO;
-            _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
-            _tunelProviderManager.enabled = YES;
-            [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
-                if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
-                    NSError *error;
-                    if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
-                        SWLOG_DEBUG("tunnel provider start success");
-                    } else {
-                        _headerView.triggered = NO;
-                    }
+        [self doStartAnimation:^() {
+            _headerView.triggered = triggered;
+            [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
+                if(managers.count > 0) {
+                    _tunelProviderManager = managers.firstObject;
+                } else {
+                    _tunelProviderManager = [[NETunnelProviderManager alloc] init];
+                    _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
+                    _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
                 }
+                _tunelProviderManager.onDemandEnabled = NO;
+                _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
+                _tunelProviderManager.enabled = YES;
+                [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
+                    if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
+                        NSError *error;
+                        if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
+                            SWLOG_DEBUG("tunnel provider start success");
+                        } else {
+                            _headerView.triggered = NO;
+                        }
+                    }
+                }];
+                
             }];
-            
         }];
+        
     } else {
-        [_tunelProviderManager.connection stopVPNTunnel];
+        _headerView.triggered = triggered;
+        [self doStopAnimation:^() {
+            [_tunelProviderManager.connection stopVPNTunnel];
+        }];
     }
 }
 
@@ -244,6 +328,46 @@
     }
         
     
+}
+
+- (void)doStartAnimation:(void(^)())completion
+{
+    NSInteger index = 0;
+    if(![ConfigManager sharedManager].usefreeShadowSocks) {
+        index = [ConfigManager sharedManager].selectedShadowSocksIndex + 1;
+    }
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    CGRect startFrame = [cell convertRect:cell.accessoryView.frame toView:self.tableView];
+    CGRect endFrame = [_headerView convertRect:_headerView.triggerBtn.frame toView:self.tableView];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[IonIcons imageWithIcon:ion_paper_airplane size:50 color:[UIColor greenColor]]];
+    imageView.frame = startFrame;
+    [self.tableView addSubview:imageView];
+    [UIView animateWithDuration:0.8f animations:^() {
+        imageView.frame = endFrame;
+    }completion:^(BOOL finished) {
+        [imageView removeFromSuperview];
+        if(completion) completion();
+    }];
+}
+
+- (void)doStopAnimation:(void(^)())completion
+{
+    NSInteger index = 0;
+    if(![ConfigManager sharedManager].usefreeShadowSocks) {
+        index = [ConfigManager sharedManager].selectedShadowSocksIndex + 1;
+    }
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    CGRect startFrame = [_headerView convertRect:_headerView.triggerBtn.frame toView:self.tableView];
+    CGRect endFrame = [cell convertRect:cell.accessoryView.frame toView:self.tableView];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[IonIcons imageWithIcon:ion_paper_airplane size:50 color:[UIColor greenColor]]];
+    imageView.frame = startFrame;
+    [self.tableView addSubview:imageView];
+    [UIView animateWithDuration:0.8f animations:^() {
+        imageView.frame = endFrame;
+    }completion:^(BOOL finished) {
+        [imageView removeFromSuperview];
+        if(completion) completion();
+    }];
 }
 
 @end

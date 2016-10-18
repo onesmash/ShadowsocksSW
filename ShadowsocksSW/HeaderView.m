@@ -11,8 +11,6 @@
 
 @interface HeaderView ()
 
-@property (nonatomic, strong) UIButton *triggerBtn;
-
 @end
 
 @implementation HeaderView
@@ -55,8 +53,7 @@
 
 - (void)onTriggerBtnClicked:(id)sender
 {
-    self.triggered = !self.triggered;
-    [_delegate triggerStateChanged:self.triggered];
+    [_delegate triggerStateChanged];
 }
 
 @end

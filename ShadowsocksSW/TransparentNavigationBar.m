@@ -7,6 +7,7 @@
 //
 
 #import "TransparentNavigationBar.h"
+#import <IonIcons.h>
 
 @implementation TransparentNavigationBar
 
@@ -18,6 +19,7 @@
         self.tintColor = [UIColor clearColor];
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         [self setShadowImage:[UIImage new]];
+        self.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor greenColor]};
     }
     return self;
 }

@@ -23,6 +23,7 @@
 		032D13481D9032D400919562 /* SSClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133B1D9032D400919562 /* SSClient.cpp */; };
 		032D13491D9032D400919562 /* SSTCPRelayRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133D1D9032D400919562 /* SSTCPRelayRequest.cpp */; };
 		032D134A1D9032D400919562 /* SSTCPRelaySession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133F1D9032D400919562 /* SSTCPRelaySession.cpp */; };
+		033A34811DB50D1A005B6EEB /* CommonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 033A34801DB50D1A005B6EEB /* CommonTableViewCell.m */; };
 		0355B6D11D9CE22B009E9888 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0355B6CF1D9CE22B009E9888 /* ViewController.xib */; };
 		0357B44C1D9D62E70016AC2E /* TransparentNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */; };
 		036183EA1D8C3A0700604F9A /* libWukongBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03077C071D88594D00EEE7F5 /* libWukongBase.a */; };
@@ -183,6 +184,8 @@
 		032D133F1D9032D400919562 /* SSTCPRelaySession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSTCPRelaySession.cpp; sourceTree = "<group>"; };
 		032D13401D9032D400919562 /* SSTCPRelaySession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelaySession.h; sourceTree = "<group>"; };
 		03376E921DAD387F00BE52BC /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		033A347F1DB50D1A005B6EEB /* CommonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTableViewCell.h; sourceTree = "<group>"; };
+		033A34801DB50D1A005B6EEB /* CommonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTableViewCell.m; sourceTree = "<group>"; };
 		0355B6CF1D9CE22B009E9888 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		0357B44A1D9D62E70016AC2E /* TransparentNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentNavigationBar.h; sourceTree = "<group>"; };
 		0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentNavigationBar.m; sourceTree = "<group>"; };
@@ -737,6 +740,8 @@
 				03E4C7C31DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.h */,
 				03E4C7C41DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m */,
 				03E4C7C51DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib */,
+				033A347F1DB50D1A005B6EEB /* CommonTableViewCell.h */,
+				033A34801DB50D1A005B6EEB /* CommonTableViewCell.m */,
 			);
 			name = CustomUI;
 			sourceTree = "<group>";
@@ -1529,6 +1534,8 @@
 				0308DCE91D996050005E9039 /* ShellScript */,
 				9AB378EC7211CDCAA49AAFB2 /* [CP] Embed Pods Frameworks */,
 				42B405A0525EC80DDCB16C1E /* [CP] Copy Pods Resources */,
+				033A34831DB50FD5005B6EEB /* ShellScript */,
+				033A34851DB51232005B6EEB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1672,6 +1679,32 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" b01f19a86cd4fcc1b51201e2960f752289a5ad5f 535790e23cd93bb850fd7fc6a79c7f85e09d90e2460dd9df5f458727b4cf5331";
 		};
+		033A34831DB50FD5005B6EEB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"${SRCROOT}/Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW-acknowledgements.plist\" \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Pods-SW-ShadowsocksSW-acknowledgements.plist\"";
+		};
+		033A34851DB51232005B6EEB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"${SRCROOT}/Pods/Target Support Files/Pods-SW-PacketTunnelProvider/Pods-SW-PacketTunnelProvider-acknowledgements.plist\" \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Pods-SW-PacketTunnelProvider-acknowledgements.plist\"";
+		};
 		061772BF1498A651767B03F7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1766,6 +1799,7 @@
 				03E4C7AA1DA60BB10077AA73 /* AddConfigViewController.m in Sources */,
 				030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */,
 				030410B31D48F01C0097C5FC /* main.m in Sources */,
+				033A34811DB50D1A005B6EEB /* CommonTableViewCell.m in Sources */,
 				03E4C7C61DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m in Sources */,
 				03E4C7B61DA61EC60077AA73 /* SWAttributedLabel.m in Sources */,
 				0357B44C1D9D62E70016AC2E /* TransparentNavigationBar.m in Sources */,

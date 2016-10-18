@@ -21,6 +21,8 @@
 {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if(self) {
+        self.backgroundView = nil;
+        self.contentView.backgroundColor = [UIColor clearColor];
         _label = [[UILabel alloc] initWithFrame:CGRectZero];
         _label.font = [UIFont systemFontOfSize:13];
         _label.textColor = [UIColor greenColor];

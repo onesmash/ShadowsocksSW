@@ -10,12 +10,13 @@
 
 @protocol HeaderViewDelegate <NSObject>
 
-- (void)triggerStateChanged:(BOOL)triggered;
+- (void)triggerStateChanged;
 
 @end
 
 @interface HeaderView : UIView
 @property (nonatomic, assign) BOOL triggered;
+@property (nonatomic, strong) UIButton *triggerBtn;
 @property (nonatomic, weak) id<HeaderViewDelegate> delegate;
 
 + (CGFloat)viewHeight;
