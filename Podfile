@@ -14,6 +14,7 @@ abstract_target 'SW' do
 		pod 'ionicons', '~> 2.0'
 		pod 'VTAcknowledgementsViewController', '~> 1.1'
 		pod 'TPKeyboardAvoiding', '~> 1.3'
+		pod 'Toast', '~> 3.0'
 	end
 
 	target 'PacketTunnelProvider' do

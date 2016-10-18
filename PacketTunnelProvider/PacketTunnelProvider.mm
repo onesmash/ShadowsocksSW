@@ -77,7 +77,6 @@
 - (void)stopTunnelWithReason:(NEProviderStopReason)reason completionHandler:(void (^)(void))completionHandler
 {
 	// Add code here to start the process of stopping the tunnel.
-    SWLOG_FLUSH();
     [self stopTun2SocksService];
     [self stopSocks2ShadowSocksService];
 	completionHandler();
@@ -192,6 +191,7 @@
 {
     __weak typeof(self) wself = self;
     [self.wormhole listenForMessageWithIdentifier:kWormholeSelectedConfigChangedNotification listener:^(id message) {
+        SWLOG_INFO("Hello");
         NSError *error;
         [wself restartSocks2ShadowSocksService:&error];
     }];

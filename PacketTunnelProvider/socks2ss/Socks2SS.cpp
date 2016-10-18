@@ -80,7 +80,7 @@ void Socks2SS::setupSSClient(const std::shared_ptr<SSClient>& client)
             if(channel) {
                 channel->ssSession = session;
                 channel->status = kEstablished;
-                 SWLOG_DEBUG("socks 2 ss channel {} estabilished", channelID);
+                SWLOG_DEBUG("socks 2 ss channel {} estabilished", channelID);
                 if(success) {
                     const WukongBase::Net::IPAddress& bindAddress = session->getLocalAddress();
                     Socks5Response response(kSocks5ResponseStatusSuccess, bindAddress);

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A071DD6C2342DD96A7A1D975D14891CA"
+               BlueprintIdentifier = "7501A473797AD6711CA43E44112FF576"
                BuildableName = "libPods-SW-PacketTunnelProvider.a"
                BlueprintName = "Pods-SW-PacketTunnelProvider"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "50D5E55B242714CED149F776F7A7D4D2"
+               BlueprintIdentifier = "6462B1F76F63FEE2BBBEAAF576DDA00C"
                BuildableName = "libPods-SW-ShadowsocksSW.a"
                BlueprintName = "Pods-SW-ShadowsocksSW"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">

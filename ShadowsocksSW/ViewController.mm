@@ -17,6 +17,7 @@
 #import "CommonTableViewCell.h"
 #import "TransparentNavigationBar.h"
 #import "ConfigCell.h"
+#import <UIView+Toast.h>
 #import <IonIcons.h>
 #import <VTAcknowledgementViewController.h>
 #import <VTAcknowledgementsViewController.h>
@@ -280,6 +281,12 @@
 #pragma mark - HeaderViewDelegate
 - (void)triggerStateChanged
 {
+    if(![ConfigManager sharedManager].usefreeShadowSocks && [ConfigManager sharedManager].shadowSocksConfigs.count <= 0) {
+        [self.view makeToast:@"请选择一个配置"
+                    duration:1.5
+                    position:CSToastPositionTop];
+        return;
+    }
     BOOL triggered = !_headerView.triggered;
     if(triggered) {
         [[ConfigManager sharedManager] asyncFetchFreeConfig:nil];
