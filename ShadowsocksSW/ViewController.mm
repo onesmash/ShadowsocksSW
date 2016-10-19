@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Common.h"
 #import "SWLogger.h"
 #import "ConfigManager.h"
 #import "HeaderView.h"
@@ -263,7 +264,7 @@
 {
     ConfigCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Version"];
     cell.keyLabel.text = @"版本";
-    cell.valueTextField.text = @"0.1.0";
+    cell.valueTextField.text = [NSString stringWithFormat:@"%@.%@", [ConfigManager sharedManager].version, [ConfigManager sharedManager].build];
     return cell;
 }
 

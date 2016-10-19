@@ -9,6 +9,7 @@
 #ifndef Common_h
 #define Common_h
 
+#define kVersion @VERSION
 #define kPacketTunnelProviderErrorDomain @"kPacketTunnelProviderErrorDomain"
 
 typedef enum {

@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6462B1F76F63FEE2BBBEAAF576DDA00C"
+               BlueprintIdentifier = "85FFB4F3A57478939BA6BF36FF6A0684"
                BuildableName = "libPods-SW-ShadowsocksSW.a"
                BlueprintName = "Pods-SW-ShadowsocksSW"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">

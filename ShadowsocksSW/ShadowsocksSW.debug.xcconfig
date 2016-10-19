@@ -1,0 +1,8 @@
+//
+//  ShadowsocksSW.debug.xcconfig
+//  ShadowsocksSW
+//
+//  Created by Xuhui on 18/10/2016.
+//  Copyright © 2016 Xuhui. All rights reserved.
+//
+#include "Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW.debug.xcconfig"

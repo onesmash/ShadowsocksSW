@@ -137,6 +137,16 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     [_sharedDefaults synchronize];
 }
 
+- (NSString *)version
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
+
+- (NSString *)build
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+}
+
 - (MMWormhole *)wormhole
 {
     if(!_wormhole) {

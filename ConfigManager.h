@@ -20,6 +20,8 @@
 @property (nonatomic, assign) NSInteger selectedShadowSocksIndex;
 @property (nonatomic, copy) NSString *mainAppLogFile;
 @property (nonatomic, copy) NSString *tunnelProviderLogFile;
+@property (nonatomic, readonly, copy) NSString *version;
+@property (nonatomic, readonly, copy) NSString *build;
 
 + (instancetype)sharedManager;
 - (BOOL)addConfig:(ShadowSocksConfig *)config;

@@ -12,6 +12,7 @@
 #import "TransparentNavigationBar.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import <Firebase.h>
 
 @interface AppDelegate ()
 
@@ -21,8 +22,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [FIRApp configure];
+    [GADMobileAds disableAutomatedInAppPurchaseReporting];
+    [GADMobileAds disableSDKCrashReporting];
     [Fabric with:@[[Crashlytics class]]];
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UINavigationController *naviVC = [[UINavigationController alloc] initWithNavigationBarClass:[TransparentNavigationBar class] toolbarClass:nil];
     [naviVC pushViewController:[[ViewController alloc] init] animated:NO];

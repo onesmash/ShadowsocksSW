@@ -15,6 +15,8 @@ abstract_target 'SW' do
 		pod 'VTAcknowledgementsViewController', '~> 1.1'
 		pod 'TPKeyboardAvoiding', '~> 1.3'
 		pod 'Toast', '~> 3.0'
+		pod 'Firebase/Core'
+		pod 'Firebase/AdMob'
 	end
 
 	target 'PacketTunnelProvider' do
@@ -23,4 +25,3 @@ abstract_target 'SW' do
 	end
 
 end
-
