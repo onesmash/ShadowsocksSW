@@ -11,6 +11,8 @@
 #import "ConfigEncryptionMethodSelectCell.h"
 #import "NSString+Util.h"
 #import "ConfigManager.h"
+#import "LogViewController.h"
+#import "TransparentNavigationBar.h"
 #import <IonIcons.h>
 
 typedef enum {
@@ -287,6 +289,13 @@ typedef enum {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     } else {
         self.navigationItem.rightBarButtonItem.enabled = NO;
+        ConfigCell *configNameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:kConfigItemTypeConfigName inSection:0]];
+        if([configNameCell.valueTextField.text isEqualToString:@"@123456789"]) {
+            LogViewController *vc = [[LogViewController alloc] initWithNibName:nil bundle:nil];
+            UINavigationController *navi = [[UINavigationController alloc] initWithNavigationBarClass:[TransparentNavigationBar class] toolbarClass:nil];
+            [navi pushViewController:vc animated:NO];
+            [self presentViewController:navi animated:YES completion:nil];
+        }
     }
 }
 

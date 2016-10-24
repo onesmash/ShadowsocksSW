@@ -12,6 +12,7 @@
 #define kShadowSocksConfigServerPortKey     @"kShadowSocksConfigServerPortKey"
 #define kShadowSocksConfigPasswordKey       @"kShadowSocksConfigPasswordKey"
 #define kShadowSocksConfigEncryptionMethodKey  @"kShadowSocksConfigEncryptionMethodKey"
+#define kShadowSocksConfigTimestampKey  @"kShadowSocksConfigTimestampKey"
 #define kShadowSocksConfigConfigNameKey  @"kShadowSocksConfigConfigNameKey"
 #define kShadowSocksConfigIsFreeKey  @"kShadowSocksConfigIsFreeKey"
 
@@ -38,6 +39,7 @@
         self.ssServerPort = [aDecoder decodeObjectForKey:kShadowSocksConfigServerPortKey];
         self.password = [aDecoder decodeObjectForKey:kShadowSocksConfigPasswordKey];
         self.encryptionMethod = [aDecoder decodeObjectForKey:kShadowSocksConfigEncryptionMethodKey];
+        self.timestamp = [aDecoder decodeIntegerForKey:kShadowSocksConfigTimestampKey];
         self.configName = [aDecoder decodeObjectForKey:kShadowSocksConfigConfigNameKey];
         self.isFree = [aDecoder decodeBoolForKey:kShadowSocksConfigIsFreeKey];
     }
@@ -50,6 +52,7 @@
     [aCoder encodeObject:self.ssServerPort forKey:kShadowSocksConfigServerPortKey];
     [aCoder encodeObject:self.password forKey:kShadowSocksConfigPasswordKey];
     [aCoder encodeObject:self.encryptionMethod forKey:kShadowSocksConfigEncryptionMethodKey];
+    [aCoder encodeInteger:self.timestamp forKey:kShadowSocksConfigTimestampKey];
     [aCoder encodeObject:self.configName forKey:kShadowSocksConfigConfigNameKey];
     [aCoder encodeBool:self.isFree forKey:kShadowSocksConfigIsFreeKey];
 }

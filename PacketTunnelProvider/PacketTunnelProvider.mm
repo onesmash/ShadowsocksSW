@@ -17,9 +17,12 @@
 #import "Socks2SS.h"
 #import "ConfigManager.h"
 #import "Common.h"
+#import "DNS.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <MMWormhole.h>
+
+#define kSocks5ServerPort 2080
 
 @interface PacketTunnelProvider () {
     std::shared_ptr<WukongBase::Base::Thread> _socks2ShadowSocksServiceThread;
@@ -46,7 +49,11 @@
 - (void)startTunnelWithOptions:(NSDictionary *)options completionHandler:(void (^)(NSError *))completionHandler
 {
 	// Add code here to start the process of connecting the tunnel.
-    [Fabric with:@[[Crashlytics class]]];
+    if(![ConfigManager sharedManager].canActivePacketTunnel) {
+        completionHandler([NSError errorWithDomain:kPacketTunnelProviderErrorDomain code:kPacketTunnelProviderErrorSocks2ssServiceStartFailed userInfo:nil]);
+        return;
+    }
+    //[Fabric with:@[[Crashlytics class]]];
     NSError *error = [TunnelInterface setupWithPacketTunnelFlow:self.packetFlow];
     if (error) {
         completionHandler(error);
@@ -80,6 +87,7 @@
     [self stopTun2SocksService];
     [self stopSocks2ShadowSocksService];
 	completionHandler();
+    [ConfigManager sharedManager].canActivePacketTunnel = NO;
 }
 
 - (void)handleAppMessage:(NSData *)messageData completionHandler:(void (^)(NSData *))completionHandler
@@ -141,7 +149,7 @@
     address.setPort(config.ssServerPort.integerValue);
     _socks2ShadowSocksServiceThread = std::shared_ptr<WukongBase::Base::Thread>(new WukongBase::Base::Thread("socks2ss"));
     _socks2ShadowSocksServiceThread->start();
-    _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), 2080));
+    _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), kSocks5ServerPort));
     _socks2ssService->start(address, config.encryptionMethod.UTF8String, config.password.UTF8String);
     *error = nil;
     return YES;
@@ -154,7 +162,7 @@
 
 - (BOOL)startTun2SocksService:(NSError **)error
 {
-    [TunnelInterface startTun2Socks:2080];
+    [TunnelInterface startTun2Socks:kSocks5ServerPort];
     *error = nil;
     return YES;
 }
@@ -167,7 +175,8 @@
 - (void)setupTunnelNetworking:(void(^)(NSError *))completionHandler
 {
     NEIPv4Settings *ipv4Settings = [[NEIPv4Settings alloc] initWithAddresses:@[@"192.0.2.1"] subnetMasks:@[@"255.255.255.0"]];
-    NSArray *dnsServers = @[@"8.8.8.8"];
+    NSArray *dnsServers = [DNS getSystemDnsServers];
+    SWLOG_DEBUG("DNS :{}", dnsServers.description.UTF8String);
     NSMutableArray *excludedRoutes = [NSMutableArray array];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"192.168.0.0" subnetMask:@"255.255.0.0"]];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"10.0.0.0" subnetMask:@"255.0.0.0"]];
@@ -180,6 +189,13 @@
     NEDNSSettings *dnsSettings = [[NEDNSSettings alloc] initWithServers:dnsServers];
     dnsSettings.matchDomains = @[@""];
     settings.DNSSettings = dnsSettings;
+    NEProxySettings *proxySetting = [[NEProxySettings alloc] init];
+    proxySetting.excludeSimpleHostnames = YES;
+    proxySetting.proxyAutoConfigurationJavaScript = [NSString stringWithFormat:@"function FindProxyForURL(url, host) { return \"SOCKS 127.0.0.1:%d\";}", kSocks5ServerPort];
+    proxySetting.autoProxyConfigurationEnabled = YES;
+    proxySetting.HTTPEnabled = YES;
+    proxySetting.HTTPSEnabled = YES;
+    settings.proxySettings = proxySetting;
     [self setTunnelNetworkSettings:settings completionHandler:^(NSError * _Nullable error) {
         if(completionHandler) {
             completionHandler(error);

@@ -13,6 +13,7 @@
 		030410BE1D48F01C0097C5FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030410BD1D48F01C0097C5FC /* Assets.xcassets */; };
 		03207DF31DB7AAA4007989A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03207DF21DB7AAA4007989A3 /* GoogleService-Info.plist */; };
 		03207DF51DB7AAAD007989A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03207DF41DB7AAAD007989A3 /* GoogleService-Info.plist */; };
+		03207DF81DB7B07C007989A3 /* Admob.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03207DF71DB7B07C007989A3 /* Admob.plist */; };
 		032C02C71D8FAA8A003040F7 /* TunnelInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 032C02C61D8FAA8A003040F7 /* TunnelInterface.m */; };
 		032C02CC1D8FB078003040F7 /* libWukongBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03077C071D88594D00EEE7F5 /* libWukongBase.a */; };
 		032D13411D9032D400919562 /* Crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D132C1D9032D400919562 /* Crypto.cpp */; };
@@ -25,11 +26,13 @@
 		032D13481D9032D400919562 /* SSClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133B1D9032D400919562 /* SSClient.cpp */; };
 		032D13491D9032D400919562 /* SSTCPRelayRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133D1D9032D400919562 /* SSTCPRelayRequest.cpp */; };
 		032D134A1D9032D400919562 /* SSTCPRelaySession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032D133F1D9032D400919562 /* SSTCPRelaySession.cpp */; };
+		0331FC021DBB17830066B012 /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0331FC011DBB17830066B012 /* SWLogger.mm */; };
+		0331FC031DBB1C080066B012 /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0331FC011DBB17830066B012 /* SWLogger.mm */; };
+		0331FC081DBC9C8F0066B012 /* DNS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0331FC071DBC9C8F0066B012 /* DNS.mm */; };
 		033A34811DB50D1A005B6EEB /* CommonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 033A34801DB50D1A005B6EEB /* CommonTableViewCell.m */; };
 		0355B6D11D9CE22B009E9888 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0355B6CF1D9CE22B009E9888 /* ViewController.xib */; };
 		0357B44C1D9D62E70016AC2E /* TransparentNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */; };
 		036183EA1D8C3A0700604F9A /* libWukongBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03077C071D88594D00EEE7F5 /* libWukongBase.a */; };
-		036183F41D8CE8D900604F9A /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036183EE1D8C3AB500604F9A /* SWLogger.mm */; };
 		036183FA1D8CF69A00604F9A /* ShadowsocksSW.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 036183F91D8CF69A00604F9A /* ShadowsocksSW.entitlements */; };
 		036184001D8D0F4D00604F9A /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 036183FF1D8D0F4D00604F9A /* NetworkExtension.framework */; };
 		036184011D8D0F5700604F9A /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 036183FF1D8D0F4D00604F9A /* NetworkExtension.framework */; };
@@ -92,14 +95,15 @@
 		0374CD1B1D8EDDA9001DD9F6 /* udpgw.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCDF1D8EDDA9001DD9F6 /* udpgw.c */; };
 		0374CD1C1D8EDDA9001DD9F6 /* UdpGwClient.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCE21D8EDDA9001DD9F6 /* UdpGwClient.c */; };
 		037F72DC1DA55BCC00999755 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F72DB1DA55BCC00999755 /* SectionHeaderView.m */; };
-		038B87C11D9820F5009BC13E /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.m */; };
+		038B87C11D9820F5009BC13E /* ConfigManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.mm */; };
 		038B87C21D9820F5009BC13E /* ShadowSocksConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */; };
 		0398459B1DB49FE2003D338A /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 032D13291D9031EB00919562 /* libresolv.tbd */; };
 		03D16B391D8851C100383D73 /* PacketTunnelProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D16B381D8851C100383D73 /* PacketTunnelProvider.mm */; };
 		03D16B3D1D8851C100383D73 /* PacketTunnelProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D16B331D8851C100383D73 /* PacketTunnelProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		03D29B8C1D9800B6001FBB04 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.m */; };
+		03D29B8C1D9800B6001FBB04 /* ConfigManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.mm */; };
 		03D29B8F1D9803E1001FBB04 /* ShadowSocksConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */; };
-		03DBDECB1D96A8C50065A759 /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036183EE1D8C3AB500604F9A /* SWLogger.mm */; };
+		03DA36BF1DB902E300CE0A36 /* LogViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DA36BD1DB902E300CE0A36 /* LogViewController.mm */; };
+		03DA36C01DB902E300CE0A36 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DA36BE1DB902E300CE0A36 /* LogViewController.xib */; };
 		03E4C7AA1DA60BB10077AA73 /* AddConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7A81DA60BB10077AA73 /* AddConfigViewController.m */; };
 		03E4C7AB1DA60BB10077AA73 /* AddConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E4C7A91DA60BB10077AA73 /* AddConfigViewController.xib */; };
 		03E4C7B51DA61EC60077AA73 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 03E4C7AE1DA61EC60077AA73 /* LICENSE */; };
@@ -164,6 +168,7 @@
 		0311F5EC1DB67C2B0030B929 /* ShadowsocksSW.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ShadowsocksSW.release.xcconfig; sourceTree = "<group>"; };
 		03207DF21DB7AAA4007989A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		03207DF41DB7AAAD007989A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		03207DF71DB7B07C007989A3 /* Admob.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Admob.plist; sourceTree = "<group>"; };
 		032C02C51D8FAA8A003040F7 /* TunnelInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunnelInterface.h; sourceTree = "<group>"; };
 		032C02C61D8FAA8A003040F7 /* TunnelInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunnelInterface.m; sourceTree = "<group>"; };
 		032C02C81D8FAF36003040F7 /* libCocoaAsyncSocket.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaAsyncSocket.a; path = "../../Library/Developer/Xcode/DerivedData/ShadowsocksSW-btiyryjwgtdalrbnaqnfowgsfhkl/Build/Products/Debug-iphonesimulator/libCocoaAsyncSocket.a"; sourceTree = "<group>"; };
@@ -189,6 +194,9 @@
 		032D133E1D9032D400919562 /* SSTCPRelayRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelayRequest.h; sourceTree = "<group>"; };
 		032D133F1D9032D400919562 /* SSTCPRelaySession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SSTCPRelaySession.cpp; sourceTree = "<group>"; };
 		032D13401D9032D400919562 /* SSTCPRelaySession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCPRelaySession.h; sourceTree = "<group>"; };
+		0331FC011DBB17830066B012 /* SWLogger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWLogger.mm; sourceTree = "<group>"; };
+		0331FC061DBC9C8F0066B012 /* DNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNS.h; sourceTree = "<group>"; };
+		0331FC071DBC9C8F0066B012 /* DNS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DNS.mm; sourceTree = "<group>"; };
 		03376E921DAD387F00BE52BC /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		033A347F1DB50D1A005B6EEB /* CommonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTableViewCell.h; sourceTree = "<group>"; };
 		033A34801DB50D1A005B6EEB /* CommonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTableViewCell.m; sourceTree = "<group>"; };
@@ -196,7 +204,6 @@
 		0357B44A1D9D62E70016AC2E /* TransparentNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentNavigationBar.h; sourceTree = "<group>"; };
 		0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentNavigationBar.m; sourceTree = "<group>"; };
 		036183ED1D8C3AB500604F9A /* SWLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLogger.h; sourceTree = "<group>"; };
-		036183EE1D8C3AB500604F9A /* SWLogger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWLogger.mm; sourceTree = "<group>"; };
 		036183F51D8CEE6300604F9A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		036183F91D8CF69A00604F9A /* ShadowsocksSW.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ShadowsocksSW.entitlements; sourceTree = "<group>"; };
 		036183FF1D8D0F4D00604F9A /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
@@ -625,9 +632,12 @@
 		03D16B381D8851C100383D73 /* PacketTunnelProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PacketTunnelProvider.mm; sourceTree = "<group>"; };
 		03D16B3A1D8851C100383D73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03D29B8A1D9800B6001FBB04 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
-		03D29B8B1D9800B6001FBB04 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
+		03D29B8B1D9800B6001FBB04 /* ConfigManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ConfigManager.mm; sourceTree = "<group>"; };
 		03D29B8D1D9803E1001FBB04 /* ShadowSocksConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowSocksConfig.h; sourceTree = "<group>"; };
 		03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowSocksConfig.m; sourceTree = "<group>"; };
+		03DA36BC1DB902E300CE0A36 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
+		03DA36BD1DB902E300CE0A36 /* LogViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LogViewController.mm; sourceTree = "<group>"; };
+		03DA36BE1DB902E300CE0A36 /* LogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
 		03E4C7A71DA60BB10077AA73 /* AddConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddConfigViewController.h; sourceTree = "<group>"; };
 		03E4C7A81DA60BB10077AA73 /* AddConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddConfigViewController.m; sourceTree = "<group>"; };
 		03E4C7A91DA60BB10077AA73 /* AddConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddConfigViewController.xib; sourceTree = "<group>"; };
@@ -715,7 +725,11 @@
 				03E4C7A71DA60BB10077AA73 /* AddConfigViewController.h */,
 				03E4C7A81DA60BB10077AA73 /* AddConfigViewController.m */,
 				03E4C7A91DA60BB10077AA73 /* AddConfigViewController.xib */,
+				03DA36BC1DB902E300CE0A36 /* LogViewController.h */,
+				03DA36BD1DB902E300CE0A36 /* LogViewController.mm */,
+				03DA36BE1DB902E300CE0A36 /* LogViewController.xib */,
 				030410BD1D48F01C0097C5FC /* Assets.xcassets */,
+				03207DF71DB7B07C007989A3 /* Admob.plist */,
 				03207DF21DB7AAA4007989A3 /* GoogleService-Info.plist */,
 				030410C21D48F01C0097C5FC /* Info.plist */,
 				030410B11D48F01C0097C5FC /* Supporting Files */,
@@ -787,9 +801,9 @@
 			isa = PBXGroup;
 			children = (
 				036183ED1D8C3AB500604F9A /* SWLogger.h */,
-				036183EE1D8C3AB500604F9A /* SWLogger.mm */,
+				0331FC011DBB17830066B012 /* SWLogger.mm */,
 				03D29B8A1D9800B6001FBB04 /* ConfigManager.h */,
-				03D29B8B1D9800B6001FBB04 /* ConfigManager.m */,
+				03D29B8B1D9800B6001FBB04 /* ConfigManager.mm */,
 				03D29B8D1D9803E1001FBB04 /* ShadowSocksConfig.h */,
 				03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */,
 				03E4C7C81DA69CAB0077AA73 /* NSString+Util.h */,
@@ -1459,6 +1473,8 @@
 				0374CB291D8EDDA9001DD9F6 /* tun2socks-iOS */,
 				032C02C51D8FAA8A003040F7 /* TunnelInterface.h */,
 				032C02C61D8FAA8A003040F7 /* TunnelInterface.m */,
+				0331FC061DBC9C8F0066B012 /* DNS.h */,
+				0331FC071DBC9C8F0066B012 /* DNS.mm */,
 				03D16B371D8851C100383D73 /* PacketTunnelProvider.h */,
 				03D16B381D8851C100383D73 /* PacketTunnelProvider.mm */,
 				03207DF41DB7AAAD007989A3 /* GoogleService-Info.plist */,
@@ -1589,7 +1605,7 @@
 					030410AD1D48F01C0097C5FC = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W49R76DKP3;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1605,7 +1621,7 @@
 					03D16B321D8851C100383D73 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W49R76DKP3;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1648,6 +1664,8 @@
 				03E4C7AB1DA60BB10077AA73 /* AddConfigViewController.xib in Resources */,
 				03E4C7C21DA675EB0077AA73 /* ConfigCell.xib in Resources */,
 				036183FA1D8CF69A00604F9A /* ShadowsocksSW.entitlements in Resources */,
+				03DA36C01DB902E300CE0A36 /* LogViewController.xib in Resources */,
+				03207DF81DB7B07C007989A3 /* Admob.plist in Resources */,
 				03E4C7B51DA61EC60077AA73 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1799,16 +1817,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D29B8C1D9800B6001FBB04 /* ConfigManager.m in Sources */,
+				03D29B8C1D9800B6001FBB04 /* ConfigManager.mm in Sources */,
 				037F72DC1DA55BCC00999755 /* SectionHeaderView.m in Sources */,
 				03E4C7C11DA675EB0077AA73 /* ConfigCell.m in Sources */,
 				03E4C7BD1DA6734E0077AA73 /* UIView+SWFrameAdditions.m in Sources */,
 				03E4C7CA1DA69CAB0077AA73 /* NSString+Util.m in Sources */,
 				036525031DA3E66A00268F4A /* HeaderView.m in Sources */,
+				0331FC021DBB17830066B012 /* SWLogger.mm in Sources */,
 				03E4C7B71DA61EC60077AA73 /* SWUITextField.m in Sources */,
-				03DBDECB1D96A8C50065A759 /* SWLogger.mm in Sources */,
 				030410B91D48F01C0097C5FC /* ViewController.mm in Sources */,
 				03E4C7AA1DA60BB10077AA73 /* AddConfigViewController.m in Sources */,
+				03DA36BF1DB902E300CE0A36 /* LogViewController.mm in Sources */,
 				030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */,
 				030410B31D48F01C0097C5FC /* main.m in Sources */,
 				033A34811DB50D1A005B6EEB /* CommonTableViewCell.m in Sources */,
@@ -1824,7 +1843,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				038B87C11D9820F5009BC13E /* ConfigManager.m in Sources */,
+				0331FC031DBB1C080066B012 /* SWLogger.mm in Sources */,
+				038B87C11D9820F5009BC13E /* ConfigManager.mm in Sources */,
 				038B87C21D9820F5009BC13E /* ShadowSocksConfig.m in Sources */,
 				0374CD1A1D8EDDA9001DD9F6 /* BTap.m in Sources */,
 				0374CCE41D8EDDA9001DD9F6 /* BLog.m in Sources */,
@@ -1833,10 +1853,10 @@
 				032D13471D9032D400919562 /* Socks5Session.cpp in Sources */,
 				0374CCF31D8EDDA9001DD9F6 /* StreamPassInterface.c in Sources */,
 				0374CCFB1D8EDDA9001DD9F6 /* ip4.c in Sources */,
-				036183F41D8CE8D900604F9A /* SWLogger.mm in Sources */,
 				032D134A1D9032D400919562 /* SSTCPRelaySession.cpp in Sources */,
 				0374CCE51D8EDDA9001DD9F6 /* BLog_syslog.c in Sources */,
 				0374CD061D8EDDA9001DD9F6 /* pbuf.c in Sources */,
+				0331FC081DBC9C8F0066B012 /* DNS.mm in Sources */,
 				0374CD191D8EDDA9001DD9F6 /* tun2socks.c in Sources */,
 				032D13461D9032D400919562 /* Socks5Response.cpp in Sources */,
 				032D13431D9032D400919562 /* Socks5MethodSelectionMessage.cpp in Sources */,
@@ -1928,7 +1948,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -2036,8 +2056,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e9786fb3-f23c-4806-9369-6c8578b68b11";
-				PROVISIONING_PROFILE_SPECIFIER = ShadowsocksSWDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -2049,7 +2069,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShadowsocksSW/ShadowsocksSW.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = W49R76DKP3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -2060,8 +2080,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ca28d5d-60b4-4475-b320-27d646ce025d";
-				PROVISIONING_PROFILE_SPECIFIER = ShadowsocksSWDistribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -2095,8 +2115,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw.PacketTunnelProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7646ca8e-8f40-4dc7-933a-6fd7accdd748";
-				PROVISIONING_PROFILE_SPECIFIER = PacketTunnelProviderDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/third_party/wukong_base/\" \"$(SRCROOT)/third_party/wukong_base/third_party/libuv/libuv/include\" \"$(SRCROOT)/third_party/tun2socks-iOS\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/custom\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv4\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv6\"";
 			};
@@ -2108,7 +2128,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PacketTunnelProvider/PacketTunnelProvider.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = W49R76DKP3;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -2132,8 +2152,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shadowsockssw.PacketTunnelProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e8997b63-6123-49f0-9c53-f64aaeff4e20";
-				PROVISIONING_PROFILE_SPECIFIER = PacketTunnelProviderDistribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/third_party/wukong_base/\" \"$(SRCROOT)/third_party/wukong_base/third_party/libuv/libuv/include\" \"$(SRCROOT)/third_party/tun2socks-iOS\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/custom\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv4\" \"$(SRCROOT)/third_party/tun2socks-iOS/lwip/src/include/ipv6\"";
 			};

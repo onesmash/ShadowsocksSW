@@ -20,11 +20,13 @@
 #import "ConfigCell.h"
 #import <UIView+Toast.h>
 #import <IonIcons.h>
+#import <Firebase.h>
+#import <MBProgressHUD.h>
 #import <VTAcknowledgementViewController.h>
 #import <VTAcknowledgementsViewController.h>
 #import <NetworkExtension/NetworkExtension.h>
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource, AddConfigViewControllerDelegate, HeaderViewDelegate> {
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, AddConfigViewControllerDelegate, HeaderViewDelegate, GADInterstitialDelegate> {
     
 }
 
@@ -32,6 +34,9 @@
 @property (nonatomic, strong) HeaderView *headerView;
 @property (nonatomic, strong) NETunnelProviderManager *tunelProviderManager;
 @property (strong, nonatomic) IBOutlet UITextView *logView;
+@property (nonatomic, strong) GADInterstitial *interstitial;
+@property (nonatomic, assign) BOOL connectAfterAdDismiss;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -39,13 +44,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupAdmob];
     [self setupNavigationBar];
     [self setupView];
+    [self setupVPN];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUIApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUIApplicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupNavigationBar
@@ -72,15 +86,46 @@
     [self.tableView registerClass:[CommonTableViewCell class] forCellReuseIdentifier:@"ShadowSocksConfigCell"];
     [self.tableView registerClass:[CommonTableViewCell class] forCellReuseIdentifier:@"Acknowlagement"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ConfigCell" bundle:nil] forCellReuseIdentifier:@"Version"];
-    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLink:)];
-    [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    _hud = [[MBProgressHUD alloc] initWithView:self.view];
+    _hud.removeFromSuperViewOnHide = YES;
+}
+
+- (void)setupAdmob
+{
+    self.interstitial = [self createAndLoadInterstitial];
+    self.connectAfterAdDismiss = NO;
+}
+
+- (void)setupVPN
+{
+    [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
+        if(managers.count > 0) {
+            _tunelProviderManager = managers.firstObject;
+        } else {
+            _tunelProviderManager = [[NETunnelProviderManager alloc] init];
+            _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
+            _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
+        }
+        _tunelProviderManager.onDemandEnabled = NO;
+        _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
+        _tunelProviderManager.enabled = YES;
+        [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
+            _headerView.triggered = (_tunelProviderManager.connection.status == NEVPNStatusConnected);
+        }];
+        
+    }];
+    [self.view addSubview:_hud];
+    [self.hud showAnimated:YES];
+    [[ConfigManager sharedManager] asyncFetchFreeConfig:^(NSError *error) {
+        [_hud hideAnimated:YES];
+    }];
 }
 
 - (void)onVPNContectNotification:(NSNotification *)note
 {
     
 }
-                                              
+
 - (void)onAddConfigBtnClicked:(id)sender
 {
     AddConfigViewController *vc = [[AddConfigViewController alloc] initWithNibName:nil bundle:nil];
@@ -263,6 +308,7 @@
 - (UITableViewCell *)cellForVersion
 {
     ConfigCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Version"];
+    cell.userInteractionEnabled = NO;
     cell.keyLabel.text = @"版本";
     cell.valueTextField.text = [NSString stringWithFormat:@"%@.%@", [ConfigManager sharedManager].version, [ConfigManager sharedManager].build];
     return cell;
@@ -291,51 +337,36 @@
     BOOL triggered = !_headerView.triggered;
     if(triggered) {
         [[ConfigManager sharedManager] asyncFetchFreeConfig:nil];
-        [self doStartAnimation:^() {
-            _headerView.triggered = triggered;
-            [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
-                if(managers.count > 0) {
-                    _tunelProviderManager = managers.firstObject;
-                } else {
-                    _tunelProviderManager = [[NETunnelProviderManager alloc] init];
-                    _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
-                    _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
-                }
-                _tunelProviderManager.onDemandEnabled = NO;
-                _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
-                _tunelProviderManager.enabled = YES;
-                [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
-                    if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
-                        NSError *error;
-                        if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
-                            SWLOG_DEBUG("tunnel provider start success");
-                        } else {
-                            _headerView.triggered = NO;
-                        }
-                    }
-                }];
-                
-            }];
-        }];
-        
+        if([ConfigManager sharedManager].usefreeShadowSocks && [self.interstitial isReady]) {
+            self.connectAfterAdDismiss = YES;
+            [self.interstitial presentFromRootViewController:self];
+        } else {
+            [self startShadowsocksService];
+        }
     } else {
-        _headerView.triggered = triggered;
-        [self doStopAnimation:^() {
-            [_tunelProviderManager.connection stopVPNTunnel];
-        }];
+        _headerView.triggered = NO;
+        [self stopShadowsocksService];
     }
 }
 
-- (void)onDisplayLink:(CADisplayLink *)link
-{
-    NSString *path = [NSString stringWithFormat:@"%@.txt", [ConfigManager sharedManager].tunnelProviderLogFile];
-    if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSError *error;
-        NSString *log = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-        _logView.text = log;
+#pragma mark - GADInterstitialDelegate
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+    self.interstitial = [self createAndLoadInterstitial];
+    if(_tunelProviderManager.connection.status != NEVPNStatusConnected && self.connectAfterAdDismiss) {
+        [self startShadowsocksService];
     }
-        
+}
+
+- (GADInterstitial *)createAndLoadInterstitial {
+    GADInterstitial *interstitial =
+    [[GADInterstitial alloc] initWithAdUnitID:[ConfigManager sharedManager].adUnitID];
+    interstitial.delegate = self;
+    GADRequest *request = [GADRequest request];
+    //request.testDevices = @[ kGADSimulatorID, @"ac1b4824152f925c6ef853f716f08cd5" ];
+    [interstitial loadRequest:request];
     
+    return interstitial;
 }
 
 - (void)doStartAnimation:(void(^)())completion
@@ -376,6 +407,85 @@
         [imageView removeFromSuperview];
         if(completion) completion();
     }];
+}
+
+- (void)startShadowsocksService
+{
+    _headerView.userInteractionEnabled = NO;
+    [self doStartAnimation:^() {
+        _headerView.userInteractionEnabled = YES;
+        _headerView.triggered = YES;
+        [ConfigManager sharedManager].canActivePacketTunnel = YES;
+        [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
+            if(managers.count > 0) {
+                _tunelProviderManager = managers.firstObject;
+            } else {
+                _tunelProviderManager = [[NETunnelProviderManager alloc] init];
+                _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
+                _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
+            }
+            _tunelProviderManager.onDemandEnabled = NO;
+            _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
+            _tunelProviderManager.enabled = YES;
+            [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
+                if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
+                    NSError *error;
+                    if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
+                        SWLOG_DEBUG("tunnel provider start success");
+                    } else {
+                        _headerView.triggered = NO;
+                        [ConfigManager sharedManager].canActivePacketTunnel = NO;
+                    }
+                }
+            }];
+            
+        }];
+    }];
+}
+
+- (void)stopShadowsocksService
+{
+    _headerView.userInteractionEnabled = NO;
+    [self doStopAnimation:^() {
+        _headerView.userInteractionEnabled = YES;
+        if(_tunelProviderManager) {
+            [_tunelProviderManager.connection stopVPNTunnel];
+        } else {
+            [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
+                if(managers.count > 0) {
+                    _tunelProviderManager = managers.firstObject;
+                } else {
+                    _tunelProviderManager = [[NETunnelProviderManager alloc] init];
+                    _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
+                    _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
+                }
+                _tunelProviderManager.onDemandEnabled = NO;
+                _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
+                _tunelProviderManager.enabled = YES;
+                [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
+                    if(_tunelProviderManager.connection.status == NEVPNStatusConnected) {
+                        [_tunelProviderManager.connection stopVPNTunnel];
+                    }
+                }];
+                
+            }];
+        }
+        
+    }];
+}
+
+#pragma mark - Notification
+//- (void)onUIApplicationWillResignActiveNotification:(NSNotification *)note
+//{
+//    self.interstitial = [self createAndLoadInterstitial];
+//}
+
+- (void)onUIApplicationWillEnterForegroundNotification:(NSNotification *)note
+{
+    if(self.interstitial.isReady) {
+        self.connectAfterAdDismiss = NO;
+        [self.interstitial presentFromRootViewController:self];
+    }
 }
 
 @end

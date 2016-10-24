@@ -13,9 +13,25 @@
 #define kConfigKey @"kConfigKey"
 #define kSelectedConfigIndexKey @"kSelectedConfigIndexKey"
 #define kFreeShadowsocksConifgEtagKey @"kFreeShadowsocksConifgEtagKey"
+#define kFreeShadowsocksConifgTimestampKey @"kFreeShadowsocksConifgTimestampKey"
 #define kFreeShadowsocksConifgKey @"kFreeShadowsocksConifgKey"
 #define kUsefreeShadowSocksKey @"kUsefreeShadowSocksKey"
+#define kCanActivePacketTunnelKey @"kCanActivePacketTunnelKey"
 #define kFreeShadowsocksConifgURL @"https://raw.githubusercontent.com/onesmash/fss/master/fss.txt"
+
+@interface ConfigManager () {
+    NSMutableArray<ShadowSocksConfig *> *_shadowSocksConfigs;
+    NSArray<ShadowSocksConfig *> *_freeShadowSocksConfigs;
+}
+
+@property (nonatomic, strong) NSURL *appGroupContainer;
+@property (nonatomic, strong) NSUserDefaults *sharedDefaults;
+@property (nonatomic, copy) NSString *fssEtag;
+@property (nonatomic, assign) NSTimeInterval fssTimestamp;
+@property (nonatomic, strong) AFHTTPSessionManager *httpSessionManager;
+@property (nonatomic, strong) MMWormhole *wormhole;
+@property (nonatomic, strong) NSDictionary *admobPlist;
+@end
 
 @interface ShadowSocksConfigSerializer : AFHTTPResponseSerializer
 
@@ -70,33 +86,25 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSArray *components = [text componentsSeparatedByString:@"\n"];
     [components enumerateObjectsUsingBlock:^(NSString *text, NSUInteger index, BOOL *stop) {
-        NSArray *components = [text componentsSeparatedByString:@" "];
-        if(components.count == 4) {
-            ShadowSocksConfig *config = [[ShadowSocksConfig alloc] init];
-            config.isFree = YES;
-            config.ssServerAddress = components[0];
-            config.ssServerPort = components[1];
-            config.password = components[2];
-            config.encryptionMethod = components[3];
-            [configs addObject:config];
+        if([text hasPrefix:@"#"]) {
+            NSArray *components = [text componentsSeparatedByString:@" "];
+            [ConfigManager sharedManager].fssTimestamp = [[components objectAtIndex:0] substringFromIndex:1].doubleValue;
+        } else {
+            NSArray *components = [text componentsSeparatedByString:@" "];
+            if(components.count == 4) {
+                ShadowSocksConfig *config = [[ShadowSocksConfig alloc] init];
+                config.isFree = YES;
+                config.ssServerAddress = components[0];
+                config.ssServerPort = components[1];
+                config.password = components[2];
+                config.encryptionMethod = components[3];
+                [configs addObject:config];
+            }
         }
     }];
     return configs;
     
 }
-
-@end
-
-@interface ConfigManager () {
-    NSMutableArray<ShadowSocksConfig *> *_shadowSocksConfigs;
-    NSArray<ShadowSocksConfig *> *_freeShadowSocksConfigs;
-}
-
-@property (nonatomic, strong) NSURL *appGroupContainer;
-@property (nonatomic, strong) NSUserDefaults *sharedDefaults;
-@property (nonatomic, copy) NSString *fssEtag;
-@property (nonatomic, strong) AFHTTPSessionManager *httpSessionManager;
-@property (nonatomic, strong) MMWormhole *wormhole;
 
 @end
 
@@ -125,7 +133,8 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
         _sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:kSharedGroupIdentifier];
         _httpSessionManager = [AFHTTPSessionManager manager];
         _httpSessionManager.responseSerializer = [ShadowSocksConfigSerializer serializer];
-        
+        NSString *admobPlistPath = [[NSBundle mainBundle] pathForResource:@"Admob" ofType:@"plist"];
+        _admobPlist = [NSDictionary dictionaryWithContentsOfFile:admobPlistPath];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUIApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     }
     return self;
@@ -137,6 +146,15 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     [_sharedDefaults synchronize];
 }
 
+- (NSString *)logFilePath
+{
+#if defined(TUNNEL_PROVIDER)
+    return self.tunnelProviderLogFile;
+#else
+    return self.mainAppLogFile;
+#endif
+}
+
 - (NSString *)version
 {
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -145,6 +163,16 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
 - (NSString *)build
 {
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+}
+
+- (NSString *)googleAppID
+{
+    return [_admobPlist objectForKey:@"GoogleAppID"];
+}
+
+- (NSString *)adUnitID
+{
+    return [_admobPlist objectForKey:@"AdUnitID"];
 }
 
 - (MMWormhole *)wormhole
@@ -252,6 +280,17 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     [_sharedDefaults synchronize];
 }
 
+- (NSTimeInterval)fssTimestamp
+{
+    return [_sharedDefaults doubleForKey:kFreeShadowsocksConifgTimestampKey];
+}
+
+- (void)setFssTimestamp:(NSTimeInterval)fssTimestamp
+{
+    [_sharedDefaults setDouble:fssTimestamp forKey:kFreeShadowsocksConifgTimestampKey];
+    [_sharedDefaults synchronize];
+}
+
 - (BOOL)usefreeShadowSocks
 {
     return [[_sharedDefaults objectForKey:kUsefreeShadowSocksKey] boolValue];
@@ -266,8 +305,26 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     }
 }
 
+- (BOOL)canActivePacketTunnel
+{
+    return [[_sharedDefaults objectForKey:kCanActivePacketTunnelKey] boolValue];
+}
+
+- (void)setCanActivePacketTunnel:(BOOL)canActivePacketTunnel
+{
+    if(self.canActivePacketTunnel != canActivePacketTunnel) {
+        [_sharedDefaults setObject:@(canActivePacketTunnel) forKey:kCanActivePacketTunnelKey];
+        [_sharedDefaults synchronize];
+    }
+}
+
 - (void)asyncFetchFreeConfig:(void(^)(NSError *error))complition;
 {
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    if(now - self.fssTimestamp < 6 * 60 * 60) {
+        if(complition) complition(nil);
+        return;
+    }
     [_httpSessionManager HEAD:kFreeShadowsocksConifgURL parameters:nil success:^(NSURLSessionDataTask *task) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
         if(response.statusCode == 200) {
@@ -287,6 +344,17 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if(complition) complition(error);
     }];
+}
+
+- (NSString *)packetTunnelLog
+{
+    NSString *path = [NSString stringWithFormat:@"%@.txt", self.tunnelProviderLogFile];
+    if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSError *error;
+        NSString *log = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+        return log;
+    }
+    return @"";
 }
 
 #pragma mark - Notification

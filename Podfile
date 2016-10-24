@@ -17,6 +17,7 @@ abstract_target 'SW' do
 		pod 'Toast', '~> 3.0'
 		pod 'Firebase/Core'
 		pod 'Firebase/AdMob'
+		pod 'MBProgressHUD'
 	end
 
 	target 'PacketTunnelProvider' do

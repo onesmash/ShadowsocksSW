@@ -23,6 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [FIRApp configure];
+    [GADMobileAds configureWithApplicationID:[ConfigManager sharedManager].googleAppID];
     [GADMobileAds disableAutomatedInAppPurchaseReporting];
     [GADMobileAds disableSDKCrashReporting];
     [Fabric with:@[[Crashlytics class]]];
