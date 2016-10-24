@@ -53,7 +53,7 @@
         completionHandler([NSError errorWithDomain:kPacketTunnelProviderErrorDomain code:kPacketTunnelProviderErrorSocks2ssServiceStartFailed userInfo:nil]);
         return;
     }
-    //[Fabric with:@[[Crashlytics class]]];
+    [Fabric with:@[[Crashlytics class]]];
     NSError *error = [TunnelInterface setupWithPacketTunnelFlow:self.packetFlow];
     if (error) {
         completionHandler(error);

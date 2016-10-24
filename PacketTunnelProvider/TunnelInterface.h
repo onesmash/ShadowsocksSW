@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <NetworkExtension/NetworkExtension.h>
 
-#define TunnelMTU 1600
+#define TunnelMTU 1500
 #define kTun2SocksStoppedNotification @"kTun2SocksStoppedNotification"
 
 @interface TunnelInterface : NSObject
