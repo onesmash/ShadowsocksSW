@@ -318,11 +318,11 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     }
 }
 
-- (void)asyncFetchFreeConfig:(void(^)(NSError *error))complition;
+- (void)asyncFetchFreeConfig:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler
 {
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-    if(now - self.fssTimestamp < 6 * 60 * 60) {
-        if(complition) complition(nil);
+    if(!force && now - self.fssTimestamp < 6 * 60 * 60) {
+        if(complitionHandler) complitionHandler(nil);
         return;
     }
     [_httpSessionManager HEAD:kFreeShadowsocksConifgURL parameters:nil success:^(NSURLSessionDataTask *task) {
@@ -330,19 +330,19 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
         if(response.statusCode == 200) {
             NSString *etag = [response.allHeaderFields objectForKey:@"Etag"] ? : @"";
             if([etag isEqualToString:self.fssEtag]) {
-                if(complition) complition(nil);
+                if(complitionHandler) complitionHandler(nil);
             } else {
                 [_httpSessionManager GET:kFreeShadowsocksConifgURL parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSArray<ShadowSocksConfig *> *configs) {
                     self.fssEtag = etag;
                     self.freeShadowSocksConfigs = configs;
-                    if(complition) complition(nil);
+                    if(complitionHandler) complitionHandler(nil);
                 } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                    if(complition) complition(error);
+                    if(complitionHandler) complitionHandler(error);
                 }];
             }
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        if(complition) complition(error);
+        if(complitionHandler) complitionHandler(error);
     }];
 }
 

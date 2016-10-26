@@ -121,8 +121,8 @@
         
     }];
     [self.view addSubview:_hud];
-    [self.hud showAnimated:YES];
-    [[ConfigManager sharedManager] asyncFetchFreeConfig:^(NSError *error) {
+    [_hud showAnimated:YES];
+    [[ConfigManager sharedManager] asyncFetchFreeConfig:NO withCompletion:^(NSError *error) {
         [_hud hideAnimated:YES];
     }];
 }
@@ -177,20 +177,31 @@
 - (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     __weak typeof(self) wself = self;
-    UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"编辑" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        AddConfigViewController *vc = [[AddConfigViewController alloc] initWithNibName:nil bundle:nil];
-        vc.delegate = wself;
-        vc.isEditting = YES;
-        vc.index = indexPath.row - 1;
-        UINavigationController *navi = [[UINavigationController alloc] initWithNavigationBarClass:[TransparentNavigationBar class] toolbarClass:nil];
-        [navi pushViewController:vc animated:NO];
-        [wself presentViewController:navi animated:YES completion:nil];
-    }];
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        [[ConfigManager sharedManager] deleteConfig:indexPath.row - 1];
-        [wself.tableView reloadData];
-    }];
-    return @[deleteAction, editAction];
+    if(indexPath.row == 0) {
+        UITableViewRowAction *updateAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"跟新" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+            [wself.view addSubview:_hud];
+            [_hud showAnimated:YES];
+            [[ConfigManager sharedManager] asyncFetchFreeConfig:YES withCompletion:^(NSError *error) {
+                [_hud hideAnimated:YES];
+            }];
+        }];
+        return @[updateAction];
+    } else {
+        UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"编辑" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+            AddConfigViewController *vc = [[AddConfigViewController alloc] initWithNibName:nil bundle:nil];
+            vc.delegate = wself;
+            vc.isEditting = YES;
+            vc.index = indexPath.row - 1;
+            UINavigationController *navi = [[UINavigationController alloc] initWithNavigationBarClass:[TransparentNavigationBar class] toolbarClass:nil];
+            [navi pushViewController:vc animated:NO];
+            [wself presentViewController:navi animated:YES completion:nil];
+        }];
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+            [[ConfigManager sharedManager] deleteConfig:indexPath.row - 1];
+            [wself.tableView reloadData];
+        }];
+        return @[deleteAction, editAction];
+    }
     
 }
 
@@ -246,11 +257,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0) {
-        if(indexPath.row == 0) {
-            return NO;
-        } else {
-            return YES;
-        }
+        return YES;
     }
     return NO;
     
@@ -342,7 +349,7 @@
     }
     BOOL triggered = !_headerView.triggered;
     if(triggered) {
-        [[ConfigManager sharedManager] asyncFetchFreeConfig:nil];
+        [[ConfigManager sharedManager] asyncFetchFreeConfig:NO withCompletion:nil];
         if([ConfigManager sharedManager].usefreeShadowSocks && [self.interstitial isReady]) {
             self.connectAfterAdDismiss = YES;
             [self.interstitial presentFromRootViewController:self];

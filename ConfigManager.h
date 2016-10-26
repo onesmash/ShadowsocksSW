@@ -33,6 +33,6 @@
 - (BOOL)deleteConfig:(NSInteger)index;
 - (BOOL)replaceConfig:(NSInteger)index withConfig:(ShadowSocksConfig *)config;
 
-- (void)asyncFetchFreeConfig:(void(^)(NSError *error))complition;
+- (void)asyncFetchFreeConfig:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler;
 
 @end
