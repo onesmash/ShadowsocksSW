@@ -23,7 +23,7 @@
 using namespace std;
 
 Socks2SS::Socks2SS(WukongBase::Base::MessageLoop* messageLoop, uint16_t port)
-:   lock_(), messageLoop_(messageLoop), socksServer_(messageLoop, WukongBase::Net::IPAddress("127.0.0.1", port)), nextChannelID_(0)
+:   lock_(), messageLoop_(messageLoop), socksServer_(messageLoop, WukongBase::Net::IPAddress("127.0.0.1", port)), nextChannelID_(0), isRestart_(false)
 {
     socksServer_.setConnectCallback([this](const std::shared_ptr<WukongBase::Net::TCPSession>& session) {
         std::shared_ptr<Socks5Session> socksSession(new Socks5Session(session));
@@ -31,8 +31,13 @@ Socks2SS::Socks2SS(WukongBase::Base::MessageLoop* messageLoop, uint16_t port)
     });
     socksServer_.setStopCallback([this]() {
         std::lock_guard<std::mutex> guard(lock_);
-        channelMap_.clear();
-        paddingRequestMap_.clear();
+        if(isRestart_) {
+            isRestart_ = false;
+            socksServer_.start();
+        } else {
+            channelMap_.clear();
+            paddingRequestMap_.clear();
+        }
     });
 }
 
@@ -44,14 +49,24 @@ void Socks2SS::start(const WukongBase::Net::IPAddress& ssRemote, const std::stri
 {
     ssClient_ = std::shared_ptr<SSClient>(new SSClient(ssRemote, Crypto::getCipherTypeByName(encryptionMethod), password));
     setupSSClient(ssClient_);
-    if(!socksServer_.isStarted()) socksServer_.start();
+    if(socksServer_.isStarted()) {
+        isRestart_ = true;
+        socksServer_.stop();
+    } else {
+        socksServer_.start();
+    }
 }
 
 void Socks2SS::start(const std::string& ssRemoteHost, uint16_t port, const std::string& encryptionMethod, const std::string& password)
 {
     ssClient_ = std::shared_ptr<SSClient>(new SSClient(ssRemoteHost, port, Crypto::getCipherTypeByName(encryptionMethod), password));
     setupSSClient(ssClient_);
-    if(!socksServer_.isStarted()) socksServer_.start();
+    if(socksServer_.isStarted()) {
+        isRestart_ = true;
+        socksServer_.stop();
+    } else {
+        socksServer_.start();
+    }
 }
 
 void Socks2SS::setupSSClient(const std::shared_ptr<SSClient>& client)

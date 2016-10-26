@@ -21,6 +21,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <MMWormhole.h>
+#import <Reachability.h>
 
 #define kSocks5ServerPort 2080
 
@@ -55,37 +56,24 @@
     }
     [Fabric with:@[[Crashlytics class]]];
     NSError *error = [TunnelInterface setupWithPacketTunnelFlow:self.packetFlow];
-    if (error) {
-        completionHandler(error);
-        return;
+    if(error) {
+        if(completionHandler) completionHandler(error);
     }
-    if([self startSocks2ShadowSocksService:&error]) {
-        [self setupTunnelNetworking:^(NSError *error) {
-            if(!error) {
-                NSError *error;
-                if([self startTun2SocksService:&error] && [self setupWormhole:&error]) {
-                    completionHandler(nil);
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [TunnelInterface processPackets];
-                    });
-                } else {
-                    completionHandler(error);
-                }
-                
-            } else {
-                completionHandler(error);
-            }
-        }];
-    } else {
+    [self startTunelService:^(NSError *error) {
+        if(!error) {
+            Reachability *reachability = [Reachability reachabilityForInternetConnection];
+            reachability.reachableBlock = ^(Reachability *reachability) {
+                [self setupTunnelNetworking:nil];
+            };
+            [reachability startNotifier];
+        }
         completionHandler(error);
-    }
+    }];
 }
 
 - (void)stopTunnelWithReason:(NEProviderStopReason)reason completionHandler:(void (^)(void))completionHandler
 {
 	// Add code here to start the process of stopping the tunnel.
-    [self stopTun2SocksService];
-    [self stopSocks2ShadowSocksService];
 	completionHandler();
     [ConfigManager sharedManager].canActivePacketTunnel = NO;
 }
@@ -106,76 +94,71 @@
 	// Add code here to wake up.
 }
 
-- (BOOL)restartSocks2ShadowSocksService:(NSError **)error
+- (void)startTunelService:(void(^)(NSError* error))completion
 {
-    ShadowSocksConfig *config;
-    if([ConfigManager sharedManager].usefreeShadowSocks) {
-        int32_t index = arc4random_uniform((int32_t)[ConfigManager sharedManager].freeShadowSocksConfigs.count);
-        config = [[ConfigManager sharedManager].freeShadowSocksConfigs objectAtIndex:(NSInteger)index];
+    if([self startSocks2ShadowSocksService]) {
+        [self setupTunnelNetworking:^(NSError *error) {
+            if(!error) {
+                if([self startTun2SocksService] && [self setupWormhole]) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [TunnelInterface processPackets];
+                    });
+                    if(completion) completion(nil);
+                } else {
+                    if(completion) completion([[NSError alloc] initWithDomain:kPacketTunnelProviderErrorDomain code:kPacketTunnelProviderErrorSocks2ssServiceStartFailed userInfo:nil]);
+                }
+            } else {
+                if(completion) completion(error);
+            }
+        }];
     } else {
-        config = [[ConfigManager sharedManager].shadowSocksConfigs objectAtIndex:[ConfigManager sharedManager].selectedShadowSocksIndex];
+        if(completion) completion([[NSError alloc] initWithDomain:kPacketTunnelProviderErrorDomain code:kPacketTunnelProviderErrorSocks2ssServiceStartFailed userInfo:nil]);
     }
-    if(!config) {
-        *error = [NSError errorWithDomain:kPacketTunnelProviderErrorDomain code:kPacketTunnelProviderErrorSocks2ssServiceStartFailed userInfo:nil];
-        return NO;
-    }
-    NSString *hostname = config.ssServerAddress;
-    const std::vector<WukongBase::Net::IPAddress>& addresses = WukongBase::Net::IPAddress::resolve(hostname.UTF8String);
-    int32_t index = arc4random_uniform((int32_t)addresses.size());
-    WukongBase::Net::IPAddress address = addresses[index];
-    address.setPort(config.ssServerPort.integerValue);
-    _socks2ssService->start(address, config.encryptionMethod.UTF8String, config.password.UTF8String);
-    *error = nil;
-    return YES;
 }
 
-- (BOOL)startSocks2ShadowSocksService:(NSError **)error
-{
-    ShadowSocksConfig *config;
-    if([ConfigManager sharedManager].usefreeShadowSocks) {
-        int32_t index = arc4random_uniform((int32_t)[ConfigManager sharedManager].freeShadowSocksConfigs.count);
-        config = [[ConfigManager sharedManager].freeShadowSocksConfigs objectAtIndex:(NSInteger)index];
-    } else {
-        config = [[ConfigManager sharedManager].shadowSocksConfigs objectAtIndex:[ConfigManager sharedManager].selectedShadowSocksIndex];
-    }
-    if(!config) {
-        *error = [NSError errorWithDomain:kPacketTunnelProviderErrorDomain code:kPacketTunnelProviderErrorSocks2ssServiceStartFailed userInfo:nil];
-        return NO;
-    }
-    NSString *hostname = config.ssServerAddress;
-    const std::vector<WukongBase::Net::IPAddress>& addresses = WukongBase::Net::IPAddress::resolve(hostname.UTF8String);
-    int32_t index = arc4random_uniform((int32_t)addresses.size());
-    WukongBase::Net::IPAddress address = addresses[index];
-    address.setPort(config.ssServerPort.integerValue);
-    _socks2ShadowSocksServiceThread = std::shared_ptr<WukongBase::Base::Thread>(new WukongBase::Base::Thread("socks2ss"));
-    _socks2ShadowSocksServiceThread->start();
-    _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), kSocks5ServerPort));
-    _socks2ssService->start(address, config.encryptionMethod.UTF8String, config.password.UTF8String);
-    *error = nil;
-    return YES;
-}
-
-- (void)stopSocks2ShadowSocksService
-{
-    _socks2ssService->stop();
-}
-
-- (BOOL)startTun2SocksService:(NSError **)error
-{
-    [TunnelInterface startTun2Socks:kSocks5ServerPort];
-    *error = nil;
-    return YES;
-}
-
-- (void)stopTun2SocksService
+- (void)stopTunelService
 {
     [TunnelInterface stop];
+}
+
+- (BOOL)startSocks2ShadowSocksService
+{
+    ShadowSocksConfig *config;
+    if([ConfigManager sharedManager].usefreeShadowSocks) {
+        int32_t index = arc4random_uniform((int32_t)[ConfigManager sharedManager].freeShadowSocksConfigs.count);
+        config = [[ConfigManager sharedManager].freeShadowSocksConfigs objectAtIndex:(NSInteger)index];
+    } else {
+        config = [[ConfigManager sharedManager].shadowSocksConfigs objectAtIndex:[ConfigManager sharedManager].selectedShadowSocksIndex];
+    }
+    if(!config) {
+        return NO;
+    }
+    NSString *hostname = config.ssServerAddress;
+    const std::vector<WukongBase::Net::IPAddress>& addresses = WukongBase::Net::IPAddress::resolve(hostname.UTF8String);
+    int32_t index = arc4random_uniform((int32_t)addresses.size());
+    WukongBase::Net::IPAddress address = addresses[index];
+    address.setPort(config.ssServerPort.integerValue);
+    if(!_socks2ShadowSocksServiceThread) {
+        _socks2ShadowSocksServiceThread = std::shared_ptr<WukongBase::Base::Thread>(new WukongBase::Base::Thread("socks2ss"));
+        _socks2ShadowSocksServiceThread->start();
+        _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), kSocks5ServerPort));
+        
+    }
+    _socks2ssService->start(address, config.encryptionMethod.UTF8String, config.password.UTF8String);
+    
+    return YES;
+}
+
+- (BOOL)startTun2SocksService
+{
+    [TunnelInterface startTun2Socks:kSocks5ServerPort];
+    return YES;
 }
 
 - (void)setupTunnelNetworking:(void(^)(NSError *))completionHandler
 {
     NEIPv4Settings *ipv4Settings = [[NEIPv4Settings alloc] initWithAddresses:@[@"192.0.2.1"] subnetMasks:@[@"255.255.255.0"]];
-    NSArray *dnsServers = [DNS getSystemDnsServers];
+    NSArray *dnsServers = @[@"8.8.8.8", @"8.8.4.4"];//[DNS getSystemDnsServers];
     SWLOG_DEBUG("DNS :{}", dnsServers.description.UTF8String);
     NSMutableArray *excludedRoutes = [NSMutableArray array];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"192.168.0.0" subnetMask:@"255.255.0.0"]];
@@ -203,15 +186,13 @@
     }];
 }
 
-- (BOOL)setupWormhole:(NSError **)error
+- (BOOL)setupWormhole
 {
     __weak typeof(self) wself = self;
     [self.wormhole listenForMessageWithIdentifier:kWormholeSelectedConfigChangedNotification listener:^(id message) {
         SWLOG_INFO("Hello");
-        NSError *error;
-        [wself restartSocks2ShadowSocksService:&error];
+        [wself startSocks2ShadowSocksService];
     }];
-    *error = nil;
     return YES;
 }
 

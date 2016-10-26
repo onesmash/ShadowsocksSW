@@ -72,6 +72,7 @@ private:
     std::unordered_map<uint64_t, Socks2SSChannel> channelMap_;
     std::unordered_map<SSTCPRelayRequest*, uint64_t> paddingRequestMap_;
     uint64_t nextChannelID_;
+    bool isRestart_;
 };
 
 #endif /* Socks2SS_h */

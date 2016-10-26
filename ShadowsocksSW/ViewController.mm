@@ -22,6 +22,7 @@
 #import <IonIcons.h>
 #import <Firebase.h>
 #import <MBProgressHUD.h>
+#import <Reachability.h>
 #import <VTAcknowledgementViewController.h>
 #import <VTAcknowledgementsViewController.h>
 #import <NetworkExtension/NetworkExtension.h>
@@ -49,6 +50,11 @@
     [self setupView];
     [self setupVPN];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUIApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    reachability.reachableBlock = ^(Reachability *reachability) {
+        
+    };
+    [reachability startNotifier];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUIApplicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
@@ -431,7 +437,13 @@
                 if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
                     NSError *error;
                     if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
-                        SWLOG_DEBUG("tunnel provider start success");
+                        if(error) {
+                            _headerView.triggered = NO;
+                            [ConfigManager sharedManager].canActivePacketTunnel = NO;
+                            [self.view makeToast:@"启动代理服务失败"
+                                        duration:1.5
+                                        position:CSToastPositionTop];
+                        }
                     } else {
                         _headerView.triggered = NO;
                         [ConfigManager sharedManager].canActivePacketTunnel = NO;

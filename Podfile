@@ -18,11 +18,13 @@ abstract_target 'SW' do
 		pod 'Firebase/Core'
 		pod 'Firebase/AdMob'
 		pod 'MBProgressHUD'
+		pod 'Reachability', '~> 3.2'
 	end
 
 	target 'PacketTunnelProvider' do
 		pod 'openssl-ios-bitcode', '~> 1.0'
 		pod 'CocoaAsyncSocket', '~> 7.5'
+		pod 'Reachability', '~> 3.2'
 	end
 
 end

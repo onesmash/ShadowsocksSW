@@ -78,7 +78,6 @@
 
 + (void)stop {
     [[TunnelInterface sharedInterface].udpSession removeAllObjects];
-    [[TunnelInterface sharedInterface].udpSocket close];
     stop_tun2socks();
 }
 

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "2B7F335168A77E2EA29835DCFAA77CD1751715C7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "556E2B95509B28523D7B1C69F3933656864D9E9A" : 9223372036854775807,
+    "2B7F335168A77E2EA29835DCFAA77CD1751715C7" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "59EC5AA0-0E15-4D7C-8700-4B784B594EED",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "556E2B95509B28523D7B1C69F3933656864D9E9A" : "ShadowsocksSW\/third_party\/SWUIKit\/",
+    "2B7F335168A77E2EA29835DCFAA77CD1751715C7" : "ShadowsocksSW\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ShadowsocksSW",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ShadowsocksSW.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/onesmash\/ShadowsocksSW.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2B7F335168A77E2EA29835DCFAA77CD1751715C7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/onesmash\/SWUIKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "556E2B95509B28523D7B1C69F3933656864D9E9A"
+    }
+  ]
+}
