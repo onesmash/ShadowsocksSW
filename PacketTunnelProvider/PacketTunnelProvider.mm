@@ -191,7 +191,7 @@
     __weak typeof(self) wself = self;
     [self.wormhole listenForMessageWithIdentifier:kWormholeSelectedConfigChangedNotification listener:^(id message) {
         SWLOG_INFO("Hello");
-        [wself startSocks2ShadowSocksService];
+        //[wself startSocks2ShadowSocksService];
     }];
     return YES;
 }

@@ -120,16 +120,13 @@
         }];
         
     }];
-    [self.view addSubview:_hud];
-    [_hud showAnimated:YES];
-    [[ConfigManager sharedManager] asyncFetchFreeConfig:NO withCompletion:^(NSError *error) {
-        [_hud hideAnimated:YES];
-    }];
-}
-
-- (void)onVPNContectNotification:(NSNotification *)note
-{
-    
+    if([ConfigManager sharedManager].usefreeShadowSocks) {
+        [self.view addSubview:_hud];
+        [_hud showAnimated:YES];
+        [[ConfigManager sharedManager] asyncFetchFreeConfig:YES withCompletion:^(NSError *error) {
+            [_hud hideAnimated:YES];
+        }];
+    }
 }
 
 - (void)onAddConfigBtnClicked:(id)sender
@@ -216,6 +213,7 @@
             [ConfigManager sharedManager].usefreeShadowSocks = NO;
             [ConfigManager sharedManager].selectedShadowSocksIndex = row - 1;
         }
+        [self restartShadowsocksService];
         [self.tableView reloadData];
     } else if(section == 1) {
         NSString *fileName;
@@ -349,7 +347,6 @@
     }
     BOOL triggered = !_headerView.triggered;
     if(triggered) {
-        [[ConfigManager sharedManager] asyncFetchFreeConfig:NO withCompletion:nil];
         if([ConfigManager sharedManager].usefreeShadowSocks && [self.interstitial isReady]) {
             self.connectAfterAdDismiss = YES;
             [self.interstitial presentFromRootViewController:self];
@@ -422,13 +419,56 @@
     }];
 }
 
+- (void)startShadowsocksServiceImediately
+{
+    _headerView.triggered = YES;
+    [ConfigManager sharedManager].canActivePacketTunnel = YES;
+    [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
+        if(managers.count > 0) {
+            _tunelProviderManager = managers.firstObject;
+        } else {
+            _tunelProviderManager = [[NETunnelProviderManager alloc] init];
+            _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
+            _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
+        }
+        _tunelProviderManager.onDemandEnabled = NO;
+        _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
+        _tunelProviderManager.enabled = YES;
+        [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
+            if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
+                NSError *error;
+                if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
+                    if(error) {
+                        _headerView.triggered = NO;
+                        [ConfigManager sharedManager].canActivePacketTunnel = NO;
+                        [self.view makeToast:@"启动代理服务失败"
+                                    duration:1.5
+                                    position:CSToastPositionTop];
+                    }
+                } else {
+                    _headerView.triggered = NO;
+                    [ConfigManager sharedManager].canActivePacketTunnel = NO;
+                }
+            }
+        }];
+        
+    }];
+}
+
 - (void)startShadowsocksService
 {
     _headerView.userInteractionEnabled = NO;
     [self doStartAnimation:^() {
         _headerView.userInteractionEnabled = YES;
-        _headerView.triggered = YES;
-        [ConfigManager sharedManager].canActivePacketTunnel = YES;
+        [self startShadowsocksServiceImediately];
+    }];
+}
+
+- (void)stopShadowsocksServiceImediately
+{
+    if(_tunelProviderManager) {
+        [_tunelProviderManager.connection stopVPNTunnel];
+    } else {
         [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
             if(managers.count > 0) {
                 _tunelProviderManager = managers.firstObject;
@@ -441,25 +481,14 @@
             _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
             _tunelProviderManager.enabled = YES;
             [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
-                if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
-                    NSError *error;
-                    if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
-                        if(error) {
-                            _headerView.triggered = NO;
-                            [ConfigManager sharedManager].canActivePacketTunnel = NO;
-                            [self.view makeToast:@"启动代理服务失败"
-                                        duration:1.5
-                                        position:CSToastPositionTop];
-                        }
-                    } else {
-                        _headerView.triggered = NO;
-                        [ConfigManager sharedManager].canActivePacketTunnel = NO;
-                    }
+                if(_tunelProviderManager.connection.status == NEVPNStatusConnected) {
+                    [_tunelProviderManager.connection stopVPNTunnel];
+                    [ConfigManager sharedManager].canActivePacketTunnel = NO;
                 }
             }];
             
         }];
-    }];
+    }
 }
 
 - (void)stopShadowsocksService
@@ -467,30 +496,24 @@
     _headerView.userInteractionEnabled = NO;
     [self doStopAnimation:^() {
         _headerView.userInteractionEnabled = YES;
-        if(_tunelProviderManager) {
-            [_tunelProviderManager.connection stopVPNTunnel];
-        } else {
-            [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
-                if(managers.count > 0) {
-                    _tunelProviderManager = managers.firstObject;
-                } else {
-                    _tunelProviderManager = [[NETunnelProviderManager alloc] init];
-                    _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
-                    _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
-                }
-                _tunelProviderManager.onDemandEnabled = NO;
-                _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
-                _tunelProviderManager.enabled = YES;
-                [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
-                    if(_tunelProviderManager.connection.status == NEVPNStatusConnected) {
-                        [_tunelProviderManager.connection stopVPNTunnel];
-                    }
-                }];
-                
-            }];
-        }
-        
+        [self stopShadowsocksServiceImediately];
     }];
+}
+
+- (void)restartShadowsocksService
+{
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onVPNContectNotification:) name:NEVPNConfigurationChangeNotification object:nil];
+    [self stopShadowsocksServiceImediately];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self startShadowsocksServiceImediately];
+    });
+    
+}
+
+- (void)onVPNContectNotification:(NSNotification *)note
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NEVPNConfigurationChangeNotification object:nil];
+    [self startShadowsocksServiceImediately];
 }
 
 #pragma mark - Notification

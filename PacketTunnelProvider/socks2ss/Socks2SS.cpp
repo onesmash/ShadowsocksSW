@@ -225,8 +225,11 @@ void Socks2SS::closeChannel(uint64_t channelID)
             case kWaittingSSesion: {
                 if(!channel->socks5Session->isClosed()) {
                     channel->socks5Session->close();
+                    channel->status = kClosing;
+                } else {
+                    channel->status = kClosed;
                 }
-                channel->status = kClosing;
+                
             } break;
             case kEstablished: {
                 if(!channel->socks5Session->isClosed()) {

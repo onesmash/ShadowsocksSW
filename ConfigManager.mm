@@ -242,7 +242,7 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     if(self.selectedShadowSocksIndex != selectedShadowSocksIndex) {
         [_sharedDefaults setObject:@(selectedShadowSocksIndex) forKey:kSelectedConfigIndexKey];
         [_sharedDefaults synchronize];
-        [self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
+        //[self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
     }
 }
 
@@ -301,7 +301,7 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     if(self.usefreeShadowSocks != usefreeShadowSocks) {
         [_sharedDefaults setObject:@(usefreeShadowSocks) forKey:kUsefreeShadowSocksKey];
         [_sharedDefaults synchronize];
-        [self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
+        //[self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
     }
 }
 
@@ -325,22 +325,9 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
         if(complitionHandler) complitionHandler(nil);
         return;
     }
-    [_httpSessionManager HEAD:kFreeShadowsocksConifgURL parameters:nil success:^(NSURLSessionDataTask *task) {
-        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-        if(response.statusCode == 200) {
-            NSString *etag = [response.allHeaderFields objectForKey:@"Etag"] ? : @"";
-            if([etag isEqualToString:self.fssEtag]) {
-                if(complitionHandler) complitionHandler(nil);
-            } else {
-                [_httpSessionManager GET:kFreeShadowsocksConifgURL parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSArray<ShadowSocksConfig *> *configs) {
-                    self.fssEtag = etag;
-                    self.freeShadowSocksConfigs = configs;
-                    if(complitionHandler) complitionHandler(nil);
-                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                    if(complitionHandler) complitionHandler(error);
-                }];
-            }
-        }
+    [_httpSessionManager GET:kFreeShadowsocksConifgURL parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSArray<ShadowSocksConfig *> *configs) {
+        self.freeShadowSocksConfigs = configs;
+        if(complitionHandler) complitionHandler(nil);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if(complitionHandler) complitionHandler(error);
     }];
