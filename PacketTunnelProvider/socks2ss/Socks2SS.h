@@ -50,12 +50,18 @@ struct Socks2SSChannel {
 
 class Socks2SS {
 public:
+    typedef std::function<void(bool success)> RequestCallback;
     Socks2SS() = delete;
     Socks2SS(WukongBase::Base::MessageLoop* messageLoop, uint16_t port);
     ~Socks2SS();
     void start(const WukongBase::Net::IPAddress& ssRemote, const std::string& encryptionMethod, const std::string& password);
     void start(const std::string& ssRemoteHost, uint16_t port, const std::string& encryptionMethod, const std::string& password);
     void stop();
+    
+    void setRequestCallback(const RequestCallback& cb)
+    {
+        requestCallback_ = cb;
+    }
 private:
     Socks5MethodSelectionResponse genMethodSelectionResponse(const Socks5MethodSelectionMessage& message);
     Socks5Response genResponse(Socks5ResponseStatus status, const WukongBase::Net::IPAddress& bindAddress);
@@ -73,6 +79,7 @@ private:
     std::unordered_map<SSTCPRelayRequest*, uint64_t> paddingRequestMap_;
     uint64_t nextChannelID_;
     bool isRestart_;
+    RequestCallback requestCallback_;
 };
 
 #endif /* Socks2SS_h */

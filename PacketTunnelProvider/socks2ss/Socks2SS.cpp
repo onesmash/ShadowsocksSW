@@ -109,7 +109,10 @@ void Socks2SS::setupSSClient(const std::shared_ptr<SSClient>& client)
                     }, timeDeltaFromSeconds(10));
                 }
                 SWLOG_DEBUG("socks5 connect {}", success);
+            } else {
+                session->close();
             }
+            requestCallback_(success);
         } else {
             assert(false);
         }

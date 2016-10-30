@@ -7,6 +7,7 @@
 //
 
 #import "HeaderView.h"
+#import "UIView+SWFrameAdditions.h"
 #import <IonIcons.h>
 
 @interface HeaderView ()

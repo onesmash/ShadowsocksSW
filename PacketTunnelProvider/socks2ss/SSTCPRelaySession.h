@@ -42,7 +42,7 @@ public:
     void sendPacket(const WukongBase::Net::Packet& packet);
     void sendPacket(WukongBase::Net::Packet&& packet);
     
-    void close();
+    void close(); //必须调用，否则session无法释放
     
     bool isClosed();
     
@@ -69,6 +69,11 @@ public:
         closeCallback_ = cb;
     }
     
+    void setDefaultCloseCallback(const CloseCallback& cb)
+    {
+        defaultCloseCallback_ = cb;
+    }
+    
 private:
     
     enum State { kDisconnected, kConnecting, kConnected, kDisconnecting, kAuthorizing, kAuthorized};
@@ -81,6 +86,7 @@ private:
     ReadCompleteCallback readCompleteCallback_;
     WriteCompleteCallback writeCompleteCallback_;
     CloseCallback closeCallback_;
+    CloseCallback defaultCloseCallback_;
     bool receivedPacketHasIVPrepend_;
     std::shared_ptr<WukongBase::Net::TCPClient> tcpClient_;
     std::shared_ptr<WukongBase::Net::TCPSession> tcpSession_;

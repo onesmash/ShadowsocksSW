@@ -94,6 +94,7 @@
 		0374CD1A1D8EDDA9001DD9F6 /* BTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCDD1D8EDDA9001DD9F6 /* BTap.m */; };
 		0374CD1B1D8EDDA9001DD9F6 /* udpgw.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCDF1D8EDDA9001DD9F6 /* udpgw.c */; };
 		0374CD1C1D8EDDA9001DD9F6 /* UdpGwClient.c in Sources */ = {isa = PBXBuildFile; fileRef = 0374CCE21D8EDDA9001DD9F6 /* UdpGwClient.c */; };
+		0377F1511DC62C1D00C78EAB /* FlagKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0377F1501DC62C1D00C78EAB /* FlagKit.xcassets */; };
 		037F72DC1DA55BCC00999755 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F72DB1DA55BCC00999755 /* SectionHeaderView.m */; };
 		038B87C11D9820F5009BC13E /* ConfigManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8B1D9800B6001FBB04 /* ConfigManager.mm */; };
 		038B87C21D9820F5009BC13E /* ShadowSocksConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D29B8E1D9803E1001FBB04 /* ShadowSocksConfig.m */; };
@@ -116,8 +117,8 @@
 		03E4C7C61DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7C41DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.m */; };
 		03E4C7C71DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E4C7C51DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib */; };
 		03E4C7CA1DA69CAB0077AA73 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E4C7C91DA69CAB0077AA73 /* NSString+Util.m */; };
-		3768DE5958102069646C709D /* libPods-SW-ShadowsocksSW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA3F4E4FAD709AFDA5A462CF /* libPods-SW-ShadowsocksSW.a */; };
-		63775E7A0FEA376BB8334ADB /* libPods-SW-PacketTunnelProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7841ED74D46A9E88C6543A88 /* libPods-SW-PacketTunnelProvider.a */; };
+		668748B26C8172E94876D6EB /* libPods-SW-PacketTunnelProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF9C792FC248DB863E85FA9F /* libPods-SW-PacketTunnelProvider.a */; };
+		82E93024B6846B3038F49747 /* libPods-SW-ShadowsocksSW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79BC296BB82170D98661A420 /* libPods-SW-ShadowsocksSW.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -622,6 +623,7 @@
 		0374CCE01D8EDDA9001DD9F6 /* udpgw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udpgw.h; sourceTree = "<group>"; };
 		0374CCE21D8EDDA9001DD9F6 /* UdpGwClient.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = UdpGwClient.c; sourceTree = "<group>"; };
 		0374CCE31D8EDDA9001DD9F6 /* UdpGwClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdpGwClient.h; sourceTree = "<group>"; };
+		0377F1501DC62C1D00C78EAB /* FlagKit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FlagKit.xcassets; sourceTree = "<group>"; };
 		037F72DA1DA55BCC00999755 /* SectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeaderView.h; sourceTree = "<group>"; };
 		037F72DB1DA55BCC00999755 /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
 		039709901D891E1A008333CD /* PacketTunnelProvider.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PacketTunnelProvider.debug.xcconfig; sourceTree = "<group>"; };
@@ -661,9 +663,9 @@
 		03E4C7C81DA69CAB0077AA73 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		03E4C7C91DA69CAB0077AA73 /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		2A2479ECD5D6763075B84794 /* Pods-SW-ShadowsocksSW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SW-ShadowsocksSW.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW.debug.xcconfig"; sourceTree = "<group>"; };
-		7841ED74D46A9E88C6543A88 /* libPods-SW-PacketTunnelProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SW-PacketTunnelProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		79BC296BB82170D98661A420 /* libPods-SW-ShadowsocksSW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SW-ShadowsocksSW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5362FB1A754F34D17AC966F /* Pods-SW-ShadowsocksSW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SW-ShadowsocksSW.release.xcconfig"; path = "Pods/Target Support Files/Pods-SW-ShadowsocksSW/Pods-SW-ShadowsocksSW.release.xcconfig"; sourceTree = "<group>"; };
-		EA3F4E4FAD709AFDA5A462CF /* libPods-SW-ShadowsocksSW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SW-ShadowsocksSW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF9C792FC248DB863E85FA9F /* libPods-SW-PacketTunnelProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SW-PacketTunnelProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -673,7 +675,7 @@
 			files = (
 				036184011D8D0F5700604F9A /* NetworkExtension.framework in Frameworks */,
 				036183EA1D8C3A0700604F9A /* libWukongBase.a in Frameworks */,
-				3768DE5958102069646C709D /* libPods-SW-ShadowsocksSW.a in Frameworks */,
+				82E93024B6846B3038F49747 /* libPods-SW-ShadowsocksSW.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,7 +686,7 @@
 				0398459B1DB49FE2003D338A /* libresolv.tbd in Frameworks */,
 				032C02CC1D8FB078003040F7 /* libWukongBase.a in Frameworks */,
 				036184001D8D0F4D00604F9A /* NetworkExtension.framework in Frameworks */,
-				63775E7A0FEA376BB8334ADB /* libPods-SW-PacketTunnelProvider.a in Frameworks */,
+				668748B26C8172E94876D6EB /* libPods-SW-PacketTunnelProvider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +731,7 @@
 				03DA36BD1DB902E300CE0A36 /* LogViewController.mm */,
 				03DA36BE1DB902E300CE0A36 /* LogViewController.xib */,
 				030410BD1D48F01C0097C5FC /* Assets.xcassets */,
+				0377F1501DC62C1D00C78EAB /* FlagKit.xcassets */,
 				03207DF71DB7B07C007989A3 /* Admob.plist */,
 				03207DF21DB7AAA4007989A3 /* GoogleService-Info.plist */,
 				030410C21D48F01C0097C5FC /* Info.plist */,
@@ -1538,8 +1541,8 @@
 				036183FF1D8D0F4D00604F9A /* NetworkExtension.framework */,
 				036183F51D8CEE6300604F9A /* libc++.tbd */,
 				03077C071D88594D00EEE7F5 /* libWukongBase.a */,
-				7841ED74D46A9E88C6543A88 /* libPods-SW-PacketTunnelProvider.a */,
-				EA3F4E4FAD709AFDA5A462CF /* libPods-SW-ShadowsocksSW.a */,
+				CF9C792FC248DB863E85FA9F /* libPods-SW-PacketTunnelProvider.a */,
+				79BC296BB82170D98661A420 /* libPods-SW-ShadowsocksSW.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1666,6 +1669,7 @@
 				036183FA1D8CF69A00604F9A /* ShadowsocksSW.entitlements in Resources */,
 				03DA36C01DB902E300CE0A36 /* LogViewController.xib in Resources */,
 				03207DF81DB7B07C007989A3 /* Admob.plist in Resources */,
+				0377F1511DC62C1D00C78EAB /* FlagKit.xcassets in Resources */,
 				03E4C7B51DA61EC60077AA73 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

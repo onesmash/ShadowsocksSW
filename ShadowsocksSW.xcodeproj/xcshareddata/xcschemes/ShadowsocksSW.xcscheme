@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7501A473797AD6711CA43E44112FF576"
+               BlueprintIdentifier = "7C03E582D3CDDEE5E5698BDBD87D6606"
                BuildableName = "libPods-SW-PacketTunnelProvider.a"
                BlueprintName = "Pods-SW-PacketTunnelProvider"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "90A8B5A09A3CE92331F18348F891B951"
+               BlueprintIdentifier = "9BD8E8101AAB413800FAF40F9D088D87"
                BuildableName = "libPods-SW-ShadowsocksSW.a"
                BlueprintName = "Pods-SW-ShadowsocksSW"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -111,6 +111,11 @@
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
+         <AdditionalOption
+            key = "MallocGuardEdges"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction

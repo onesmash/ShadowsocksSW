@@ -59,11 +59,13 @@
     if(error) {
         if(completionHandler) completionHandler(error);
     }
+    __weak typeof(self) wself = self;
     [self startTunelService:^(NSError *error) {
         if(!error) {
             Reachability *reachability = [Reachability reachabilityForInternetConnection];
             reachability.reachableBlock = ^(Reachability *reachability) {
-                [self setupTunnelNetworking:nil];
+                [TunnelInterface restart];
+                [wself setupTunnelNetworking:nil];
             };
             [reachability startNotifier];
         }
@@ -135,13 +137,23 @@
     }
     NSString *hostname = config.ssServerAddress;
     const std::vector<WukongBase::Net::IPAddress>& addresses = WukongBase::Net::IPAddress::resolve(hostname.UTF8String);
-    int32_t index = arc4random_uniform((int32_t)addresses.size());
+    NSInteger index = [ConfigManager sharedManager].selectedFreeShadowSocksIndex;
     WukongBase::Net::IPAddress address = addresses[index];
     address.setPort(config.ssServerPort.integerValue);
     if(!_socks2ShadowSocksServiceThread) {
         _socks2ShadowSocksServiceThread = std::shared_ptr<WukongBase::Base::Thread>(new WukongBase::Base::Thread("socks2ss"));
         _socks2ShadowSocksServiceThread->start();
         _socks2ssService = std::shared_ptr<Socks2SS>(new Socks2SS(_socks2ShadowSocksServiceThread->messageLoop(), kSocks5ServerPort));
+        _socks2ssService->setRequestCallback([self](bool success) {
+            @autoreleasepool {
+                if([ConfigManager sharedManager].usefreeShadowSocks) {
+                    if(!success && ![ConfigManager sharedManager].needShowFreeShadowSocksConfigsUpdateTip) {
+                        [ConfigManager sharedManager].needShowFreeShadowSocksConfigsUpdateTip = YES;
+                        [self.wormhole passMessageObject:nil identifier:kWormholeNeedShowFreeShadwosocksConfigUpdateTipNotification];
+                    }
+                }
+            }
+        });
         
     }
     _socks2ssService->start(address, config.encryptionMethod.UTF8String, config.password.UTF8String);
@@ -188,9 +200,8 @@
 
 - (BOOL)setupWormhole
 {
-    __weak typeof(self) wself = self;
+    //__weak typeof(self) wself = self;
     [self.wormhole listenForMessageWithIdentifier:kWormholeSelectedConfigChangedNotification listener:^(id message) {
-        SWLOG_INFO("Hello");
         //[wself startSocks2ShadowSocksService];
     }];
     return YES;

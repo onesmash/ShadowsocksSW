@@ -10,12 +10,12 @@
 #import "ShadowSocksConfig.h"
 
 #define kSharedGroupIdentifier @"group.io.github.onesmash.shadowsockssw"
-#define kWormholeSelectedConfigChangedNotification @"kWormholeSelectedConfigChangedNotification"
 
 @interface ConfigManager : NSObject
 
 @property (nonatomic, assign) BOOL usefreeShadowSocks;
 @property (nonatomic, readonly) NSArray<ShadowSocksConfig *> *freeShadowSocksConfigs;
+@property (nonatomic, assign) NSInteger selectedFreeShadowSocksIndex;
 @property (nonatomic, readonly) NSArray<ShadowSocksConfig *> *shadowSocksConfigs;
 @property (nonatomic, assign) NSInteger selectedShadowSocksIndex;
 @property (nonatomic, assign) BOOL canActivePacketTunnel;
@@ -27,6 +27,8 @@
 @property (nonatomic, copy) NSString *tunnelProviderLogFile;
 @property (nonatomic, readonly, copy) NSString *mainAppLog;
 @property (nonatomic, readonly, copy) NSString *packetTunnelLog;
+@property (nonatomic, readonly, copy) NSString *displayName;
+@property (nonatomic, assign) BOOL needShowFreeShadowSocksConfigsUpdateTip;
 
 + (instancetype)sharedManager;
 - (BOOL)addConfig:(ShadowSocksConfig *)config;

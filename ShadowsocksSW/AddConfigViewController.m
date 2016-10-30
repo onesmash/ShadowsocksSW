@@ -191,7 +191,7 @@ typedef enum {
         case kConfigItemTypeServerAddress: {
             ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfigCell"];
             cell.keyLabel.text = @"服务器";
-            cell.valueTextField.placeholder = @"必填";
+            cell.valueTextField.placeholder = @"必填，Shadowsocks服务器";
             if(_isEditting) {
                 ShadowSocksConfig *config = [ConfigManager sharedManager].shadowSocksConfigs[_index];
                 cell.valueTextField.text = config.ssServerAddress;

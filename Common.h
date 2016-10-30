@@ -16,4 +16,7 @@ typedef enum {
     kPacketTunnelProviderErrorSocks2ssServiceStartFailed,
 } PacketTunnelProviderError;
 
+#define kWormholeSelectedConfigChangedNotification @"kWormholeSelectedConfigChangedNotification"
+#define kWormholeNeedShowFreeShadwosocksConfigUpdateTipNotification @"kWormholeNeedShowFreeShadwosocksConfigUpdateTipNotification"
+
 #endif /* Common_h */

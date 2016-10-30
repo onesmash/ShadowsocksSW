@@ -7,14 +7,17 @@
 //
 
 #import "ConfigManager.h"
+#import "Common.h"
 #import <AFNetworking.h>
 #import <MMWormhole.h>
 
 #define kConfigKey @"kConfigKey"
+#define kSelectedFreeConfigIndexKey @"kSelectedFreeConfigIndexKey"
 #define kSelectedConfigIndexKey @"kSelectedConfigIndexKey"
 #define kFreeShadowsocksConifgEtagKey @"kFreeShadowsocksConifgEtagKey"
 #define kFreeShadowsocksConifgTimestampKey @"kFreeShadowsocksConifgTimestampKey"
 #define kFreeShadowsocksConifgKey @"kFreeShadowsocksConifgKey"
+#define kNeedShowFreeShadowsocksConifgUpdateTipKey @"kNeedShowFreeShadowsocksConifgUpdateTipKey"
 #define kUsefreeShadowSocksKey @"kUsefreeShadowSocksKey"
 #define kCanActivePacketTunnelKey @"kCanActivePacketTunnelKey"
 #define kFreeShadowsocksConifgURL @"https://raw.githubusercontent.com/onesmash/fss/master/fss.txt"
@@ -91,13 +94,16 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
             [ConfigManager sharedManager].fssTimestamp = [[components objectAtIndex:0] substringFromIndex:1].doubleValue;
         } else {
             NSArray *components = [text componentsSeparatedByString:@" "];
-            if(components.count == 4) {
+            if(components.count >= 4) {
                 ShadowSocksConfig *config = [[ShadowSocksConfig alloc] init];
                 config.isFree = YES;
                 config.ssServerAddress = components[0];
                 config.ssServerPort = components[1];
                 config.password = components[2];
                 config.encryptionMethod = components[3];
+                if(components.count == 5) {
+                    config.country = components[4];
+                }
                 [configs addObject:config];
             }
         }
@@ -144,6 +150,11 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_sharedDefaults synchronize];
+}
+
+- (NSString *)displayName
+{
+    return @"DarkNetSW";
 }
 
 - (NSString *)logFilePath
@@ -232,6 +243,20 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     return YES;
 }
 
+- (NSInteger)selectedFreeShadowSocksIndex
+{
+    return [(NSNumber *)[_sharedDefaults objectForKey:kSelectedFreeConfigIndexKey] integerValue];
+}
+
+- (void)setSelectedFreeShadowSocksIndex:(NSInteger)selectedFreeShadowSocksIndex
+{
+    if(self.selectedFreeShadowSocksIndex != selectedFreeShadowSocksIndex) {
+        [_sharedDefaults setObject:@(selectedFreeShadowSocksIndex) forKey:kSelectedFreeConfigIndexKey];
+        [_sharedDefaults synchronize];
+        //[self.wormhole passMessageObject:nil identifier:kWormholeSelectedConfigChangedNotification];
+    }
+}
+
 - (NSInteger)selectedShadowSocksIndex
 {
     return [(NSNumber *)[_sharedDefaults objectForKey:kSelectedConfigIndexKey] integerValue];
@@ -318,15 +343,22 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     }
 }
 
+- (void)setNeedShowFreeShadowSocksConfigsUpdateTip:(BOOL)needShowFreeShadowSocksConfigsUpdateTip
+{
+    [_sharedDefaults setObject:@(needShowFreeShadowSocksConfigsUpdateTip) forKey:kNeedShowFreeShadowsocksConifgUpdateTipKey];
+    [_sharedDefaults synchronize];
+}
+
+- (BOOL)needShowFreeShadowSocksConfigsUpdateTip
+{
+    return [[_sharedDefaults objectForKey:kNeedShowFreeShadowsocksConifgUpdateTipKey] boolValue];
+}
+
 - (void)asyncFetchFreeConfig:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler
 {
-    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-    if(!force && now - self.fssTimestamp < 6 * 60 * 60) {
-        if(complitionHandler) complitionHandler(nil);
-        return;
-    }
     [_httpSessionManager GET:kFreeShadowsocksConifgURL parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSArray<ShadowSocksConfig *> *configs) {
         self.freeShadowSocksConfigs = configs;
+        self.needShowFreeShadowSocksConfigsUpdateTip = NO;
         if(complitionHandler) complitionHandler(nil);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if(complitionHandler) complitionHandler(error);

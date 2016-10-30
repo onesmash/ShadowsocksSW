@@ -44,27 +44,24 @@ void SSClient::sendTCPRelayRequest(const std::shared_ptr<SSTCPRelayRequest>& req
     }
     std::shared_ptr<Crypto> crypto(new Crypto(cipherType_, password_));
     std::shared_ptr<SSTCPRelaySession> session(new SSTCPRelaySession(client, crypto));
-    std::lock_guard<std::mutex> guard(lock_);
+    lock_.lock();
     sessionMap_.insert({request, session});
+    lock_.unlock();
     session->setRequestCallback([this](const std::shared_ptr<SSTCPRelayRequest>& request, bool success) {
         lock_.lock();
         auto iter = sessionMap_.find(request);
         if(iter != sessionMap_.end()) {
             lock_.unlock();
             requestCallback_(iter->second, request, success);
-            lock_.lock();
-            if(success) {
-                sessionMap_.erase(iter);
-            }
         }
         lock_.unlock();
     });
     session->setCloseCallback([this, request]() {
-        std::lock_guard<std::mutex> guard(lock_);
-        auto iter = sessionMap_.find(request);
-        if(iter != sessionMap_.end()) {
-            sessionMap_.erase(iter);
-        }
+    });
+    session->setDefaultCloseCallback([this, request]() {
+        lock_.lock();
+        sessionMap_.erase(request);
+        lock_.unlock();
     });
     session->sendRequest(request);
 }

@@ -18,6 +18,7 @@
 #import "CommonTableViewCell.h"
 #import "TransparentNavigationBar.h"
 #import "ConfigCell.h"
+#import <MMWormhole.h>
 #import <UIView+Toast.h>
 #import <IonIcons.h>
 #import <Firebase.h>
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) GADInterstitial *interstitial;
 @property (nonatomic, assign) BOOL connectAfterAdDismiss;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) MMWormhole *wormhole;
 
 @end
 
@@ -45,11 +47,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupWormhole];
     [self setupAdmob];
     [self setupNavigationBar];
     [self setupView];
     [self setupVPN];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUIApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+    [self showGudieTip];
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     reachability.reachableBlock = ^(Reachability *reachability) {
         
@@ -109,11 +112,11 @@
             _tunelProviderManager = managers.firstObject;
         } else {
             _tunelProviderManager = [[NETunnelProviderManager alloc] init];
-            _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
+            _tunelProviderManager.localizedDescription = [ConfigManager sharedManager].displayName;
             _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
         }
         _tunelProviderManager.onDemandEnabled = NO;
-        _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
+        _tunelProviderManager.protocolConfiguration.serverAddress = [ConfigManager sharedManager].displayName;
         _tunelProviderManager.enabled = YES;
         [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
             _headerView.triggered = (_tunelProviderManager.connection.status == NEVPNStatusConnected);
@@ -123,9 +126,61 @@
     if([ConfigManager sharedManager].usefreeShadowSocks) {
         [self.view addSubview:_hud];
         [_hud showAnimated:YES];
+        __weak typeof(self) wself = self;
         [[ConfigManager sharedManager] asyncFetchFreeConfig:YES withCompletion:^(NSError *error) {
             [_hud hideAnimated:YES];
+            if(error) {
+                [wself showFreeConfigUpdateFailedTip];
+            }
         }];
+    }
+}
+
+- (void)setupWormhole
+{
+    __weak typeof(self) wself = self;
+    [self.wormhole listenForMessageWithIdentifier:kWormholeNeedShowFreeShadwosocksConfigUpdateTipNotification listener:^(id message) {
+        [wself showFreeConfigUpdateTip];
+    }];
+}
+
+- (MMWormhole *)wormhole
+{
+    if(!_wormhole) {
+        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:kSharedGroupIdentifier
+                                                         optionalDirectory:@"wormhole"];
+    }
+    return _wormhole;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self showFreeConfigUpdateTip];
+}
+
+- (void)showGudieTip
+{
+    [self.view makeToast:@"点击灰色飞机，开启奇妙路程"
+                duration:4
+                position:CSToastPositionTop];
+}
+
+- (void)showFreeConfigUpdateTip
+{
+    if([ConfigManager sharedManager].needShowFreeShadowSocksConfigsUpdateTip) {
+        [self.view makeToast:@"如一直无法使用免费线路上网，请左滑“免费线路”，更新配置"
+                    duration:10
+                    position:CSToastPositionTop];
+    }
+}
+
+- (void)showFreeConfigUpdateFailedTip
+{
+    if([ConfigManager sharedManager].needShowFreeShadowSocksConfigsUpdateTip) {
+        [self.view makeToast:@"m免费线路配置更新失败"
+                    duration:2
+                    position:CSToastPositionTop];
     }
 }
 
@@ -175,12 +230,22 @@
 {
     __weak typeof(self) wself = self;
     if(indexPath.row == 0) {
-        UITableViewRowAction *updateAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"跟新" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-            [wself.view addSubview:_hud];
-            [_hud showAnimated:YES];
-            [[ConfigManager sharedManager] asyncFetchFreeConfig:YES withCompletion:^(NSError *error) {
-                [_hud hideAnimated:YES];
-            }];
+        UITableViewRowAction *updateAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"更新" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+            if([ConfigManager sharedManager].usefreeShadowSocks && _tunelProviderManager && _tunelProviderManager.connection.status == NEVPNStatusConnected) {
+                [self.view makeToast:@"无法在开启免费线路模式下更新配置"
+                            duration:1.5
+                            position:CSToastPositionTop];
+            } else {
+                [wself.view addSubview:_hud];
+                [_hud showAnimated:YES];
+                [[ConfigManager sharedManager] asyncFetchFreeConfig:YES withCompletion:^(NSError *error) {
+                    [_hud hideAnimated:YES];
+                    if(error) {
+                        [wself showFreeConfigUpdateFailedTip];
+                    }
+                }];
+            }
+            
         }];
         return @[updateAction];
     } else {
@@ -277,14 +342,15 @@
 {
     ShadowSocksConfig *config;
     if(index == 0) {
-        config = [[ShadowSocksConfig alloc] init];
+        config = [ConfigManager sharedManager].freeShadowSocksConfigs[[ConfigManager sharedManager].selectedFreeShadowSocksIndex];
         config.configName = @"免费线路";
     } else {
         config = [ConfigManager sharedManager].shadowSocksConfigs[index - 1];
     }
     
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShadowSocksConfigCell"];
-    cell.imageView.image = [IonIcons imageWithIcon:ion_earth size:16 color:[UIColor greenColor]];
+    cell.imageView.image = config.country.length > 0 ? [UIImage imageNamed:config.country] : [IonIcons imageWithIcon:ion_earth size:16 color:[UIColor greenColor]];
+    cell.imageView.$size = CGSizeMake(16, 16);
     cell.textLabel.text = config.configName.length ? config.configName : config.ssServerAddress;
     BOOL isSelected = NO;
     if([ConfigManager sharedManager].usefreeShadowSocks) {
@@ -307,7 +373,7 @@
     cell.accessoryView = [[UIImageView alloc] initWithImage:[IonIcons imageWithIcon:ion_ios_arrow_right size:18 color:[UIColor greenColor]]];
     NSString *title;
     if(index == 0) {
-        title = @"ShadowsocksSW";
+        title = @"DarkNetSW";
     } else {
         title = @"PacketTunnel";
     }
@@ -423,16 +489,20 @@
 {
     _headerView.triggered = YES;
     [ConfigManager sharedManager].canActivePacketTunnel = YES;
+    if([ConfigManager sharedManager].usefreeShadowSocks) {
+        [ConfigManager sharedManager].selectedFreeShadowSocksIndex = arc4random_uniform((int32_t)[ConfigManager sharedManager].freeShadowSocksConfigs.count);
+        [self.tableView reloadData];
+    }
     [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
         if(managers.count > 0) {
             _tunelProviderManager = managers.firstObject;
         } else {
             _tunelProviderManager = [[NETunnelProviderManager alloc] init];
-            _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
+            _tunelProviderManager.localizedDescription = [ConfigManager sharedManager].displayName;
             _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
         }
         _tunelProviderManager.onDemandEnabled = NO;
-        _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
+        _tunelProviderManager.protocolConfiguration.serverAddress = [ConfigManager sharedManager].displayName;
         _tunelProviderManager.enabled = YES;
         [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
             if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
@@ -474,11 +544,11 @@
                 _tunelProviderManager = managers.firstObject;
             } else {
                 _tunelProviderManager = [[NETunnelProviderManager alloc] init];
-                _tunelProviderManager.localizedDescription = @"ShadowsocksSW";
+                _tunelProviderManager.localizedDescription = [ConfigManager sharedManager].displayName;
                 _tunelProviderManager.protocolConfiguration = [NETunnelProviderProtocol new];
             }
             _tunelProviderManager.onDemandEnabled = NO;
-            _tunelProviderManager.protocolConfiguration.serverAddress = @"ShadowsocksSW";
+            _tunelProviderManager.protocolConfiguration.serverAddress = [ConfigManager sharedManager].displayName;
             _tunelProviderManager.enabled = YES;
             [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
                 if(_tunelProviderManager.connection.status == NEVPNStatusConnected) {
@@ -504,8 +574,12 @@
 {
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onVPNContectNotification:) name:NEVPNConfigurationChangeNotification object:nil];
     [self stopShadowsocksServiceImediately];
+    [self.view makeToast:@"正在切换配置，文字消失前不要退出应用"
+                duration:2
+                position:CSToastPositionTop];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self startShadowsocksServiceImediately];
+        
     });
     
 }
@@ -528,6 +602,7 @@
         self.connectAfterAdDismiss = NO;
         [self.interstitial presentFromRootViewController:self];
     }
+    [self showFreeConfigUpdateTip];
 }
 
 @end

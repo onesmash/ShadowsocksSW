@@ -24,6 +24,7 @@
 @property (nonatomic) GCDAsyncUdpSocket *udpSocket;
 @property (nonatomic) int readFd;
 @property (nonatomic) int writeFd;
+@property (nonatomic) BOOL isRestart;
 @end
 
 @implementation TunnelInterface
@@ -42,6 +43,7 @@
     if (self) {
         _udpSession = [NSMutableDictionary dictionaryWithCapacity:5];
         _udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("udp", NULL)];
+        _isRestart = NO;
     }
     return self;
 }
@@ -79,6 +81,13 @@
 + (void)stop {
     [[TunnelInterface sharedInterface].udpSession removeAllObjects];
     stop_tun2socks();
+}
+
++ (void)restart
+{
+    [TunnelInterface sharedInterface].isRestart = YES;
+    [[TunnelInterface sharedInterface].udpSession removeAllObjects];
+    [[TunnelInterface sharedInterface].udpSocket close];
 }
 
 + (void)writePacket:(NSData *)packet {
@@ -215,6 +224,14 @@
     free(udpdata);
     pbuf_free(p_udp);
     [TunnelInterface writePacket:outData];
+}
+
+- (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error
+{
+    if(_isRestart) {
+        _isRestart = NO;
+        [TunnelInterface setupWithPacketTunnelFlow:self.tunnelPacketFlow];
+    }
 }
 
 struct ip_hdr *generateNewIPHeader(u8_t proto, ip_addr_p_t src, ip_addr_p_t dest, uint16_t total_len) {

@@ -74,8 +74,6 @@ Socks5Session::Socks5Session(const std::shared_ptr<WukongBase::Net::TCPSession>&
 
 Socks5Session::~Socks5Session()
 {
-    //assert(tcpSession_->isClosed());
-    tcpSession_ = nullptr;
 }
 
 void Socks5Session::sendMethodSelectionResponse(const Socks5MethodSelectionResponse& response)

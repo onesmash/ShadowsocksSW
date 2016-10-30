@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *encryptionMethod;
 @property (nonatomic, copy) NSString *configName;
+@property (nonatomic, copy) NSString *country;
 @property (nonatomic, assign) NSInteger timestamp;
 @property (nonatomic, assign) BOOL isFree;
 
