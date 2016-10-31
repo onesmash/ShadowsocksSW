@@ -127,8 +127,8 @@
 {
     ShadowSocksConfig *config;
     if([ConfigManager sharedManager].usefreeShadowSocks) {
-        int32_t index = arc4random_uniform((int32_t)[ConfigManager sharedManager].freeShadowSocksConfigs.count);
-        config = [[ConfigManager sharedManager].freeShadowSocksConfigs objectAtIndex:(NSInteger)index];
+        NSInteger index = [ConfigManager sharedManager].selectedFreeShadowSocksIndex;
+        config = [[ConfigManager sharedManager].freeShadowSocksConfigs objectAtIndex:index];
     } else {
         config = [[ConfigManager sharedManager].shadowSocksConfigs objectAtIndex:[ConfigManager sharedManager].selectedShadowSocksIndex];
     }
@@ -137,7 +137,7 @@
     }
     NSString *hostname = config.ssServerAddress;
     const std::vector<WukongBase::Net::IPAddress>& addresses = WukongBase::Net::IPAddress::resolve(hostname.UTF8String);
-    NSInteger index = [ConfigManager sharedManager].selectedFreeShadowSocksIndex;
+    int32_t index = arc4random_uniform((int32_t)addresses.size());
     WukongBase::Net::IPAddress address = addresses[index];
     address.setPort(config.ssServerPort.integerValue);
     if(!_socks2ShadowSocksServiceThread) {

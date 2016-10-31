@@ -34,6 +34,7 @@
 @property (nonatomic, strong) AFHTTPSessionManager *httpSessionManager;
 @property (nonatomic, strong) MMWormhole *wormhole;
 @property (nonatomic, strong) NSDictionary *admobPlist;
+@property (nonatomic, strong) NSSet *encryptonMethods;
 @end
 
 @interface ShadowSocksConfigSerializer : AFHTTPResponseSerializer
@@ -150,6 +151,26 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_sharedDefaults synchronize];
+}
+
+- (NSSet *)encryptonMethods
+{
+    if(!_encryptonMethods) {
+        _encryptonMethods = [NSSet setWithArray:@[@"rc4",
+                                                  @"aes-128-cfb",
+                                                  @"aes-192-cfb",
+                                                  @"aes-256-cfb",
+                                                  @"bf-cfb",
+                                                  @"camellia-128-cfb",
+                                                  @"camellia-192-cfb",
+                                                  @"camellia-256-cfb",
+                                                  @"cast5-cfb",
+                                                  @"des-cfb",
+                                                  @"idea-cfb",
+                                                  @"rc2-cfb",
+                                                  @"seed-cfb"]];
+    }
+    return _encryptonMethods;
 }
 
 - (NSString *)displayName
@@ -363,6 +384,11 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if(complitionHandler) complitionHandler(error);
     }];
+}
+
+- (BOOL)checkEncryptionMethodSupport:(NSString *)method
+{
+    return [self.encryptonMethods containsObject:method];
 }
 
 - (NSString *)packetTunnelLog

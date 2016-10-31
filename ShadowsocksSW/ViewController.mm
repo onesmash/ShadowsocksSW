@@ -24,11 +24,12 @@
 #import <Firebase.h>
 #import <MBProgressHUD.h>
 #import <Reachability.h>
+#import <QRCodeReaderViewController.h>
 #import <VTAcknowledgementViewController.h>
 #import <VTAcknowledgementsViewController.h>
 #import <NetworkExtension/NetworkExtension.h>
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource, AddConfigViewControllerDelegate, HeaderViewDelegate, GADInterstitialDelegate> {
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, AddConfigViewControllerDelegate, HeaderViewDelegate, GADInterstitialDelegate, QRCodeReaderDelegate> {
     
 }
 
@@ -40,6 +41,7 @@
 @property (nonatomic, assign) BOOL connectAfterAdDismiss;
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) MMWormhole *wormhole;
+@property (nonatomic, strong) QRCodeReader *reader;
 
 @end
 
@@ -73,6 +75,12 @@
 
 - (void)setupNavigationBar
 {
+    UIButton *scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [scanBtn addTarget:self action:@selector(onScanBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [scanBtn setImage:[IonIcons imageWithIcon:ion_qr_scanner size:25 color:[UIColor greenColor]] forState:UIControlStateNormal];
+    [scanBtn sizeToFit];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:scanBtn];
+    
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [addBtn addTarget:self action:@selector(onAddConfigBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [addBtn setImage:[IonIcons imageWithIcon:ion_plus_round size:25 color:[UIColor greenColor]] forState:UIControlStateNormal];
@@ -123,17 +131,6 @@
         }];
         
     }];
-    if([ConfigManager sharedManager].usefreeShadowSocks) {
-        [self.view addSubview:_hud];
-        [_hud showAnimated:YES];
-        __weak typeof(self) wself = self;
-        [[ConfigManager sharedManager] asyncFetchFreeConfig:YES withCompletion:^(NSError *error) {
-            [_hud hideAnimated:YES];
-            if(error) {
-                [wself showFreeConfigUpdateFailedTip];
-            }
-        }];
-    }
 }
 
 - (void)setupWormhole
@@ -142,6 +139,14 @@
     [self.wormhole listenForMessageWithIdentifier:kWormholeNeedShowFreeShadwosocksConfigUpdateTipNotification listener:^(id message) {
         [wself showFreeConfigUpdateTip];
     }];
+}
+
+- (QRCodeReader *)reader
+{
+    if(!_reader) {
+        _reader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+    }
+    return _reader;
 }
 
 - (MMWormhole *)wormhole
@@ -175,13 +180,42 @@
     }
 }
 
+- (void)showForceFreeConfigUpdateTip
+{
+    [self.view makeToast:@"请左滑“免费线路”，更新配置"
+                duration:4
+                position:CSToastPositionTop];
+}
+
 - (void)showFreeConfigUpdateFailedTip
 {
     if([ConfigManager sharedManager].needShowFreeShadowSocksConfigsUpdateTip) {
-        [self.view makeToast:@"m免费线路配置更新失败"
+        [self.view makeToast:@"免费线路配置更新失败"
                     duration:2
                     position:CSToastPositionTop];
     }
+}
+
+- (void)showEncryptionMethodNotSupportTip
+{
+    [self.view makeToast:@"不支持的加密方式"
+                duration:2
+                position:CSToastPositionTop];
+}
+
+- (void)showQRCodeNotSupportTip
+{
+    [self.view makeToast:@"不支持的二维码"
+                duration:2
+                position:CSToastPositionTop];
+}
+
+- (void)onScanBtnClicked:(id)sender
+{
+    QRCodeReaderViewController *vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"取消" codeReader:self.reader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
+    vc.modalPresentationStyle = UIModalPresentationFormSheet;
+    vc.delegate = self;
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 - (void)onAddConfigBtnClicked:(id)sender
@@ -278,6 +312,9 @@
             [ConfigManager sharedManager].usefreeShadowSocks = NO;
             [ConfigManager sharedManager].selectedShadowSocksIndex = row - 1;
         }
+        if([ConfigManager sharedManager].usefreeShadowSocks && [ConfigManager sharedManager].freeShadowSocksConfigs.count <= 0) {
+            [self showForceFreeConfigUpdateTip];
+        }
         [self restartShadowsocksService];
         [self.tableView reloadData];
     } else if(section == 1) {
@@ -342,7 +379,7 @@
 {
     ShadowSocksConfig *config;
     if(index == 0) {
-        config = [ConfigManager sharedManager].freeShadowSocksConfigs[[ConfigManager sharedManager].selectedFreeShadowSocksIndex];
+        config = [ConfigManager sharedManager].freeShadowSocksConfigs.count ?  [[ConfigManager sharedManager].freeShadowSocksConfigs objectAtIndex:[ConfigManager sharedManager].selectedFreeShadowSocksIndex] : [[ShadowSocksConfig alloc] init];
         config.configName = @"免费线路";
     } else {
         config = [ConfigManager sharedManager].shadowSocksConfigs[index - 1];
@@ -445,6 +482,44 @@
     return interstitial;
 }
 
+#pragma mark - QRCodeReaderDelegate
+- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        ShadowSocksConfig *config;
+        NSArray<NSString *> *components = [result componentsSeparatedByString:@"://"];
+        if(components.count == 2 && [[components objectAtIndex:0] isEqualToString:@"ss"]) {
+            NSString *base64Str = components[1];
+            NSData *data = [[NSData alloc] initWithBase64EncodedString:base64Str options:0];
+            
+            NSString *configStr = [NSString stringWithFormat:@"ss://%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+            NSURL *url = [NSURL URLWithString:configStr];
+            if([url.scheme isEqualToString:@"ss"]) {
+                config = [[ShadowSocksConfig alloc] init];
+                config.ssServerAddress = url.host;
+                config.ssServerPort = url.port.stringValue;
+                config.encryptionMethod = url.user;
+                config.password = url.password;
+            }
+        }
+        if(config) {
+            if([[ConfigManager sharedManager] checkEncryptionMethodSupport:config.encryptionMethod]) {
+                [[ConfigManager sharedManager] addConfig:config];
+                [self.tableView reloadData];
+            } else {
+                [self showEncryptionMethodNotSupportTip];
+            }
+        } else {
+            [self showQRCodeNotSupportTip];
+        }
+    }];
+}
+
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 - (void)doStartAnimation:(void(^)())completion
 {
     NSInteger index = 0;
@@ -527,17 +602,23 @@
 
 - (void)startShadowsocksService
 {
-    _headerView.userInteractionEnabled = NO;
-    [self doStartAnimation:^() {
-        _headerView.userInteractionEnabled = YES;
-        [self startShadowsocksServiceImediately];
-    }];
+    if([ConfigManager sharedManager].usefreeShadowSocks && [ConfigManager sharedManager].freeShadowSocksConfigs.count <= 0) {
+        [self showForceFreeConfigUpdateTip];
+    } else {
+        _headerView.userInteractionEnabled = NO;
+        [self doStartAnimation:^() {
+            _headerView.userInteractionEnabled = YES;
+            [self startShadowsocksServiceImediately];
+        }];
+    }
 }
 
 - (void)stopShadowsocksServiceImediately
 {
     if(_tunelProviderManager) {
         [_tunelProviderManager.connection stopVPNTunnel];
+        _headerView.triggered = NO;
+        [ConfigManager sharedManager].canActivePacketTunnel = NO;
     } else {
         [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
             if(managers.count > 0) {
@@ -553,6 +634,7 @@
             [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
                 if(_tunelProviderManager.connection.status == NEVPNStatusConnected) {
                     [_tunelProviderManager.connection stopVPNTunnel];
+                    _headerView.triggered = NO;
                     [ConfigManager sharedManager].canActivePacketTunnel = NO;
                 }
             }];
@@ -574,11 +656,15 @@
 {
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onVPNContectNotification:) name:NEVPNConfigurationChangeNotification object:nil];
     [self stopShadowsocksServiceImediately];
-    [self.view makeToast:@"正在切换配置，文字消失前不要退出应用"
-                duration:2
-                position:CSToastPositionTop];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self startShadowsocksServiceImediately];
+        if([ConfigManager sharedManager].usefreeShadowSocks && [ConfigManager sharedManager].freeShadowSocksConfigs.count <= 0) {
+            [self showForceFreeConfigUpdateTip];
+        } else {
+            [self.view makeToast:@"正在切换配置，文字消失前不要退出应用"
+                        duration:2
+                        position:CSToastPositionTop];
+            [self startShadowsocksServiceImediately];
+        }
         
     });
     

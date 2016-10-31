@@ -36,5 +36,6 @@
 - (BOOL)replaceConfig:(NSInteger)index withConfig:(ShadowSocksConfig *)config;
 
 - (void)asyncFetchFreeConfig:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler;
+- (BOOL)checkEncryptionMethodSupport:(NSString *)method;
 
 @end

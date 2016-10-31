@@ -19,6 +19,7 @@ abstract_target 'SW' do
 		pod 'Firebase/AdMob'
 		pod 'MBProgressHUD'
 		pod 'Reachability', '~> 3.2'
+		pod 'QRCodeReaderViewController', '~> 4.0'
 	end
 
 	target 'PacketTunnelProvider' do
