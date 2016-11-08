@@ -742,7 +742,9 @@ enum SectionType {
         [self showSmartProxyTip];
     }
     [ConfigManager sharedManager].smartProxyEnable = sender.on;
-    [self restartShadowsocksService];
+    if(_tunelProviderManager && _tunelProviderManager.connection.status == NEVPNStatusConnected) {
+        [self restartShadowsocksService];
+    }
 }
 
 @end
