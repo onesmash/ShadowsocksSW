@@ -29,6 +29,10 @@
 @property (nonatomic, readonly, copy) NSString *packetTunnelLog;
 @property (nonatomic, readonly, copy) NSString *displayName;
 @property (nonatomic, assign) BOOL needShowFreeShadowSocksConfigsUpdateTip;
+@property (nonatomic, copy, readonly) NSString *pac;
+@property (nonatomic, copy, readonly) NSString *chineseIP;
+@property (nonatomic, strong, readonly) NSArray<NSString *> *blockDomains;
+@property (nonatomic, assign) BOOL smartProxyEnable;
 
 + (instancetype)sharedManager;
 - (BOOL)addConfig:(ShadowSocksConfig *)config;
@@ -36,6 +40,8 @@
 - (BOOL)replaceConfig:(NSInteger)index withConfig:(ShadowSocksConfig *)config;
 
 - (void)asyncFetchFreeConfig:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler;
+- (void)asyncFetchPAC:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler;
+- (void)asyncFetchChineseIP:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler;
 - (BOOL)checkEncryptionMethodSupport:(NSString *)method;
 
 @end

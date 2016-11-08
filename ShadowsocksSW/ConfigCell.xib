@@ -31,9 +31,9 @@
                     <constraint firstItem="mu6-jn-oiy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="0bD-z7-Uoc"/>
                     <constraint firstItem="mu6-jn-oiy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="2SL-zX-8dy"/>
                     <constraint firstItem="3Gh-xC-LjR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KDD-AF-RXl"/>
-                    <constraint firstAttribute="trailing" secondItem="mu6-jn-oiy" secondAttribute="trailing" constant="15" id="Qfd-Ti-dlZ"/>
+                    <constraint firstAttribute="trailing" secondItem="mu6-jn-oiy" secondAttribute="trailing" constant="20" id="Qfd-Ti-dlZ"/>
                     <constraint firstItem="mu6-jn-oiy" firstAttribute="leading" secondItem="3Gh-xC-LjR" secondAttribute="trailing" constant="10" id="x7Y-Pb-keH"/>
-                    <constraint firstItem="3Gh-xC-LjR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="yGj-YQ-gXz"/>
+                    <constraint firstItem="3Gh-xC-LjR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="yGj-YQ-gXz"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

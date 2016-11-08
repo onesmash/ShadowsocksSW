@@ -20,7 +20,12 @@
 #define kNeedShowFreeShadowsocksConifgUpdateTipKey @"kNeedShowFreeShadowsocksConifgUpdateTipKey"
 #define kUsefreeShadowSocksKey @"kUsefreeShadowSocksKey"
 #define kCanActivePacketTunnelKey @"kCanActivePacketTunnelKey"
+#define kPacEtagKey @"kPacEtagKey"
+#define kChineseIPEtagKey @"kChineseIPEtagKey"
+#define kSmartProxyEnableKey @"kSmartProxyEnableKey"
 #define kFreeShadowsocksConifgURL @"https://raw.githubusercontent.com/onesmash/fss/master/fss.txt"
+#define kPacURL @"https://raw.githubusercontent.com/onesmash/fss/master/FastPAC.js"
+#define kChineseIPURL @"https://raw.githubusercontent.com/onesmash/fss/master/chinese_ip.txt"
 
 @interface ConfigManager () {
     NSMutableArray<ShadowSocksConfig *> *_shadowSocksConfigs;
@@ -35,6 +40,10 @@
 @property (nonatomic, strong) MMWormhole *wormhole;
 @property (nonatomic, strong) NSDictionary *admobPlist;
 @property (nonatomic, strong) NSSet *encryptonMethods;
+@property (nonatomic, copy) NSString *pacEtag;
+@property (nonatomic, copy) NSString *chineseIPEtag;
+@property (nonatomic, copy) NSURL *pacFilePath;
+@property (nonatomic, copy) NSURL *chineseIPFilePath;
 @end
 
 @interface ShadowSocksConfigSerializer : AFHTTPResponseSerializer
@@ -137,6 +146,8 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
         self.appGroupContainer = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:kSharedGroupIdentifier].filePathURL;
         self.mainAppLogFile = [NSString stringWithUTF8String:[self.appGroupContainer URLByAppendingPathComponent:@"mainAppLog"].fileSystemRepresentation];
         self.tunnelProviderLogFile = [NSString stringWithUTF8String:[self.appGroupContainer URLByAppendingPathComponent:@"tunnelProviderLog"].fileSystemRepresentation];
+        self.pacFilePath = [self.appGroupContainer URLByAppendingPathComponent:@"FastPAC.js"];
+        self.chineseIPFilePath = [self.appGroupContainer URLByAppendingPathComponent:@"chinese_ip.txt"];
         _sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:kSharedGroupIdentifier];
         _httpSessionManager = [AFHTTPSessionManager manager];
         _httpSessionManager.responseSerializer = [ShadowSocksConfigSerializer serializer];
@@ -386,6 +397,84 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
     }];
 }
 
+- (void)asyncFetchPAC:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler
+{
+    [_httpSessionManager HEAD:kPacURL parameters:nil success:^(NSURLSessionDataTask *task) {
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        NSString *filePath = [NSString stringWithUTF8String:self.pacFilePath.fileSystemRepresentation];
+        if(force || (![self.pacEtag isEqualToString:[response.allHeaderFields objectForKey:@"Etag"]] || ![[NSFileManager defaultManager] fileExistsAtPath:filePath])) {
+            AFURLSessionManager *downloadSessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+            NSURLSessionDownloadTask *task = [downloadSessionManager downloadTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kPacURL]] progress:nil destination:^(NSURL *targetPath, NSURLResponse *response) {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                if(httpResponse.statusCode == 200) {
+                    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+                }
+                return self.pacFilePath;
+            } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                if(!error && httpResponse.statusCode == 200) {
+                    self.pacEtag = [httpResponse.allHeaderFields objectForKey:@"Etag"];
+                }
+            }];
+            [task resume];
+        } else {
+            if(complitionHandler) complitionHandler(nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if(complitionHandler) complitionHandler(error);
+    }];
+}
+
+- (void)asyncFetchChineseIP:(BOOL)force withCompletion:(void(^)(NSError *error))complitionHandler
+{
+    [_httpSessionManager HEAD:kChineseIPURL parameters:nil success:^(NSURLSessionDataTask *task) {
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        NSString *filePath = [NSString stringWithUTF8String:self.pacFilePath.fileSystemRepresentation];
+        if(force || (![self.chineseIPEtag isEqualToString:[response.allHeaderFields objectForKey:@"Etag"]] || ![[NSFileManager defaultManager] fileExistsAtPath:filePath])) {
+            AFURLSessionManager *downloadSessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+            NSURLSessionDownloadTask *task = [downloadSessionManager downloadTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kChineseIPURL]] progress:nil destination:^(NSURL *targetPath, NSURLResponse *response) {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                if(httpResponse.statusCode == 200) {
+                    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+                }
+                return self.chineseIPFilePath;
+            } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                if(!error && httpResponse.statusCode == 200) {
+                    self.chineseIPEtag = [httpResponse.allHeaderFields objectForKey:@"Etag"];
+                }
+            }];
+            [task resume];
+        } else {
+            if(complitionHandler) complitionHandler(nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if(complitionHandler) complitionHandler(error);
+    }];
+}
+
+- (NSString *)pacEtag
+{
+    return [_sharedDefaults objectForKey:kPacEtagKey];
+}
+
+- (void)setPacEtag:(NSString *)pacEtag
+{
+    [_sharedDefaults setObject:pacEtag forKey:kPacEtagKey];
+    [_sharedDefaults synchronize];
+}
+
+- (NSString *)chineseIPEtag
+{
+    return [_sharedDefaults objectForKey:kChineseIPEtagKey];
+}
+
+- (void)setChineseIPEtag:(NSString *)chineseIPEtag
+{
+    [_sharedDefaults setObject:chineseIPEtag forKey:kChineseIPEtagKey];
+    [_sharedDefaults synchronize];
+}
+
 - (BOOL)checkEncryptionMethodSupport:(NSString *)method
 {
     return [self.encryptonMethods containsObject:method];
@@ -400,6 +489,50 @@ static BOOL AFErrorOrUnderlyingErrorHasCodeInDomain(NSError *error, NSInteger co
         return log;
     }
     return @"";
+}
+
+- (NSString *)pac
+{
+    NSString *pacPath = [[NSBundle mainBundle] pathForResource:@"FastPAC" ofType:@"js"];
+    if([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithUTF8String:self.pacFilePath.fileSystemRepresentation]]) {
+        pacPath = [NSString stringWithUTF8String:self.pacFilePath.fileSystemRepresentation];
+    }
+    NSString *base64PAC = [NSString stringWithContentsOfFile:pacPath encoding:NSUTF8StringEncoding error:nil];
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:base64PAC options:0];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+- (NSString *)chineseIP
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chinese_ip" ofType:@"txt"];
+    if([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithUTF8String:self.chineseIPFilePath.fileSystemRepresentation]]) {
+        path = [NSString stringWithUTF8String:self.chineseIPFilePath.fileSystemRepresentation];
+    }
+    return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+}
+
+- (NSArray<NSString *> *)blockDomains
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"blocklist" ofType:@"txt"];
+    NSString *base64 = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:base64 options:0];
+    NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSArray *domains = [text componentsSeparatedByString:@"\n"];
+    return domains;
+}
+
+- (BOOL)smartProxyEnable
+{
+    if([_sharedDefaults objectForKey:kSmartProxyEnableKey]) {
+        return [_sharedDefaults boolForKey:kSmartProxyEnableKey];
+    }
+    return YES;
+}
+
+- (void)setSmartProxyEnable:(BOOL)smartProxyEnable
+{
+    [_sharedDefaults setBool:smartProxyEnable forKey:kSmartProxyEnableKey];
+    [_sharedDefaults synchronize];
 }
 
 #pragma mark - Notification

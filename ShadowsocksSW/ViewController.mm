@@ -18,6 +18,7 @@
 #import "CommonTableViewCell.h"
 #import "TransparentNavigationBar.h"
 #import "ConfigCell.h"
+#import "SmartProxySettingCell.h"
 #import <MMWormhole.h>
 #import <UIView+Toast.h>
 #import <IonIcons.h>
@@ -28,6 +29,14 @@
 #import <VTAcknowledgementViewController.h>
 #import <VTAcknowledgementsViewController.h>
 #import <NetworkExtension/NetworkExtension.h>
+
+enum SectionType {
+    kSectionTypeConfig,
+    kSectionTypeSetting,
+    kSectionTypeAcknowledgement,
+    kSectionTypeVersion,
+    kSectionTypeMaxEnum
+};
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, AddConfigViewControllerDelegate, HeaderViewDelegate, GADInterstitialDelegate, QRCodeReaderDelegate> {
     
@@ -103,6 +112,7 @@
     [self.tableView registerClass:[CommonTableViewCell class] forCellReuseIdentifier:@"ShadowSocksConfigCell"];
     [self.tableView registerClass:[CommonTableViewCell class] forCellReuseIdentifier:@"Acknowlagement"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ConfigCell" bundle:nil] forCellReuseIdentifier:@"Version"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SmartProxySettingCell" bundle:nil] forCellReuseIdentifier:@"SmartProxy"];
     _hud = [[MBProgressHUD alloc] initWithView:self.view];
     _hud.removeFromSuperViewOnHide = YES;
 }
@@ -158,12 +168,6 @@
     return _wormhole;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self showFreeConfigUpdateTip];
-}
-
 - (void)showGudieTip
 {
     [self.view makeToast:@"点击灰色飞机，开启奇妙路程"
@@ -175,7 +179,7 @@
 {
     if([ConfigManager sharedManager].needShowFreeShadowSocksConfigsUpdateTip) {
         [self.view makeToast:@"如一直无法使用免费线路上网，请左滑“免费线路”，更新配置"
-                    duration:10
+                    duration:5
                     position:CSToastPositionTop];
     }
 }
@@ -210,6 +214,13 @@
                 position:CSToastPositionTop];
 }
 
+- (void)showSmartProxyTip
+{
+    [self.view makeToast:@"关闭智能代理，国内网络的访问也会经过代理"
+                duration:2
+                position:CSToastPositionTop];
+}
+
 - (void)onScanBtnClicked:(id)sender
 {
     QRCodeReaderViewController *vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"取消" codeReader:self.reader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
@@ -235,7 +246,7 @@
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if(section == 2) {
+    if(section == kSectionTypeVersion) {
         return 20;
     } else {
         return 55;
@@ -245,10 +256,12 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     SectionHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[SectionHeaderView reuseIdentifier]];
-    if(section == 0) {
-        headerView.text = @"选择配置";
-    } else if(section == 1) {
+    if(section == kSectionTypeConfig) {
+        headerView.text = @"选择线路";
+    } else if(section == kSectionTypeAcknowledgement) {
         headerView.text = @"致谢";
+    } else if(section == kSectionTypeSetting) {
+        headerView.text = @"设置";
     } else {
         return nil;
     }
@@ -305,7 +318,7 @@
 {
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
-    if(section == 0) {
+    if(section == kSectionTypeConfig) {
         if(row == 0) {
             [ConfigManager sharedManager].usefreeShadowSocks = YES;
         } else {
@@ -317,7 +330,7 @@
         }
         [self restartShadowsocksService];
         [self.tableView reloadData];
-    } else if(section == 1) {
+    } else if(section == kSectionTypeAcknowledgement) {
         NSString *fileName;
         if(row == 0) {
             fileName = @"Pods-SW-ShadowsocksSW-acknowledgements";
@@ -339,16 +352,18 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-    return 3;
+    return kSectionTypeMaxEnum;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    if(section == 0) {
+    if(section == kSectionTypeConfig) {
         return [ConfigManager sharedManager].shadowSocksConfigs.count + 1;
-    } else if(section == 1) {
+    } else if(section == kSectionTypeAcknowledgement) {
         return 2;
-    } else if (section == 2) {
+    } else if (section == kSectionTypeVersion) {
+        return 1;
+    } else if (section == kSectionTypeSetting) {
         return 1;
     }
     return 0;
@@ -356,7 +371,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0) {
+    if(indexPath.section == kSectionTypeConfig) {
         return YES;
     }
     return NO;
@@ -365,14 +380,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0) {
+    if(indexPath.section == kSectionTypeConfig) {
         return [self cellForShadwoSocksConfigAtIndex:indexPath.row];
-    } else if(indexPath.section == 1) {
+    } else if(indexPath.section == kSectionTypeAcknowledgement) {
         return [self cellForAcknowlagementAtIndex:indexPath.row];
-    } else if(indexPath.section == 2) {
+    } else if(indexPath.section == kSectionTypeVersion) {
         return [self cellForVersion];
+    } else if(indexPath.section == kSectionTypeSetting) {
+        return [self cellforSettingAtIndex:indexPath.row];
     }
     return nil;
+}
+
+- (UITableViewCell *)cellforSettingAtIndex:(NSInteger)index
+{
+    SmartProxySettingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SmartProxy"];
+    [cell.smartProxySwitch addTarget:self action:@selector(onSmartProxySettingStatusChanged:) forControlEvents:UIControlEventValueChanged];
+    return cell;
 }
 
 - (UITableViewCell *)cellForShadwoSocksConfigAtIndex:(NSInteger)index
@@ -560,7 +584,7 @@
     }];
 }
 
-- (void)startShadowsocksServiceImediately
+- (void)startShadowsocksServiceImediately:(void(^)(NSError *error))completionHandler
 {
     _headerView.triggered = YES;
     [ConfigManager sharedManager].canActivePacketTunnel = YES;
@@ -569,6 +593,10 @@
         [self.tableView reloadData];
     }
     [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
+        if(error && completionHandler) {
+            completionHandler(error);
+            return;
+        }
         if(managers.count > 0) {
             _tunelProviderManager = managers.firstObject;
         } else {
@@ -580,6 +608,10 @@
         _tunelProviderManager.protocolConfiguration.serverAddress = [ConfigManager sharedManager].displayName;
         _tunelProviderManager.enabled = YES;
         [_tunelProviderManager saveToPreferencesWithCompletionHandler:^(NSError *error) {
+            if(error && completionHandler) {
+                completionHandler(error);
+                return;
+            }
             if(_tunelProviderManager.connection.status == NEVPNStatusDisconnected || _tunelProviderManager.connection.status == NEVPNStatusInvalid) {
                 NSError *error;
                 if([_tunelProviderManager.connection startVPNTunnelAndReturnError:&error]) {
@@ -594,6 +626,7 @@
                     _headerView.triggered = NO;
                     [ConfigManager sharedManager].canActivePacketTunnel = NO;
                 }
+                if(completionHandler) completionHandler(error);
             }
         }];
         
@@ -608,19 +641,24 @@
         _headerView.userInteractionEnabled = NO;
         [self doStartAnimation:^() {
             _headerView.userInteractionEnabled = YES;
-            [self startShadowsocksServiceImediately];
+            [self startShadowsocksServiceImediately:nil];
         }];
     }
 }
 
-- (void)stopShadowsocksServiceImediately
+- (void)stopShadowsocksServiceImediately:(void(^)(NSError *error))completionHandler
 {
     if(_tunelProviderManager) {
         [_tunelProviderManager.connection stopVPNTunnel];
         _headerView.triggered = NO;
         [ConfigManager sharedManager].canActivePacketTunnel = NO;
+        if(completionHandler) completionHandler(nil);
     } else {
         [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> *managers, NSError *error) {
+            if(error && completionHandler) {
+                completionHandler(error);
+                return;
+            }
             if(managers.count > 0) {
                 _tunelProviderManager = managers.firstObject;
             } else {
@@ -637,6 +675,7 @@
                     _headerView.triggered = NO;
                     [ConfigManager sharedManager].canActivePacketTunnel = NO;
                 }
+                if(completionHandler) completionHandler(error);
             }];
             
         }];
@@ -648,32 +687,38 @@
     _headerView.userInteractionEnabled = NO;
     [self doStopAnimation:^() {
         _headerView.userInteractionEnabled = YES;
-        [self stopShadowsocksServiceImediately];
+        [self stopShadowsocksServiceImediately:nil];
     }];
 }
 
 - (void)restartShadowsocksService
 {
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onVPNContectNotification:) name:NEVPNConfigurationChangeNotification object:nil];
-    [self stopShadowsocksServiceImediately];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if([ConfigManager sharedManager].usefreeShadowSocks && [ConfigManager sharedManager].freeShadowSocksConfigs.count <= 0) {
-            [self showForceFreeConfigUpdateTip];
+    [self stopShadowsocksServiceImediately:^(NSError *error) {
+        if(!error) {
+            if([ConfigManager sharedManager].usefreeShadowSocks && [ConfigManager sharedManager].freeShadowSocksConfigs.count <= 0) {
+                [self showForceFreeConfigUpdateTip];
+            } else {
+                [self.view makeToast:@"正在切换配置，文字消失前不要退出应用"
+                            duration:4
+                            position:CSToastPositionTop];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self startShadowsocksServiceImediately:nil];
+                });
+            }
         } else {
-            [self.view makeToast:@"正在切换配置，文字消失前不要退出应用"
+            [self.view makeToast:@"服务重启失败"
                         duration:2
                         position:CSToastPositionTop];
-            [self startShadowsocksServiceImediately];
         }
-        
-    });
+    }];
     
 }
 
 - (void)onVPNContectNotification:(NSNotification *)note
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NEVPNConfigurationChangeNotification object:nil];
-    [self startShadowsocksServiceImediately];
+    [self startShadowsocksServiceImediately:nil];
 }
 
 #pragma mark - Notification
@@ -689,6 +734,15 @@
         [self.interstitial presentFromRootViewController:self];
     }
     [self showFreeConfigUpdateTip];
+}
+
+- (void)onSmartProxySettingStatusChanged:(UISwitch *)sender
+{
+    if(!sender.on) {
+        [self showSmartProxyTip];
+    }
+    [ConfigManager sharedManager].smartProxyEnable = sender.on;
+    [self restartShadowsocksService];
 }
 
 @end

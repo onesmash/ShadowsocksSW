@@ -65,9 +65,13 @@
             Reachability *reachability = [Reachability reachabilityForInternetConnection];
             reachability.reachableBlock = ^(Reachability *reachability) {
                 [TunnelInterface restart];
-                [wself setupTunnelNetworking:nil];
+                [wself setupTunnelNetworking:^(NSError *error) {
+                    if(error) [wself cancelTunnelWithError:error];
+                }];
             };
             [reachability startNotifier];
+            [[ConfigManager sharedManager] asyncFetchPAC:NO withCompletion:nil];
+            [[ConfigManager sharedManager] asyncFetchChineseIP:NO withCompletion:nil];
         }
         completionHandler(error);
     }];
@@ -170,12 +174,20 @@
 - (void)setupTunnelNetworking:(void(^)(NSError *))completionHandler
 {
     NEIPv4Settings *ipv4Settings = [[NEIPv4Settings alloc] initWithAddresses:@[@"192.0.2.1"] subnetMasks:@[@"255.255.255.0"]];
-    NSArray *dnsServers = @[@"8.8.8.8", @"8.8.4.4"];//[DNS getSystemDnsServers];
+    NSArray *dnsServers = [ConfigManager sharedManager].smartProxyEnable ? @[@"119.29.29.29", @"114.114.114.114"] : @[@"8.8.8.8", @"8.8.4.4"];
     SWLOG_DEBUG("DNS :{}", dnsServers.description.UTF8String);
     NSMutableArray *excludedRoutes = [NSMutableArray array];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"192.168.0.0" subnetMask:@"255.255.0.0"]];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"10.0.0.0" subnetMask:@"255.0.0.0"]];
     [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:@"172.16.0.0" subnetMask:@"255.240.0.0"]];
+    NSString *chineseIP = [ConfigManager sharedManager].smartProxyEnable ? [ConfigManager sharedManager].chineseIP : @"";
+    NSArray *lines = [chineseIP componentsSeparatedByString:@"\n"];
+    [lines enumerateObjectsUsingBlock:^(NSString *line, NSUInteger idnex, BOOL *stop) {
+        NSArray *components = [line componentsSeparatedByString:@" "];
+        if(components.count == 2) {
+            [excludedRoutes addObject:[[NEIPv4Route alloc] initWithDestinationAddress:components[0] subnetMask:components[1]]];
+        }
+    }];
     ipv4Settings.includedRoutes = @[[NEIPv4Route defaultRoute]];
     ipv4Settings.excludedRoutes = excludedRoutes;
     NEPacketTunnelNetworkSettings *settings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@"192.0.2.2"];
@@ -186,7 +198,7 @@
     settings.DNSSettings = dnsSettings;
     NEProxySettings *proxySetting = [[NEProxySettings alloc] init];
     proxySetting.excludeSimpleHostnames = YES;
-    proxySetting.proxyAutoConfigurationJavaScript = [NSString stringWithFormat:@"function FindProxyForURL(url, host) { return \"SOCKS 127.0.0.1:%d\";}", kSocks5ServerPort];
+    proxySetting.proxyAutoConfigurationJavaScript = [ConfigManager sharedManager].smartProxyEnable ? [ConfigManager sharedManager].pac : [NSString stringWithFormat:@"function FindProxyForURL(url, host) { return \"SOCKS 127.0.0.1:%d\";}", kSocks5ServerPort];
     proxySetting.autoProxyConfigurationEnabled = YES;
     proxySetting.HTTPEnabled = YES;
     proxySetting.HTTPSEnabled = YES;

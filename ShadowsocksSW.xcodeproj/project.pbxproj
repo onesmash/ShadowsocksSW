@@ -29,7 +29,12 @@
 		0331FC021DBB17830066B012 /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0331FC011DBB17830066B012 /* SWLogger.mm */; };
 		0331FC031DBB1C080066B012 /* SWLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0331FC011DBB17830066B012 /* SWLogger.mm */; };
 		0331FC081DBC9C8F0066B012 /* DNS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0331FC071DBC9C8F0066B012 /* DNS.mm */; };
+		0337E25B1DD0C6EE0035A6D4 /* SmartProxySettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0337E2591DD0C6EE0035A6D4 /* SmartProxySettingCell.m */; };
+		0337E25C1DD0C6EE0035A6D4 /* SmartProxySettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0337E25A1DD0C6EE0035A6D4 /* SmartProxySettingCell.xib */; };
+		0338199A1DCDE6AB00560A76 /* FastPAC.js in Resources */ = {isa = PBXBuildFile; fileRef = 033819991DCDE6AB00560A76 /* FastPAC.js */; };
+		0338199C1DCE213B00560A76 /* chinese_ip.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0338199B1DCE213B00560A76 /* chinese_ip.txt */; };
 		033A34811DB50D1A005B6EEB /* CommonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 033A34801DB50D1A005B6EEB /* CommonTableViewCell.m */; };
+		034C4BBB1DCF58330058B643 /* blocklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 034C4BBA1DCF58330058B643 /* blocklist.txt */; };
 		0355B6D11D9CE22B009E9888 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0355B6CF1D9CE22B009E9888 /* ViewController.xib */; };
 		0357B44C1D9D62E70016AC2E /* TransparentNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */; };
 		036183EA1D8C3A0700604F9A /* libWukongBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03077C071D88594D00EEE7F5 /* libWukongBase.a */; };
@@ -199,8 +204,14 @@
 		0331FC061DBC9C8F0066B012 /* DNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNS.h; sourceTree = "<group>"; };
 		0331FC071DBC9C8F0066B012 /* DNS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DNS.mm; sourceTree = "<group>"; };
 		03376E921DAD387F00BE52BC /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		0337E2581DD0C6EE0035A6D4 /* SmartProxySettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartProxySettingCell.h; sourceTree = "<group>"; };
+		0337E2591DD0C6EE0035A6D4 /* SmartProxySettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartProxySettingCell.m; sourceTree = "<group>"; };
+		0337E25A1DD0C6EE0035A6D4 /* SmartProxySettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SmartProxySettingCell.xib; sourceTree = "<group>"; };
+		033819991DCDE6AB00560A76 /* FastPAC.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FastPAC.js; sourceTree = "<group>"; };
+		0338199B1DCE213B00560A76 /* chinese_ip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chinese_ip.txt; sourceTree = "<group>"; };
 		033A347F1DB50D1A005B6EEB /* CommonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTableViewCell.h; sourceTree = "<group>"; };
 		033A34801DB50D1A005B6EEB /* CommonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTableViewCell.m; sourceTree = "<group>"; };
+		034C4BBA1DCF58330058B643 /* blocklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blocklist.txt; sourceTree = "<group>"; };
 		0355B6CF1D9CE22B009E9888 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		0357B44A1D9D62E70016AC2E /* TransparentNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentNavigationBar.h; sourceTree = "<group>"; };
 		0357B44B1D9D62E70016AC2E /* TransparentNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentNavigationBar.m; sourceTree = "<group>"; };
@@ -768,6 +779,9 @@
 				03E4C7C51DA682AC0077AA73 /* ConfigEncryptionMethodSelectCell.xib */,
 				033A347F1DB50D1A005B6EEB /* CommonTableViewCell.h */,
 				033A34801DB50D1A005B6EEB /* CommonTableViewCell.m */,
+				0337E2581DD0C6EE0035A6D4 /* SmartProxySettingCell.h */,
+				0337E2591DD0C6EE0035A6D4 /* SmartProxySettingCell.m */,
+				0337E25A1DD0C6EE0035A6D4 /* SmartProxySettingCell.xib */,
 			);
 			name = CustomUI;
 			sourceTree = "<group>";
@@ -1490,6 +1504,9 @@
 		03D16B351D8851C100383D73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				034C4BBA1DCF58330058B643 /* blocklist.txt */,
+				0338199B1DCE213B00560A76 /* chinese_ip.txt */,
+				033819991DCDE6AB00560A76 /* FastPAC.js */,
 				03D16B361D8851C100383D73 /* PacketTunnelProvider.entitlements */,
 				039709901D891E1A008333CD /* PacketTunnelProvider.debug.xcconfig */,
 				039709911D891E29008333CD /* PacketTunnelProvider.release.xcconfig */,
@@ -1665,6 +1682,7 @@
 				0355B6D11D9CE22B009E9888 /* ViewController.xib in Resources */,
 				030410BE1D48F01C0097C5FC /* Assets.xcassets in Resources */,
 				03E4C7AB1DA60BB10077AA73 /* AddConfigViewController.xib in Resources */,
+				0337E25C1DD0C6EE0035A6D4 /* SmartProxySettingCell.xib in Resources */,
 				03E4C7C21DA675EB0077AA73 /* ConfigCell.xib in Resources */,
 				036183FA1D8CF69A00604F9A /* ShadowsocksSW.entitlements in Resources */,
 				03DA36C01DB902E300CE0A36 /* LogViewController.xib in Resources */,
@@ -1680,7 +1698,10 @@
 			files = (
 				0374CD0E1D8EDDA9001DD9F6 /* msgproto.bproto in Resources */,
 				0374CD0D1D8EDDA9001DD9F6 /* addr.bproto in Resources */,
+				034C4BBB1DCF58330058B643 /* blocklist.txt in Resources */,
+				0338199C1DCE213B00560A76 /* chinese_ip.txt in Resources */,
 				03207DF51DB7AAAD007989A3 /* GoogleService-Info.plist in Resources */,
+				0338199A1DCDE6AB00560A76 /* FastPAC.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1830,6 +1851,7 @@
 				0331FC021DBB17830066B012 /* SWLogger.mm in Sources */,
 				03E4C7B71DA61EC60077AA73 /* SWUITextField.m in Sources */,
 				030410B91D48F01C0097C5FC /* ViewController.mm in Sources */,
+				0337E25B1DD0C6EE0035A6D4 /* SmartProxySettingCell.m in Sources */,
 				03E4C7AA1DA60BB10077AA73 /* AddConfigViewController.m in Sources */,
 				03DA36BF1DB902E300CE0A36 /* LogViewController.mm in Sources */,
 				030410B61D48F01C0097C5FC /* AppDelegate.m in Sources */,

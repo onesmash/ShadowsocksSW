@@ -29,9 +29,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="huO-AS-WHy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Fl4-7O-mzy"/>
-                    <constraint firstAttribute="trailing" secondItem="huO-AS-WHy" secondAttribute="trailing" constant="15" id="Qf6-vt-X9X"/>
+                    <constraint firstAttribute="trailing" secondItem="huO-AS-WHy" secondAttribute="trailing" constant="20" id="Qf6-vt-X9X"/>
                     <constraint firstItem="lec-pg-XSB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="StP-FU-n6f"/>
-                    <constraint firstItem="lec-pg-XSB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="obk-M6-dRs"/>
+                    <constraint firstItem="lec-pg-XSB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="obk-M6-dRs"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
